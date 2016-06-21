@@ -1,0 +1,36 @@
+//post 封装页
+article {
+  padding: 2em 7em 4em 2em;
+  font-family:Microsoft YaHei,SimHei,sans-serif;
+  font-weight: 100; 
+  font-size: 1.1em;
+  h1 {
+    font-size: 1.75em;
+    margin: 0 0 0 -0.08em;
+  }
+  ul {
+    &.meta {
+      margin: 0 0 3em;
+      padding: 0;
+      list-style: none;
+      
+      li {
+        margin-right: 0.5em;
+		white-space:nowrap;
+		display:block;
+		float: left;
+		font-size: 1.1em;
+      }
+    }
+  }
+  .body { clear: left;}
+}
+
+/* responsive */
+@media (max-width: 767px) {
+  article {
+    padding: 1em;
+    font-size: 1.1em;
+    h1 { font-size: 1.75em; }
+  }
+}

@@ -1,0 +1,120 @@
+/* UNIVERSAL styles */
+
+body,
+.pure-g [class *= "pure-u"],
+.pure-g-r [class *= "pure-u"] {
+font-family:Microsoft YaHei,SimHei,sans-serif;
+font-weight: 100; 
+font-size: 14px;
+color: $text-color;
+}
+
+/* block elements */
+section {
+  margin: 4em 0;
+  transition: margin .5s, font-size .5s;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 100;
+}
+h1 {
+  color: $header-color;
+  font-size: 1.75em;
+  margin: 0;
+}
+h2 {
+  color: lighten($header-color, 15%);
+}
+ul {
+  margin: 0;
+  display:block;
+  padding: 0;
+  font-size: 1.25em;
+  list-style-type: none;
+  margin-bottom: 2em;
+  li {
+    margin-bottom: 1em;
+	display:block;
+  }
+}
+
+ul time {
+  color: #aaa;
+  font-size: 80%;
+}
+
+
+
+
+/* inline elements */
+a {
+  color: $link-color;
+  text-decoration: none;
+  transition: color 0.1s;
+  -webkit-transition: color 0.1s;
+  
+  &:hover {
+    color: darken($link-color, 10%);
+  }
+}
+time {
+  font-size: 0.8em;
+  color: lighten($text-color, 55%);
+}
+
+/* header */
+header {
+  padding: 2.25em 0;
+  width: 80%;
+  margin: 0 auto;
+  
+  h1 {
+    font-size: 1.75em;
+    margin: 0;
+    color: #333333;
+  }
+  h2 {
+    font-size: 1.2em;
+    margin-top:1em;
+    color: lighten($text-color, 45%);
+  }
+  nav {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+	a{
+	    margin: 0;
+        float: left;
+		font-size: 1.25em;
+	}
+  }
+}
+
+/* responsive */
+@media (max-width: 767px) {
+  section { margin: 2em 0; }
+  header {
+    padding: 1em;
+    width: auto;
+    border-bottom: 1px solid $link-color;
+    
+    h1 {
+      font-size: 1.7em;
+      display: inline-block;
+      margin-right: 0.25em;
+    }
+    h2 {
+      font-size: 1.3em;
+	  margin-top:0.5em;
+    }
+    nav {
+    margin-top: 0.5em;
+	  a{
+          margin: 0;
+          float: left;
+          font-size: 0.9em;
+        }
+    }
+  }
+  h2 { font-size: 1.25em; }
+  ul { font-size: 1.1em; }
+}

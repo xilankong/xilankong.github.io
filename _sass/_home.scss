@@ -1,0 +1,79 @@
+//首页头像
+#portrait {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  
+  #me {
+    transition: height .5s, width .5s;
+    height: 168px;
+    width: 168px;
+    margin: auto;
+    
+    img {
+      border-radius: 50%;
+      max-width: 100%;
+    }
+  }
+}
+//首页自我介绍
+#intro {
+  text-align: center;
+  h1 {
+      font-size: 2.5em;
+  }
+  p {
+    font-size: 1.75em;
+    margin: 0;
+  }
+}
+#posts {
+  width: 75%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:30px;
+}
+#contact {
+  width: 210px;
+  margin: 2em auto;
+  
+  a {
+    display: block;
+    width: 2em;
+    height: 2em;
+    margin: 0 auto;
+    background-color: $link-color;
+    color: #fff;
+    font-size: 1.75em;
+    line-height: 2em;
+    text-align: center;
+    border-radius: 50%;
+    
+    &:hover {
+      background-color: darken($link-color, 10%);
+    }
+  }
+}
+
+/* responsive */
+@media (max-width: 767px) {
+  #portrait {
+    #me {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  #intro {
+    font-size: 0.65em;
+  }
+  #contact {
+    width: 160px;
+    
+    a {
+      font-size: 1.3em;
+    }
+  }
+  h2 { font-size: 1.25em; }
+
+}
