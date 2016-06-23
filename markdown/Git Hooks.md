@@ -16,7 +16,7 @@
 
 如同其他许多的版本控制系统一样，Git 也具有在特定事件发生之前或之后执行特定脚本代码功能（从概念上类比，就与监听事件、触发器之类的东西类似）。[Git Hooks](https://git-scm.com/book/zh/v1/自定义-Git-Git挂钩) 就是那些在Git执行特定事件（如commit、push、receive等）后触发运行的脚本。
 
-![](../resource/hooks_one.png)
+![](https://xilankong.github.io/resource/hooks_one.png)
 
 Git钩子最常见的使用场景包括推行提交规范，根据仓库状态改变项目环境，和接入持续集成工作流。但是，因为脚本可以完全定制，你可以用Git钩子来自动化或者优化你开发工作流中任意部分。
 
@@ -44,13 +44,13 @@ Git Hooks是定制化的脚本程序，所以它实现的功能与相应的git�
 
 每一个使用了 git 的工程下面都有一个隐藏的 .git 文件夹。
 
-![一个工程下面的.git](../resource/git_dir.png)
+![一个工程下面的.git](https://xilankong.github.io/resource/git_dir.png)
 
 挂钩都被存储在 `.git` 目录下的 hooks 子目录中，即大部分项目中的 .git/hooks  如下图。 Git 默认会放置一些脚本样本在这个目录中，除了可以作为挂钩使用，这些样本本身是可以独立使用的。所有的样本都是shell脚本，其中一些还包含了Perl的脚本，不过，任何正确命名的可执行脚本都可以正常使用 ，也可以用Ruby或Python，或其他。下图是git 初始化的时候生成的默认钩子，已包含了大部分可以钩子，但是.sample拓展名防止它们默认被执行。为了安装一个钩子，你只需要去掉.sample拓展名。或者你要写一个新的脚本，你只需添加一个文件名和上述匹配的新文件，去掉.sample拓展名。
 
 把一个正确命名且可执行的文件放入 Git 目录下的 hooks子目录中，可以激活该挂钩脚本，因此，之后他一直会被 Git 调用。
 
-![一个工程下面的.git](../resource/githooks.png)
+![一个工程下面的.git](https://xilankong.github.io/resource/githooks.png)
 
 **一个简单的 Hooks 例子**
 
@@ -106,7 +106,7 @@ pre-commit、prepare-commit-msg、commit-msg、post-commit
 
 commit操作最前和最后的两个钩子执行时间如下图：
 
-![](../resource/hooks_two.png)
+![](https://xilankong.github.io/resource/hooks_two.png)
 
 ##### pre-commit
 
@@ -295,7 +295,7 @@ git clone https://github.com/square/spacecommander.git
 
 下图就是我们clone下来的 spacecommander 的文件夹内容,其中包括一些 shell 脚本文件,还有 python 脚本文件,(其中 shell 主要是来调用 python 脚本的),其中还有一个最重要的隐藏文件 `.clang-format` (这个文件是用配置代码规范的,采用 YMAL 标记语言书写).
 
-![](../resource/space.png)
+![](https://xilankong.github.io/resource/space.png)
 
 
 
@@ -305,7 +305,7 @@ git clone https://github.com/square/spacecommander.git
 
 执行过程如下图：
 
-![](../resource/setup_space.png)
+![](https://xilankong.github.io/resource/setup_space.png)
 
 
 
