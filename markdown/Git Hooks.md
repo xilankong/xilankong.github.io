@@ -482,11 +482,19 @@ DisableFormat:   false #禁用当前format文件
 
 
 
+## 3.可能出现的问题
+
+1.`.simple` 文件后缀的移除
+
+2.如果自己新建的钩子文件不生效，执行一遍 chmod +x 文件名
+
+3.使用 spacecommander 去自动编译代码格式的时候 一定要用他提示的绝对地址的文件路径 
 
 
-## 3.参考文献
 
-[Git 文档](https://git-scm.com/book/zh/v1/自定义-Git-Git挂钩)
+## 4.参考文献
+
+[Git Hooks 文档](https://git-scm.com/book/zh/v1/自定义-Git-Git挂钩)
 
 [spacecommander](https://github.com/square/spacecommander/)
 
