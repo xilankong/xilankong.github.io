@@ -85,7 +85,11 @@ header {
 	    margin: 0;
         float: left;
 		font-size: 1.25em;
+    color: #6A85B3;
 	}
+  a:hover{
+      color: darken($header-color, 10%);
+  }
   }
 }
 

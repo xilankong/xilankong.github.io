@@ -1,4 +1,10 @@
-[TOC]
+---
+title: "CocoaPods 介绍"
+layout: post
+date: 2016-06-17 22:48
+---
+
+
 
 ------
 
@@ -173,7 +179,7 @@ demoProject.podspec  //这个pod文件的说明书，下面会详细说
 
 项目在xcode中的结构如下：
 
-![Alt text](resource/pod_dir.png)
+![png](https://xilankong.github.io/resource/pod_dir.png)
 
 其中重要的两个部分是 `*.podspec` 文件 和 pods下面的 `Development Pods` 目录其实就是上面提到的Pod目录
 

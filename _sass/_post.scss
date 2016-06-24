@@ -24,6 +24,46 @@ article {
     }
   }
   .body { clear: left;}
+
+    blockquote {
+        border-left: 4px solid #cccccc;
+        padding: 0 15px;
+        color: #666666;
+        font-size: 0.9em;
+        line-height:25px;
+        margin-left:0px;
+    }
+    blockquote blockquote {
+        padding-right: 0;
+    }
+    hr
+    {
+        height: 1px;
+        padding: 0;
+        margin: 16px 0;
+        background-color: #eee;
+        border: 0 none;
+        overflow: hidden;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        position: relative;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+        cursor: text;
+        color: #333333;
+    }
+  a {
+      color: #6A85B3;
+      &:hover {
+        color: darken($header-color, 10%);
+      }
+    }
 }
 
 /* responsive */
