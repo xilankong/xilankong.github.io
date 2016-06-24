@@ -9,7 +9,9 @@
       font-family:Microsoft YaHei,SimHei,sans-serif;
       font-size: 0.9em;
       line-height:25px;
-      overflow:scroll;
+      word-break:break-all;
+      width:100%;
+      overflow-y: hidden; overflow-x: auto;
     }
 }
 .highlight  { background: #ffffff; }
