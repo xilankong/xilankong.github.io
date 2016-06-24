@@ -2,7 +2,8 @@
 article {
   padding: 2em 7em 4em 2em;
   font-family:Microsoft YaHei,SimHei,sans-serif;
-  font-weight: 100; 
+  font-weight: 200; 
+  line-height:25px;
   font-size: 1.1em;
   h1 {
     font-size: 1.75em;
@@ -16,10 +17,10 @@ article {
       
       li {
         margin-right: 0.5em;
-		white-space:nowrap;
-		display:block;
-		float: left;
-		font-size: 1.1em;
+    		white-space:nowrap;
+    		display:block;
+    		float: left;
+    		font-size: 1.1em;
       }
     }
   }
@@ -29,7 +30,7 @@ article {
         border-left: 4px solid #cccccc;
         padding: 0 15px;
         color: #666666;
-        font-size: 0.9em;
+        font-size: 1.0em;
         line-height:25px;
         margin-left:0px;
     }
