@@ -1,10 +1,8 @@
 ---
-title: "Git Hooks 介绍"
+title: "GitHooks 在 MAC 上的使用"
 layout: post
-date: 2016-06-17 22:48
+date: 2016-06-24 15:48
 ---
-
-[TOC]
 
 ------
 
@@ -81,7 +79,7 @@ git自己生成的默认钩子的脚本大多是shell和PERL语言的，但你�
 
 比如说，你可以在prepare-commit-msg中写一个可执行的Python脚本。下面这个钩子和上一节的shell脚本做的事完全一样。
 
-```python
+```
 #!/usr/bin/env python
 
 import sys, os
@@ -122,7 +120,7 @@ pre-commit不需要任何参数，以非零值退出时将放弃整个提交。�
 
 prepare-commit-msg 挂钩在提交信息编辑器显示之前，默认信息被创建之后运行，它和 pre-commit 一样，以非零值退出会放弃提交。因此，可以有机会在提交作者看到默认信息前进行编辑。该挂钩接收一些选项：拥有提交信息的文件路径，提交类型。例如和提交模板配合使用，以编程的方式插入信息。提交信息模板的提示修改在上面已经看到了，现在我们来看一个更有用的脚本。在处理需要单独开来的bug时，我们通常在单独的分支上处理issue。如果你在分支名中包含了issue编号，你可以使用prepare-commit-msg钩子来自动地将它包括在那个分支的每个提交信息中。
 
-```python
+```
 #!/usr/bin/env python
 
 import sys, os, re
@@ -175,7 +173,7 @@ ISSUE-224
 
 commit-msg钩子和prepare-commit-msg钩子很像，但它会在用户输入提交信息之后被调用。这适合用来提醒开发者他们的提交信息不符合你团队的规范。传入这个钩子唯一的参数是包含提交信息的文件名。如果它不喜欢用户输入的提交信息，它可以在原地修改这个文件（和prepare-commit-msg一样），或者它会以非零值退出，放弃这个提交。比如说，下面这个脚本确认用户没有删除prepare-commit-msg脚本自动生成的ISSUE-[#]字符串。
 
-```python
+```
 #!/usr/bin/env python
 
 import sys, os, re
@@ -226,7 +224,7 @@ pre-rebase 挂钩在衍合前运行，脚本以非零退出可以中止衍合的
 
 比如说，如果你想彻底禁用rebase操作，你可以使用下面的pre-rebase脚本：
 
-```shell
+```
 #!/bin/sh
 
 # 禁用所有rebase
@@ -259,7 +257,7 @@ The pre-rebase hook refused to rebase.
 
 处理来自客户端的推送（push）操作时最先执行的脚本就是 `pre-receive` 。它从标准输入（stdin）获取被推送引用的列表；如果它退出时的返回值不是0，所有推送内容都不会被接受。利用此挂钩脚本可以实现类似保证最新的索引中不包含非 fast-forward 类型的这类效果；抑或检查执行推送操作的用户拥有创建，删除或者推送的权限或者他是否对将要修改的每一个文件都有访问权限。
 
-```python
+```
 #!/usr/bin/env python
 
 import sys
@@ -323,7 +321,7 @@ git clone https://github.com/square/spacecommander.git
 
 其中 `.clang-format` 只是一个文件链接,指向了我们的 spacecommander 仓库中的这个文件,这个文件主要用来配置规范的选项。最重要的一个文件是 .git 隐藏文件夹下的 hook文件夹中的 `pre-commit` 脚本,这个脚本会在 git commit 之前执行用来检测代码是否符合规范。
 
-```shell
+```
 #!/usr/bin/env bash
 current_repo_path=$(git rev-parse --show-toplevel)
 repo_to_format="/Users/young/Desktop/demo/demoWebView"

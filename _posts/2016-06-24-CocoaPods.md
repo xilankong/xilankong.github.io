@@ -1,7 +1,7 @@
 ---
-title: "CocoaPods 介绍"
+title: "CocoaPods 从安装到使用"
 layout: post
-date: 2016-06-17 22:48
+date: 2016-06-24 15:48
 ---
 
 
