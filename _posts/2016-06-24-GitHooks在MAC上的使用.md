@@ -1,7 +1,5 @@
 ---
-title:GitHooks在MAC上的使用
-layout:post
-date:2016-06-24 15:48
+layout: post
 ---
 
 ------
