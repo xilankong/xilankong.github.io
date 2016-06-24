@@ -56,7 +56,7 @@ Git Hooks是定制化的脚本程序，所以它实现的功能与相应的git�
 
 使用shell 这里尝试写一个简单的钩子，安装一个prepare-commit-msg钩子。去掉脚本的.sample拓展名，在文件中加上下面这两行：
 
-```shell
+```
 #!/bin/sh
 
 echo "# Please include a useful commit message!" > $1
@@ -351,7 +351,6 @@ yanghuangdeMac-mini:demoWebView young$
 [clang-format](http://clang.llvm.org/doxygen/structclang_1_1format_1_1FormatStyle.html) 规范
 
 ```
-
 IndentNestedBlocks: false
 AllowNewlineBeforeBlockParameter: false
 
