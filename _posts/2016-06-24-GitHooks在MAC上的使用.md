@@ -1,7 +1,7 @@
 ---
-title: "GitHooks 在 MAC 上的使用"
-layout: post
-date: 2016-06-24 15:48
+title:"GitHooks在MAC上的使用"
+layout:post
+date:2016-06-24 15:48
 ---
 
 ------
