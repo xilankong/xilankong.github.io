@@ -1,5 +1,5 @@
 ---
-title:"CocoaPods从安装到使用"
+title:CocoaPods从安装到使用
 layout:post
 date:2016-06-24 15:48
 ---
