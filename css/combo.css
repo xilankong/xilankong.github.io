@@ -17,7 +17,7 @@ h6{font-size:.67em;margin:2.33em 0}
 img{border:0;-ms-interpolation-mode:bicubic}
 .pure-g{
 	letter-spacing:-.31em;*letter-spacing:normal;*word-spacing:-.43em;text-rendering:optimizespeed;
-	font-family:FreeSans,Arimo,"Droid Sans",Helvetica,Arial,sans-serif;
+	font-family:Microsoft YaHei,SimHei,sans-serif;
 	display:-webkit-flex;-webkit-flex-flow:row wrap;
 	display:-ms-flexbox;-ms-flex-flow:row wrap;
 }
@@ -36,7 +36,7 @@ img{border:0;-ms-interpolation-mode:bicubic}
 
 .pure-g-r{
 	letter-spacing:-.31em;*letter-spacing:normal;*word-spacing:-.43em;
-	font-family:FreeSans,Arimo,"Droid Sans",Helvetica,Arial,sans-serif;
+	font-family:Microsoft YaHei,SimHei,sans-serif;
 	display:-webkit-flex;-webkit-flex-flow:row wrap;display:-ms-flexbox;-ms-flex-flow:row wrap
 	}
 
