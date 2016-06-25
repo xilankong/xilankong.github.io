@@ -1,5 +1,3 @@
-/* UNIVERSAL styles */
-
 body,
 .pure-g [class *= "pure-u"],
 .pure-g-r [class *= "pure-u"] {
@@ -69,7 +67,6 @@ header {
   
   h1 {
     font-size: 1.75em;
-    margin: 0;
     color: #333333;
   }
   h2 {
@@ -84,11 +81,11 @@ header {
 	    margin: 0;
         float: left;
 		font-size: 1.25em;
-    color: #6A85B3;
+		color: #6A85B3;
 	}
-  a:hover{
+	a:hover{
       color: darken($header-color, 10%);
-  }
+	}
   }
 }
 
