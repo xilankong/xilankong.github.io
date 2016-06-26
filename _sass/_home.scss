@@ -54,6 +54,13 @@
       background-color: darken($link-color, 10%);
     }
   }
+  a .checked
+  {
+      background-color: $header-color;
+	  &:hover {
+      background-color: darken($header-color, 10%);
+    }
+  }
 }
 
 /* responsive */
