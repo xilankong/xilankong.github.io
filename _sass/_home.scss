@@ -69,9 +69,9 @@
   }
   #blue
   {
-      background-color: $header-color;
+      background-color:lighten($header-color, 5%);
 	  &:hover {
-      background-color: darken($header-color, 10%);
+      background-color: darken($header-color, 5%);
     }
   }
 }
