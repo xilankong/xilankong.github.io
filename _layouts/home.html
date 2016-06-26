@@ -14,8 +14,8 @@
 	{
 
 		var about = document.getElementById("about");
-		var study = document.getElementById("one");
-		var life = document.getElementById("two");
+		var study = document.getElementById("div_2");
+		var life = document.getElementById("div_1");
 		var post = document.getElementById("posts");
 
 		if(span.innerText=='A'){		
@@ -57,14 +57,10 @@
   自我介绍
   
   </section>
-  <section id="posts">
+  <section id="posts" style="{display:none;}">
 	{% for category in site.categories %}
-	{% if forloop.rindex == 2 %}
-	<div id="one">
-	{% elsif forloop.rindex == 1 %}
-	<div id="two">	
-	{% endif %}
-	<h2>{{ forloop.rindex == 2 }}</h2>
+	<div id="div_{ forloop.rindex}">
+	<h2>{{ category | first }}</h2>
 	<ul>
     {% for post in category.last %}
 	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
