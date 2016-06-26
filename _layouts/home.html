@@ -15,15 +15,25 @@
 
 		var about = document.getElementById("about");
 		var study = document.getElementById("one");
-		var learn = document.getElementById("two");
+		var life = document.getElementById("two");
 		var post = document.getElementById("posts");
 
 		if(a.innerHTML=='A'){		
-			post.style.display = "none";
-			about.style.display = "";
-						
+			post.style.display = "";
+			about.style.display = "none";		
+		}else
+		if(a.innerHTML=='S'){		
+			post.style.display = "";
+			about.style.display = "none";	
+			study.style.display = "";	
+			life.style.display = "none";				
+		}else
+		if(a.innerHTML=='L'){		
+			post.style.display = "";
+			about.style.display = "none";	
+			study.style.display = "none";	
+			life.style.display = "";	
 		}
-
 	}
 </script>
 </head>
