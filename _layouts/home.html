@@ -17,22 +17,32 @@
 		var study = document.getElementById("div_2");
 		var life = document.getElementById("div_1");
 		var post = document.getElementById("posts");
+		var one = document.getElementsByClassName("one");
 
 		if(span.innerText=='A'){		
 			post.style.display = "none";
-			about.style.display = "";		
+			about.style.display = "";	
+			one[0].setAttribute("id","blue");
+			one[1].removeAttribute("id");
+			one[2].removeAttribute("id");
 		}else
 		if(span.innerText=='S'){		
 			post.style.display = "";
 			about.style.display = "none";	
 			study.style.display = "";		
-			life.style.display = "none";				
+			life.style.display = "none";		
+			one[1].setAttribute("id","blue");
+			one[0].removeAttribute("id");
+			one[2].removeAttribute("id");			
 		}else
 		if(span.innerText=='L'){		
 			post.style.display = "";
 			about.style.display = "none";	
 			study.style.display = "none";		
 			life.style.display = "";	
+			one[2].setAttribute("id","blue");
+			one[1].removeAttribute("id");
+			one[0].removeAttribute("id");
 		}
 	}
 </script>
@@ -47,13 +57,13 @@
   <section id="contact">
     <div class="pure-g">
       <div class="pure-u-1-3">
-        <span onclick="selectDot(this)" id="blue">A</span>
+        <span class="one" onclick="selectDot(this)" id="blue">A</span>
       </div>
       <div class="pure-u-1-3">
-        <span onclick="selectDot(this)">S</span>
+        <span class="one" onclick="selectDot(this)">S</span>
       </div>
       <div class="pure-u-1-3">
-        <span onclick="selectDot(this)">L</span>
+        <span class="one" onclick="selectDot(this)">L</span>
       </div>
     </div>
   </section>
