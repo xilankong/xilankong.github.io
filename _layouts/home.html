@@ -59,7 +59,7 @@
   </section>
   <section id="posts" style="{display:none;}">
 	{% for category in site.categories %}
-	<div id="div_{ forloop.rindex}">
+	<div id="div_{{ forloop.rindex}}">
 	<h2>{{ category | first }}</h2>
 	<ul>
     {% for post in category.last %}
