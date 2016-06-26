@@ -49,6 +49,7 @@
   </section>
   <section id="posts">
 	{% for category in site.categories %}
+	{{if forloop.inde}}
 	{% if forloop.index == 0%}
 	<div id="one">
 	{% else %}
