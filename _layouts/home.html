@@ -29,21 +29,14 @@
     </div>
   </section>
   <section id="posts">
-    <h2>学习之路</h2>
-    <ul>
-      {% for post in site.posts %}
-	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
-      {% endfor %}
-    </ul>
 	{% for category in site.categories %}
-<h2>{{ category | first }}</h2>
-</span>{{ category | last | size }}</span>
-<ul class="arc-list">
+	<h2>{{ category | first }}</h2>
+	<ul>
     {% for post in category.last %}
-        <li>{{ post.date | date:"%d/%m/%Y"}}<a href="{{ post.url }}">{{ post.title }}</a></li>
+	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
-</ul>
-{% endfor %}
+	</ul>
+	{% endfor %}
   </section>
 
 </body>
