@@ -19,8 +19,8 @@
 		var post = document.getElementById("posts");
 
 		if(span.innerText=='A'){		
-			post.style.display = "";
-			about.style.display = "none";		
+			post.style.display = "none";
+			about.style.display = "";		
 		}else
 		if(span.innerText=='S'){		
 			post.style.display = "";
@@ -63,12 +63,12 @@
   </section>
   <section id="posts">
 	{% for category in site.categories %}
-	{% if forloop.rindex == 2%}
+	{% if forloop.rindex == 2 %}
 	<div id="one">
-	{% elsif forloop.rindex == 1%}
+	{% elsif forloop.rindex == 1 %}
 	<div id="two">	
 	{% endif %}
-	<h2>{{ category | first }}</h2>
+	<h2>{{ forloop.rindex == 2 }}</h2>
 	<ul>
     {% for post in category.last %}
 	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
