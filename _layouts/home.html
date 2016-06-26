@@ -30,12 +30,14 @@
   </section>
   <section id="posts">
 	{% for category in site.categories %}
+	{% if forloop.rindex == 1%}
 	<h2>{{ category | first }}</h2>
 	<ul>
     {% for post in category.last %}
 	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
 	</ul>
+	{% endif %}
 	{% endfor %}
   </section>
 
