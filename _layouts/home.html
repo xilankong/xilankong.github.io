@@ -31,9 +31,16 @@
   <section id="posts">
     <h2>学习之路</h2>
     <ul>
-      {% for post in site.posts %}
-	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
-      {% endfor %}
+	  
+	  		{% for post in site.categories[page.category] %}
+			  {% capture y %}{{post.date | date:"%Y"}}{% endcapture %}
+			  {% if year != y %}
+				{% assign year = y %}
+				<h2>{{ post.date | date: '%Y' }}</h2> 
+			  {% endif %}
+				<li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
+			{% endfor %}
+	  
     </ul>
   </section>
 
