@@ -7,6 +7,12 @@
   <meta property="og:url" content="{{ site.github.url }}">
   <meta property="og:image" content="{{ site.github.url }}/img/portrait.png">
   {% include head.html %}
+  
+<script type="text/javascript">
+	function selectDot(a)
+	{
+	}
+</script>
 </head>
 <body>
   <section id="portrait">
@@ -30,14 +36,22 @@
   </section>
   <section id="posts">
 	{% for category in site.categories %}
-	{% if forloop.rindex == 1%}
+	{% if forloop.rindex == 0%}
+	<div class="one">
+	{% else if  forloop.rindex == 1 %}
+	<div class="two">	
+	{% endif %}
 	<h2>{{ category | first }}</h2>
 	<ul>
     {% for post in category.last %}
 	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
 	</ul>
-	{% endif %}
+	</div>
+	
+	
+	
+	
 	{% endfor %}
   </section>
 
