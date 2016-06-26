@@ -49,9 +49,9 @@
   </section>
   <section id="posts">
 	{% for category in site.categories %}
-	{% if forloop.rindex == 0%}
+	{% if forloop.index == 0%}
 	<div id="one">
-	{% else if  forloop.rindex == 1 %}
+	{% else %}
 	<div id="two">	
 	{% endif %}
 	<h2>{{ category | first }}</h2>
