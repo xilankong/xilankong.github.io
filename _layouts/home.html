@@ -10,14 +10,14 @@
   
 <script type="text/javascript">
 
-	function selectDot(a)
+	function selectDot(span)
 	{
 
 		var about = document.getElementById("about");
 		var study = document.getElementById("one");
 		var life = document.getElementById("two");
 		var post = document.getElementById("posts");
-		alert(a);
+		alert(span);
 		if(a.innerTex=='A'){		
 			post.style.display = "";
 			about.style.display = "none";		
@@ -47,13 +47,13 @@
   <section id="contact">
     <div class="pure-g">
       <div class="pure-u-1-3">
-        <a onclick="selectDot(this)" id="blue">A</a>
+        <span onclick="selectDot(this)" id="blue">A</span>
       </div>
       <div class="pure-u-1-3">
-        <a onclick="selectDot(this)">S</a>
+        <span onclick="selectDot(this)">S</span>
       </div>
       <div class="pure-u-1-3">
-        <a onclick="selectDot(this)">L</a>
+        <span onclick="selectDot(this)">L</span>
       </div>
     </div>
   </section>
