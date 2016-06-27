@@ -59,12 +59,16 @@ article {
         margin-bottom: 1rem;
         cursor: text;
         color: #333333;
+        font-weight: 300; 
     }
   a {
       color: #6A85B3;
       &:hover {
         color: darken($header-color, 10%);
       }
+    }
+    b{
+       font-weight: 300; 
     }
 }
 
