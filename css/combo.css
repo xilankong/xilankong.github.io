@@ -7,12 +7,12 @@ html{font-size:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body{margin:0}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
-h1{font-size:1.75em;}
-h2{font-size:1.3em;}
-h3{font-size:1.1em;}
-h4{font-size:1em;}
-h5{font-size:1em;}
-h6{font-size:1em;}
+h1{font-size:20px;}
+h2{font-size:17px;}
+h3{font-size:15px;}
+h4{font-size:15px;}
+h5{font-size:15px;}
+h6{font-size:15px;}
 
 img{border:0;-ms-interpolation-mode:bicubic}
 .pure-g{
