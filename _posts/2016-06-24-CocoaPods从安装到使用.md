@@ -23,7 +23,7 @@ $ pod setup
 
 ### 2.安装过程可能出现的错误
 
-1.gem版本需要更新
+**1.gem版本需要更新**
 
 首先确认软件源地址是正确的，然后如果你的 gem 太老，可能也会有问题，可以尝试用如下命令升级 gem。
 
@@ -47,7 +47,7 @@ $ pod repo update —verbose //更新repo
 $ rm -rf ~/.cocoapods/repos/master //然后再 pod setup。
 ```
 
-2.pod setup 卡住在 Setting up CocoaPods master repo
+**2.pod setup 卡住在 Setting up CocoaPods master repo**
 
 这步其实是 Cocoapods 在将它的信息下载到  ~/.cocoapods 目录下，如果你等太久，可以试着 cd 到那个目录，用  du -sh * 来查看下载进度。
 
@@ -97,7 +97,7 @@ pod install
 
 ### 2.CocoaPods使用中的tips
 
-1.关于 Podfile.lock
+**1.关于 Podfile.lock**
 
 当你执行 pod install 之后，除了 Podfile 外，CocoaPods 还会生成一个名为 Podfile.lock 的文件，Podfile.lock 应该加入到版本控制里面，不应该把这个文件加入到 .gitignore 中。
 
@@ -107,7 +107,7 @@ pod install
 
 > 后面的CocoaPods私人仓库创建会讲到 podspec 文件的问题
 
-2.–no-repo-update
+**2.–no-repo-update**
 
 CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 podspec 索引,会去更新 repo。
 
@@ -117,7 +117,7 @@ CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 po
 >
 > pod update –no-repo-update
 
-3.移除tag0.0.1，再重现提交新的tag0.0.1
+**3.移除tag0.0.1，再重现提交新的tag0.0.1**
 
 ```
 git add . 
@@ -129,7 +129,7 @@ git tag 0.0.1
 git push origin 0.0.1
 ```
 
-3.CocoaPods原理
+**3.CocoaPods原理**
 
 大概研究了一下 CocoaPods 的原理，它是将所有的依赖库都放到另一个名为 Pods 项目中，然后让主项目依赖 Pods 项目，这样，源码管理工作都从主项目移到了 Pods 项目中。发现的一些技术细节有：
 
@@ -231,7 +231,9 @@ $ git push origin v1.0.0
 
 **特别注意** :
 
-> 每次往Pod里面添加文件、图片、等任何非代码级别的改动的时候，都需要在Example目录下面进行一次pod install 或者 pod update一次。
+> 1.每次往Pod里面添加文件、图片、等任何非代码级别的改动的时候，都需要在Example目录下面进行一次pod install 或者 pod update一次。
+>
+> 2.版本管理忽略掉pods文件夹 保留 podfile podfile.lock 跟着版本同步
 
 #### 2.创建私有仓库
 
@@ -284,13 +286,27 @@ end
 
 #### 4.可能遇见的问题
 
-1.spec文件无法校验通过
+**1.spec文件无法校验通过**
 
-2.版本管理忽略掉pods文件夹 保留 podfile podfile.lock 跟着版本同步
+发生原因：
+
+当spec本身格式有错误的时候
+
+当引用多个私有repo中得pod项目，直接指向cocoapods查询不到对应的pod所属的私有repo
+
+解决办法 ：
+
+在pod repo push 后跟上对repo的地址指向 -- source=。已经添加到本地的repo 可以直接用repo名称，没有的使用git地址。
+
+```
+--sources=https://github.com/artsy/Specs,master  
+```
+
+
 
 #### 5.开发pod项目的其他问题
 
-1.怎么在开发中调试程序
+**1.怎么在开发中调试程序**
 
 开发过程中，可以修改Podfile文件的，将pod版本指向本地。对应pod的代码会被引入Development Pods中：
 
@@ -298,19 +314,19 @@ end
 #pod 'Stock', :path => '/Users/xxxx/desktop/workplace/Stock'
 ```
 
-2.模块之间的命名问题，最好以模块为单位添加不同的前缀。
+**2.模块之间的命名问题，最好以模块为单位添加不同的前缀。**
 
-3.Pod之间的引用
+**3.Pod之间的引用**
 
-4.添加pod的某个tag如0.0.1 到repo后，需要修改代码但又不想提升tag版本时，注意修改完后清理CocoaPods的本地缓存
+**4.添加pod的某个tag如0.0.1 到repo后，需要修改代码但又不想提升tag版本时，注意修改完后清理CocoaPods的本地缓存**
 
 ```
 $ rm -rf “${HOME}/Library/Caches/CocoaPods”
 ```
 
-5.第三方库的修改，尽量fork再通过pod引用
+**5.第三方库的修改，尽量fork再通过pod引用**
 
-6.有时候突然想要忽略某个文件，但是跟新 .gitignore 以后，remote 端并没有马上删除这个文件，原因是ignore文件只能忽略没有加入版本管理的文件，已经被纳入了版本管理的文件是无效的。
+**6.有时候突然想要忽略某个文件，但是跟新 .gitignore 以后，remote 端并没有马上删除这个文件，原因是ignore文件只能忽略没有加入版本管理的文件，已经被纳入了版本管理的文件是无效的。**
 
 ```
 git rm -r --cached .
@@ -318,9 +334,9 @@ git add .
 git commit -m 'update .gitignore'
 ```
 
-7.使用ssh协议(见git使用中得ssh描述)
+**7.使用ssh协议(见git使用中得ssh描述)**
 
-8.解决ArgumentError - invalid byte sequence in US-ASCII错误
+**8.解决ArgumentError - invalid byte sequence in US-ASCII错误**
 修改终端语言、地区等国际化环境变量
 
 ```
@@ -329,7 +345,7 @@ export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 ```
 
-9.CI ssh 问题
+**9.CI-SSH 问题**
 
 ```
 #解决ci远程slave访问git时，要求验证私钥密码问题
