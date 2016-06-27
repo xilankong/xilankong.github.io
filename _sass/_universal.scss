@@ -20,21 +20,6 @@ ul time {
   font-size: 80%;
 }
 
-/* inline elements */
-a {
-  color: $link-color;
-  text-decoration: none;
-  transition: color 0.1s;
-  -webkit-transition: color 0.1s;
-  
-  &:hover {
-    color: darken($link-color, 10%);
-  }
-}
-time {
-  font-size: 0.8em;
-  color: lighten($text-color, 55%);
-}
 
 /* header */
 header {
