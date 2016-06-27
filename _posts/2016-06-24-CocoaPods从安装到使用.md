@@ -117,6 +117,18 @@ CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 po
 >
 > pod update –no-repo-update
 
+3.移除tag0.0.1，再重现提交新的tag0.0.1
+
+```
+git add . 
+git commit -m"cover tag 0.0.1" 
+git push 
+git tag -d 0.0.1 
+git push origin :refs/tags/0.0.1 
+git tag 0.0.1 
+git push origin 0.0.1
+```
+
 3.CocoaPods原理
 
 大概研究了一下 CocoaPods 的原理，它是将所有的依赖库都放到另一个名为 Pods 项目中，然后让主项目依赖 Pods 项目，这样，源码管理工作都从主项目移到了 Pods 项目中。发现的一些技术细节有：
@@ -180,11 +192,9 @@ demoProject.podspec  //这个pod文件的说明书，下面会详细说
 
 ![png](https://xilankong.github.io/resource/pod_dir.png)
 
-其中重要的两个部分是 *.podspec 文件 和 pods下面的 Development Pods 目录其实就是上面提到的Pod目录
+其中重要的两个部分是 *.podspec 文件 和 pods下面的 Development Pods 目录其实就是上面提到的Pod目录。.podspec 就像一个说明书，描述当前这份pod项目 需要提交到私有库中，才能让其他项目通过私有库引用到当前这份pod项目。
 
-*.podspec 就像一个说明书，描述当前这份pod项目 需要提交到私有库中，才能让其他项目通过私有库引用到当前这份pod项目。
-
-*.podspec内容格式基本如下：
+*.podspec 内容格式基本如下：
 
 ```
 Pod::Spec.new do |s| 
@@ -208,6 +218,8 @@ s.source_files = ‘Pod/Classes/*/.{h,m}’ //项目核心部分的文件 class�
 
 end
 ```
+
+subspec语法参考：https://guides.cocoapods.org/syntax/podspec.html
 
 修改pod项目并提交到指定地址 给项目打上tag 这里的tag需要和podspec中配置的tag一样。
 
@@ -274,7 +286,7 @@ end
 
 1.spec文件无法校验通过
 
-
+2.版本管理忽略掉pods文件夹 保留 podfile podfile.lock 跟着版本同步
 
 #### 5.开发pod项目的其他问题
 
@@ -299,6 +311,12 @@ $ rm -rf “${HOME}/Library/Caches/CocoaPods”
 5.第三方库的修改，尽量fork再通过pod引用
 
 6.有时候突然想要忽略某个文件，但是跟新 .gitignore 以后，remote 端并没有马上删除这个文件，原因是ignore文件只能忽略没有加入版本管理的文件，已经被纳入了版本管理的文件是无效的。
+
+```
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+```
 
 7.使用ssh协议(见git使用中得ssh描述)
 
