@@ -1,19 +1,7 @@
-body,
-.pure-g [class *= "pure-u"],
-.pure-g-r [class *= "pure-u"] {
-font-family:Microsoft YaHei,SimHei,sans-serif;
-font-weight: 100; 
-font-size: 14px;
-color: $text-color;
-}
 
-/* block elements */
 section {
   margin: 4em 0;
   transition: margin .5s, font-size .5s;
-}
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 100;
 }
 h1 {
   color: $header-color;
