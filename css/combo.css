@@ -54,3 +54,7 @@ img{border:0;-ms-interpolation-mode:bicubic}
 	font-weight: 100; 
 	font-size: 15px;
 }
+/* inline elements */
+a {
+  text-decoration: none;
+}
