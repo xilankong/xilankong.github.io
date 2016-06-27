@@ -16,7 +16,7 @@ ul {
 }
 
 ul time {
-  color: lighten($text-color, 55%);
+  color: #aaa;
   font-size: 80%;
 }
 
@@ -31,7 +31,8 @@ a {
     color: darken($link-color, 10%);
   }
 }
-#posts time {
+time {
+  font-size: 0.8em;
   color: lighten($text-color, 55%);
 }
 
