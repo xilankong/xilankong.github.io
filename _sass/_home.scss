@@ -73,7 +73,6 @@
 #about a ,#posts a {
   color: $link-color;
   text-decoration: none;
-  font-size:1.2em;
   &:hover {
     color: darken($link-color, 10%);
   }
