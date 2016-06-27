@@ -31,7 +31,7 @@ a {
     color: darken($link-color, 10%);
   }
 }
-time {
+#posts time {
   font-size: 1.2em;
   color: lighten($text-color, 55%);
 }
@@ -43,7 +43,7 @@ header {
   padding-top:1.5em;
   h1 {
     font-size: 1.75em;
-    margin-top: 1rem;
+    margin-top: 1em;
     color: #333333;
   }
   h2 {
