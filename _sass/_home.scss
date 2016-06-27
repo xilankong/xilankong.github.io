@@ -57,7 +57,7 @@
   text-decoration: none;
   transition: color 0.1s;
   -webkit-transition: color 0.1s;
-  font-size:1.0em;
+  font-size:15px;
   &:hover {
     color: darken($link-color, 10%);
   }
