@@ -50,14 +50,15 @@
     li {
       margin-bottom: 1em;
       display:block;
-      font-size: 1.3em;
+      font-size: 1.25em;
+    }
+
+    li time {
+      color: #aaa;
+      font-size: 80%;
     }
     }
 
-    ul time {
-      color: #aaa;
-      font-size: 1.0em;
-    }
 }
 #about {
   width: 80%;
