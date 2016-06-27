@@ -7,12 +7,12 @@ html{font-size:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body{margin:0}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
-h1{font-size:1.75em;margin:.67em 0}
-h2{font-size:1.2em;margin:.83em 0}
-h3{font-size:1.17em;margin:1em 0}
-h4{font-size:1em;margin:1.33em 0}
-h5{font-size:.83em;margin:1.67em 0}
-h6{font-size:.67em;margin:2.33em 0}
+h1{font-size:1.75em;}
+h2{font-size:1.3em;}
+h3{font-size:1.1em;}
+h4{font-size:1em;}
+h5{font-size:1em;}
+h6{font-size:1em;}
 
 img{border:0;-ms-interpolation-mode:bicubic}
 .pure-g{
@@ -38,9 +38,11 @@ img{border:0;-ms-interpolation-mode:bicubic}
 	letter-spacing:-.31em;*letter-spacing:normal;*word-spacing:-.43em;
 	font-family:Microsoft YaHei,SimHei,sans-serif;
 	display:-webkit-flex;-webkit-flex-flow:row wrap;display:-ms-flexbox;-ms-flex-flow:row wrap
-	}
+}
 
-.pure-g-r{word-spacing:-.43em}.pure-g-r [class *="pure-u"]{font-family:sans-serif}.pure-g-r img{max-width:100%;height:auto}
+.pure-g-r{word-spacing:-.43em}
+.pure-g-r [class *="pure-u"]{font-family:sans-serif}
+.pure-g-r img{max-width:100%;height:auto}
 
 @media (max-width:480px){.pure-g-r>.pure-u,.pure-g-r>[class *="pure-u-"]{width:100%}}
 
