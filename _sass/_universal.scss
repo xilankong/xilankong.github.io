@@ -2,11 +2,22 @@
 section {
   margin: 4em 0;
 }
-
-time {
+ul {
+  margin: 0;
   display:block;
+  padding: 0;
+  font-size: 1.25em;
+  list-style-type: none;
+  margin-bottom: 2em;
+  li {
+    margin-bottom: 1em;
+	  display:block;
+  }
+}
+
+ul time {
   color: #aaa;
-  font-size: 1.1em;
+  font-size: 80%;
 }
 
 
