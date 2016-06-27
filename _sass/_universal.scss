@@ -16,7 +16,7 @@ ul {
 }
 
 ul time {
-  color: #aaa;
+  color: lighten($text-color, 55%);
   font-size: 80%;
 }
 
