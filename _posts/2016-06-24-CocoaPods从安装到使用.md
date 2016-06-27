@@ -219,7 +219,7 @@ s.source_files = ‘Pod/Classes/*/.{h,m}’ //项目核心部分的文件 class�
 end
 ```
 
-subspec语法参考：https://guides.cocoapods.org/syntax/podspec.html
+[subspec语法参考](https://guides.cocoapods.org/syntax/podspec.html)
 
 修改pod项目并提交到指定地址 给项目打上tag 这里的tag需要和podspec中配置的tag一样。
 
