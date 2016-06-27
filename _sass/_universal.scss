@@ -1,15 +1,6 @@
 
 section {
   margin: 4em 0;
-  transition: margin .5s, font-size .5s;
-}
-h1 {
-  color: $header-color;
-  font-size: 1.75em;
-  margin: 0;
-}
-h2 {
-  color: $header-color;
 }
 ul {
   margin: 0;
@@ -20,7 +11,7 @@ ul {
   margin-bottom: 2em;
   li {
     margin-bottom: 1em;
-	display:block;
+	  display:block;
   }
 }
 
@@ -67,8 +58,8 @@ header {
     margin-top: 1em;
     margin-bottom: 0.5em;
 	a{
-	    margin: 0;
-        float: left;
+	  margin: 0;
+    float: left;
 		font-size: 1.25em;
 		color: #6A85B3;
 	}
