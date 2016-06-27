@@ -7,7 +7,7 @@ category: 学习之路
 
 ## 1.什么是CocoaPods
 
-CocoaPods 是开发 OS X 和 iOS 应用程序的一个第三方库的依赖管理工具。利用它可以定义自己的依赖关系 (称作 `pods`)，并且随着时间的变化，以及在整个开发环境中对第三方库的版本管理非常方便。这里整理了从基本安装到使用的操作流程和期间容易出现的问题以及解决办法。
+CocoaPods 是开发 OS X 和 iOS 应用程序的一个第三方库的依赖管理工具。利用它可以定义自己的依赖关系 (称作 pods)，并且随着时间的变化，以及在整个开发环境中对第三方库的版本管理非常方便。这里整理了从基本安装到使用的操作流程和期间容易出现的问题以及解决办法。
 
 ## 2.CocoaPods的安装
 
@@ -49,7 +49,7 @@ $ rm -rf ~/.cocoapods/repos/master //然后再 pod setup。
 
 2.pod setup 卡住在 Setting up CocoaPods master repo
 
-这步其实是 Cocoapods 在将它的信息下载到 `~/.cocoapods`目录下，如果你等太久，可以试着 cd 到那个目录，用 `du -sh *`来查看下载进度。
+这步其实是 Cocoapods 在将它的信息下载到  ~/.cocoapods 目录下，如果你等太久，可以试着 cd 到那个目录，用  du -sh * 来查看下载进度。
 
 如果还是慢，更新一下软件源：
 
@@ -67,7 +67,7 @@ gem sources -l //查看sources源 看是否已经更换
 
 ### 1.项目中的使用方法
 
-使用时需要新建一个名为 `Podfile` 的文件，以如下格式，将依赖的库名字依次列在文件中即可:
+使用时需要新建一个名为 Podfile 的文件，以如下格式，将依赖的库名字依次列在文件中即可:
 
 ```
 source 'https://github.com/CocoaPods/Specs.git' //可以在这里按这种格式配置其他仓库
@@ -79,7 +79,7 @@ pod 'FMDB','~> 2.6.0'//~>符号指的是 2.6 级别版本获取最新的版本'
 end
 ```
 
-然后你将编辑好的 `Podfile` 文件放到你的项目根目录中，执行如下命令即可：
+然后你将编辑好的  Podfile 文件放到你的项目根目录中，执行如下命令即可：
 
 ```
 cd “你的podfile所在目录”
@@ -89,19 +89,19 @@ pod install
 
 现在，你的所有第三方库都已经下载完成并且设置好了编译参数和依赖，你只需要记住如下：
 
-> 使用 CocoaPods 生成的 `.xcworkspace` 文件来打开工程，而不是以前的 `.xcodeproj` 文件。
+> 使用 CocoaPods 生成的 .xcworkspace 文件来打开工程，而不是以前的 .xcodeproj 文件。
 >
-> 每次更改了 Podfile 文件，你需要重新执行一次 `pod update` 命令。
+> 每次更改了 Podfile 文件，你需要重新执行一次 pod update 命令。
 
-当不知道某款第三方库的引入方法时可以直接在终端查找第三方库 或者 你如果不知道 CocoaPods 管理的库中，是否有你想要的库，那么你可以通过  `pod search xxx` 命令进行查找
+当不知道某款第三方库的引入方法时可以直接在终端查找第三方库 或者 你如果不知道 CocoaPods 管理的库中，是否有你想要的库，那么你可以通过  pod search xxx 命令进行查找
 
 ### 2.CocoaPods使用中的tips
 
 1.关于 Podfile.lock
 
-当你执行 pod install 之后，除了 Podfile 外，CocoaPods 还会生成一个名为 `Podfile.lock` 的文件，`Podfile.lock` 应该加入到版本控制里面，不应该把这个文件加入到 `.gitignore` 中。
+当你执行 pod install 之后，除了 Podfile 外，CocoaPods 还会生成一个名为 Podfile.lock 的文件，Podfile.lock 应该加入到版本控制里面，不应该把这个文件加入到 .gitignore 中。
 
-因为 `Podfile.lock` 会锁定当前各依赖库的版本，之后如果多次执行 pod install  不会更改版本，要pod update 才会改 Podfile.lock 了。
+因为 Podfile.lock 会锁定当前各依赖库的版本，之后如果多次执行 pod install  不会更改版本，要pod update 才会改 Podfile.lock 了。
 
 这样多人协作的时候，可以防止第三方库升级时造成大家各自的第三方库版本不一致。
 
@@ -109,7 +109,9 @@ pod install
 
 2.–no-repo-update
 
-CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 podspec 索引,会去更新 repo。使用 `--no-repo-update` 参数可以禁止其做索引更新操作。如下所示：
+CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 podspec 索引,会去更新 repo。
+
+使用 --no-repo-update 参数可以禁止其做索引更新操作。如下所示：
 
 > pod install –no-repo-update
 >
@@ -119,17 +121,17 @@ CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 po
 
 大概研究了一下 CocoaPods 的原理，它是将所有的依赖库都放到另一个名为 Pods 项目中，然后让主项目依赖 Pods 项目，这样，源码管理工作都从主项目移到了 Pods 项目中。发现的一些技术细节有：
 
-> 1.Pods 项目最终会编译成一个名为 `libPods.a` 的文件，主项目只需要依赖这个 `.a` 文件即可。
+> 1.Pods 项目最终会编译成一个名为 libPods.a 的文件，主项目只需要依赖这个 .a 文件即可。
 >
-> 2.对于资源文件，CocoaPods 提供了一个名为 `Pods-resources.sh` 的 `bash` 脚本，该脚本在每次项目编译的时候都会执行，将第三方库的各种资源文件复制到目标目录中。
+> 2.对于资源文件，CocoaPods 提供了一个名为 Pods-resources.sh 的  bash  脚本，该脚本在每次项目编译的时候都会执行，将第三方库的各种资源文件复制到目标目录中。
 >
-> 3.CocoaPods 通过一个名为 `Pods.xcconfig` 的文件来在编译时设置所有的依赖和参数。
+> 3.CocoaPods 通过一个名为 Pods.xcconfig 的文件来在编译时设置所有的依赖和参数。
 
-## 3.创建私有仓库
+### 3.创建私有仓库
 
 使用pod的时候 我们会遇到需要将自己的代码封装出去 单独管理的情况，这种情况下 我们就需要一个私有的仓库来管理这些单独的部件。
 
-### 1.创建一个支持pod引入的项目
+#### 1.创建一个支持pod引入的项目
 
 cocoapods提供了一个快捷的项目模板创建命令：
 
@@ -160,7 +162,7 @@ What is your class prefix?
 
 依次按需要执行完成就会生成一个有格式的项目。
 
-生成项目分为 `Example` 和 `Pods` 两个主要的目录。
+生成项目分为 Example 和 Pods 两个主要的目录。
 
 ```
 Pods 
@@ -178,11 +180,11 @@ demoProject.podspec  //这个pod文件的说明书，下面会详细说
 
 ![png](https://xilankong.github.io/resource/pod_dir.png)
 
-其中重要的两个部分是 `*.podspec` 文件 和 pods下面的 `Development Pods` 目录其实就是上面提到的Pod目录
+其中重要的两个部分是 *.podspec 文件 和 pods下面的 Development Pods 目录其实就是上面提到的Pod目录
 
-`*.podspec` 就像一个说明书，描述当前这份pod项目 需要提交到私有库中，才能让其他项目通过私有库引用到当前这份pod项目。
+*.podspec 就像一个说明书，描述当前这份pod项目 需要提交到私有库中，才能让其他项目通过私有库引用到当前这份pod项目。
 
-`*.podspec`内容格式基本如下：
+*.podspec内容格式基本如下：
 
 ```
 Pod::Spec.new do |s| 
@@ -219,7 +221,7 @@ $ git push origin v1.0.0
 
 > 每次往Pod里面添加文件、图片、等任何非代码级别的改动的时候，都需要在Example目录下面进行一次pod install 或者 pod update一次。
 
-### 2.创建私有仓库
+#### 2.创建私有仓库
 
 首先创建放私有库(repo) git地址 ：
 
@@ -249,7 +251,7 @@ $ pod repo push demoRepo demoProject.podspec –-verbose
 
 到最后如果是因为警告原因（warn）无法通过则在push命令后如上 `--allow-warnings` 即可。成功提交后在我们的demoRepo对应的git remote端就可以看到一个对应版本的 pod spec 文件。
 
-### 3.获取私有仓库中的pod项目
+#### 3.获取私有仓库中的pod项目
 
 上面已经将我们自己创建的项目注册到了我们自己的私有repo中，在我们的主项目中需要引入这些pod部件的时候。首先在项目的 `.xcodeproj` 文件同级 创建一个 podfile 文件 文件内容如下：
 
@@ -264,17 +266,17 @@ pod ‘JFZPodsDemo’, ‘~> 1.0.1’ //我们需要引入的pod项目 ~> 表示
 end
 ```
 
-这里面的 `platform` 版本要和 podspec 里面设置的不能冲突,否则无法引用pod项目
+这里面的 platform 版本要和 podspec 里面设置的不能冲突,否则无法引用pod项目
 
-然后重新 `pod install` 一下就好了
+然后重新 pod install 一下就好了
 
-### 4.可能遇见的问题
+#### 4.可能遇见的问题
 
 1.spec文件无法校验通过
 
 
 
-### 5.开发pod项目的其他问题
+#### 5.开发pod项目的其他问题
 
 1.怎么在开发中调试程序
 
@@ -296,7 +298,7 @@ $ rm -rf “${HOME}/Library/Caches/CocoaPods”
 
 5.第三方库的修改，尽量fork再通过pod引用
 
-6.有时候突然想要忽略某个文件，但是跟新`.gitignore`以后，remote端并没有马上删除这个文件，原因是ignore文件只能忽略没有加入版本管理的文件，已经被纳入了版本管理的文件是无效的。
+6.有时候突然想要忽略某个文件，但是跟新 .gitignore 以后，remote 端并没有马上删除这个文件，原因是ignore文件只能忽略没有加入版本管理的文件，已经被纳入了版本管理的文件是无效的。
 
 7.使用ssh协议(见git使用中得ssh描述)
 
@@ -324,4 +326,8 @@ send "$SSH_PRIVATE_KEY_PASS\r"
 expect eof
 EOF
 ```
+
+## 4.参考文献
+
+[cocoapods官网](https://cocoapods.org)
 
