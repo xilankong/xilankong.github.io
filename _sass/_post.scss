@@ -12,21 +12,6 @@ article {
     font-size: 1.75em;
     margin: 0 0 0 -0.08em;
   }
-  ul {
-    &.meta {
-      margin: 0 0 3em;
-      padding: 0;
-      list-style: none;
-      
-      li {
-        margin-right: 0.5em;
-    		white-space:nowrap;
-    		display:block;
-    		float: left;
-    		font-size: 1.1em;
-      }
-    }
-  }
   .body { clear: left;}
 
     blockquote {
