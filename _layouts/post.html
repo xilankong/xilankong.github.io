@@ -17,9 +17,7 @@
     <div class="pure-u-3-4">
       <article vocab="http://schema.org/" typeof="BlogPosting" resource="{{ site.github.url }}{{ page.url }}">
         <h1 property="name">{{ page.title }}</h1>
-        <ul class="meta">
-          <li class="pubdate"><time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time></li>
-        </ul>
+        <time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
         <div class="body" property="articleBody">
           {{ content }}
         </div>
