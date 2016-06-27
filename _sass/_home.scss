@@ -40,6 +40,23 @@
   margin-right: auto;
   margin-bottom:30px;
   color:#333333;
+  ul {
+  margin: 0;
+  display:block;
+  padding: 0;
+  font-size: 1.25em;
+  list-style-type: none;
+  margin-bottom: 2em;
+  li {
+    margin-bottom: 1em;
+    display:block;
+  }
+  }
+
+  ul time {
+    color: #aaa;
+    font-size: 80%;
+  }
 }
 #about {
   width: 80%;
@@ -62,9 +79,7 @@
     color: darken($link-color, 10%);
   }
 }
-#posts li{
-  font-size:1.1em;
-}
+
 #contact {
   width: 210px;
   margin: 2em auto;
