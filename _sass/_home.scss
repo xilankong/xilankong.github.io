@@ -68,14 +68,14 @@
   color:#333333;
 }
 #about p{
-  font-size:1.1em;
+  font-size:1.2em;
 }
 #about a ,#posts a {
   color: $link-color;
   text-decoration: none;
   transition: color 0.1s;
   -webkit-transition: color 0.1s;
-  font-size:16px;
+  font-size:1.2em;
   &:hover {
     color: darken($link-color, 10%);
   }
