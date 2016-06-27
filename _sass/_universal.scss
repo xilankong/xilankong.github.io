@@ -30,14 +30,12 @@ header {
 /* responsive */
 @media (max-width: 767px) {
   header {
-    padding: 1em;
     padding-top: 0.5em;
     width: auto;
     border-bottom: 1px solid #eee;
     
     h1 {
       font-size: 1.7em;
-      display: inline-block;
       margin-right: 0.25em;
     }
     h2 {
@@ -53,6 +51,4 @@ header {
         }
     }
   }
-  h2 { font-size: 1.25em; }
-  ul { font-size: 1.1em; }
 }
