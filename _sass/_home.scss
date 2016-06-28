@@ -19,7 +19,7 @@
 }
 #posts h2{
   color:$header-color;
-  font-size:1.3em;
+  font-size:1.25em;
 }
 //首页自我介绍
 #intro {
@@ -74,7 +74,7 @@
 #about a ,#posts a {
   color: $link-color;
   text-decoration: none;
-  font-size:0.9em;
+  font-size:0.95em;
   &:hover {
     color: darken($link-color, 10%);
   }
