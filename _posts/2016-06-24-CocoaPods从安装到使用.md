@@ -155,6 +155,7 @@ $ pod lib create 你要创建的项目的项目名称
 
 ```
 //pod lib create 你要创建的项目的项目名称  命令执行后会询问基本信息
+//1.是否需要一个例子工程；2.选择一个测试框架；3.是否基于View测试；4.类的前缀；
 
 What language do you want to use?? [ Swift / ObjC ]
  > ObjC
@@ -182,8 +183,14 @@ Pods
 |- Classes 文件夹，//存放pod的.m.h.swift.xib文件等
 | 
 Example 文件夹，//就是一个demo项目方便pod代码开发
-| 
-LICENSE //授权文件
+|   |- demoProject.xcodeproj
+|   |- demoProject.xcworkspace
+|   |- Podfile   //就是一个demoPod项目的 第三方库依赖描述文件
+|   |- Podfile.lock
+|   |- demoProject
+|   |- Pods      //其他第三方库依赖描述文件存放文件夹
+|   |- Tests
+LICENSE //开源协议文件
 | 
 demoProject.podspec  //这个pod文件的说明书，下面会详细说
 ```
@@ -209,10 +216,12 @@ s.license = ‘MIT’
 s.author = { “young” => “young.huang@jfz.com” } //用户信息 
 s.source = { :git => “git@gitlab.jfz.net:xxx/demoProject.git”, :tag => s.version.to_s }//git地址 
 s.platform = :ios, ‘6.0’ //支持系统、最低版本 
-s.requires_arc = true 
+s.requires_arc = true  //是否使用ARC，如果指定具体文件，则具体的问题使用ARC
 s.source_files = ‘Pod/Classes/*/.{h,m}’ //项目核心部分的文件 class下面的所有.h/.m文件
 
-# s.public_header_files = ‘Pod/Classes/*/.h’ 
+#s.source_files = 'Pod/Classes/**/*'//代码源文件地址，**/* 表示Classes目录及其子目录下所有文件，如果有多个目录下则用逗号分开，如果需要在项目中分组显示，这里也要做相应的设置
+
+# s.public_header_files = ‘Pod/Classes/*/.h’ //公开头文件地址
 # s.frameworks = ‘UIKit’, ‘MapKit’ //此pod项目使用到得框架 
 # s.dependency ‘AFNetworking’, ‘~> 2.3’ //此pod项目依赖的其他pod项目
 
@@ -265,6 +274,14 @@ $ pod repo push demoRepo demoProject.podspec –-verbose
 
 到最后如果是因为警告原因（warn）无法通过则在push命令后如上 `--allow-warnings` 即可。成功提交后在我们的demoRepo对应的git remote端就可以看到一个对应版本的 pod spec 文件。
 
+```
+├─ LICENSE
+├─ demoProject
+│   └─ 1.0.2
+│       └─ demoProject.podspec
+└─ README.md
+```
+
 #### 3.获取私有仓库中的pod项目
 
 上面已经将我们自己创建的项目注册到了我们自己的私有repo中，在我们的主项目中需要引入这些pod部件的时候。首先在项目的 `.xcodeproj` 文件同级 创建一个 podfile 文件 文件内容如下：
@@ -284,7 +301,31 @@ end
 
 然后重新 pod install 一下就好了
 
-#### 4.可能遇见的问题
+#### 4.删除repo
+
+如何删除一个私有Spec Repo，只需要执行一条命令即可：
+
+```
+pod repo remove demoRepo
+```
+
+这样这个Spec Repo就在本地删除了，我们还可以通过
+
+```
+pod repo add demoRepo git@coding.net:wtlucky/WTSpecs.git
+```
+
+再把它给加回来。
+
+如果我们要删除私有Spec Repo下的某一个podspec怎么操作呢，此时无需借助Cocoapods，只需要cd到~/.cocoapods/repos/demoRepo 目录下，删掉库目录。
+
+```
+~/.cocoapods/repos/demoRepo$ rm -Rf demoRepoXXX
+```
+
+然后在将Git的变动push到远端仓库即可。
+
+#### 5.可能遇见的问题
 
 **1.spec文件无法校验通过**
 
@@ -302,9 +343,7 @@ end
 --sources=https://github.com/artsy/Specs,master  
 ```
 
-
-
-#### 5.开发pod项目的其他问题
+#### 6.开发pod项目的其他问题
 
 **1.怎么在开发中调试程序**
 
