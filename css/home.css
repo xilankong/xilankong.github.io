@@ -92,7 +92,7 @@ $header-color: #6A85B3;
   margin-bottom:30px;
 }
 
-#contact span {
+.one{
   display: block;
   width: 2em;
   height: 2em;
