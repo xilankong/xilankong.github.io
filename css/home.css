@@ -77,13 +77,13 @@ $header-color: #6A85B3;
 #about a ,#posts a {
   color:#A1B373;
   text-decoration: none;
-  font-size:0.95em;
+  font-size:0.97em;
 }
 #about a :hover {
-  color: #A1B373;
+  color: #899d5b;
 }
 #posts a :hover {
-  color: #A1B373;
+  color: #899d5b;
 }
 
 #contact {
