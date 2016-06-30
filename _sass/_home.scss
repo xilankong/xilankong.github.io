@@ -1,24 +1,20 @@
-$text-color:   #2f2f2f;
-$link-color:   #A1B373;
-$header-color: #6A85B3;
-
 #portrait {
   margin-left: auto;
   margin-right: auto;
   margin-top:4em;
   text-align: center;
-}
   
-#me {
-  transition: height .5s, width .5s;
-  height: 168px;
-  width: 168px;
-  margin: auto;
-}
-  
-#me img {
-  border-radius: 50%;
-  max-width: 100%;
+  #me {
+    transition: height .5s, width .5s;
+    height: 168px;
+    width: 168px;
+    margin: auto;
+    
+    img {
+      border-radius: 50%;
+      max-width: 100%;
+    }
+  }
 }
 #posts h2{
   color:$header-color;
