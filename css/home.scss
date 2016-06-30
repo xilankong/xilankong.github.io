@@ -21,21 +21,21 @@ $header-color: #6A85B3;
   max-width: 100%;
 }
 #posts h2{
-  color:$header-color;
+  color:#6A85B3;
   font-size:1.25em;
 }
 
 #intro {
   color:#333333;
   text-align: center;
-  h1 {
-      font-size: 2.5em;
-      color:$header-color;
+}
+#intro  h1 {
+  font-size: 2.5em;
+  color:#6A85B3;
   }
-  p {
-    font-size: 1.75em;
-    margin-top:1em;
-  }
+#intro   p {
+  font-size: 1.75em;
+  margin-top:1em;
 }
 #posts {
   width: 75%;
@@ -44,24 +44,25 @@ $header-color: #6A85B3;
   margin-right: auto;
   margin-bottom:30px;
   color:#333333;
-    ul {
-    margin: 0;
-    display:block;
-    padding: 0;
-    list-style-type: none;
-    margin-bottom: 2em;
-    li {
-      margin-bottom: 1em;
-      display:block;
-      font-size: 1.2em;
-    }
+}
 
-    li time {
-      color: #aaa;
-      font-size: 90%;
-    }
-    }
+#posts ul {
+  margin: 0;
+  display:block;
+  padding: 0;
+  list-style-type: none;
+  margin-bottom: 2em;
+}
 
+#posts ul li {
+  margin-bottom: 1em;
+  display:block;
+  font-size: 1.2em;
+}
+
+#posts ul time {
+  color: #aaa;
+  font-size: 90%;
 }
 #about {
   width: 80%;
@@ -75,12 +76,15 @@ $header-color: #6A85B3;
   font-size:1.2em;
 }
 #about a ,#posts a {
-  color: $link-color;
+  color:#A1B373;
   text-decoration: none;
   font-size:0.95em;
-  &:hover {
-    color: darken($link-color, 10%);
-  }
+}
+#about a :hover {
+  color: darken($link-color, 10%);
+}
+#posts a :hover {
+  color: darken($link-color, 10%);
 }
 
 #contact {
