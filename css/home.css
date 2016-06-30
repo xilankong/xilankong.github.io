@@ -5,7 +5,7 @@ $header-color: #6A85B3;
 #portrait {
   margin-left: auto;
   margin-right: auto;
-  margin-top:4em;
+  margin-top:100px;
   text-align: center;
 }
   
@@ -79,10 +79,10 @@ $header-color: #6A85B3;
   text-decoration: none;
   font-size:0.97em;
 }
-#about a:hover #about a{
+#about a:hover  a{
   color: #899d5b;
 }
-#posts a :hover #posts a{
+#posts a:hover  a{
   color: #899d5b;
 }
 
