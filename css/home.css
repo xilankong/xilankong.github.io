@@ -107,13 +107,13 @@ $header-color: #6A85B3;
 .one:hover{
   background-color: #899d5b;
 }
-#blue
+/*#blue
 {
     background-color:#6896b1;
 }
 #blue:hover {
     background-color: #6A85B3;
-}
+}*/
 
 /* responsive */
 @media (max-width: 767px) {
