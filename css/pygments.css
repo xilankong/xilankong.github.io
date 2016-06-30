@@ -1,7 +1,5 @@
 /* code highlighting */
-.highlight {
-
-    .highlighter-rouge & {
+.highlight .highlighter-rouge {
       background: #f5f5f5;
       padding:15px;
       color:#666666;
@@ -10,6 +8,5 @@
       line-height:25px;
       word-wrap: break-word;
       white-space: pre-wrap;
-    }
 }
 
