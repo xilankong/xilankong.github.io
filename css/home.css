@@ -79,10 +79,10 @@ $header-color: #6A85B3;
   text-decoration: none;
   font-size:0.97em;
 }
-#about a :hover {
+#about a:hover #about a{
   color: #899d5b;
 }
-#posts a :hover {
+#posts a :hover #posts a{
   color: #899d5b;
 }
 
