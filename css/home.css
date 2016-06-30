@@ -80,10 +80,10 @@ $header-color: #6A85B3;
   font-size:0.95em;
 }
 #about a :hover {
-  color: darken($link-color, 10%);
+  color: #A1B373;
 }
 #posts a :hover {
-  color: darken($link-color, 10%);
+  color: #A1B373;
 }
 
 #contact {
@@ -97,7 +97,7 @@ $header-color: #6A85B3;
   width: 2em;
   height: 2em;
   margin: 0 auto;
-  background-color: $link-color;
+  background-color: #A1B373;
   color: #fff;
   font-size: 1.75em;
   line-height: 2em;
@@ -105,15 +105,14 @@ $header-color: #6A85B3;
   border-radius: 50%;
 }
 #contact span :hover {
-  background-color: darken($link-color, 10%);
+  background-color: #A1B373;
 }
 #blue
-  {
-      background-color:lighten($header-color, 5%);
-	  &:hover {
-      background-color: darken($header-color, 5%);
-    }
-  }
+{
+    background-color:#6896b1;
+}
+#blue:hover {
+    background-color: #6A85B3;
 }
 
 /* responsive */
