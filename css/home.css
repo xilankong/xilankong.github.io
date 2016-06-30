@@ -74,15 +74,12 @@ $header-color: #6A85B3;
 #about{
   font-size:1.2em;
 }
-#about a ,#posts a {
+a {
   color:#A1B373;
   text-decoration: none;
   font-size:0.97em;
 }
-#about a:hover  a{
-  color: #899d5b;
-}
-#posts a:hover  a{
+a:hover{
   color: #899d5b;
 }
 
