@@ -1,0 +1,144 @@
+#portrait {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:4em;
+  text-align: center;
+  
+  #me {
+    transition: height .5s, width .5s;
+    height: 168px;
+    width: 168px;
+    margin: auto;
+    
+    img {
+      border-radius: 50%;
+      max-width: 100%;
+    }
+  }
+}
+#posts h2{
+  color:$header-color;
+  font-size:1.25em;
+}
+
+#intro {
+  color:#333333;
+  text-align: center;
+  h1 {
+      font-size: 2.5em;
+      color:$header-color;
+  }
+  p {
+    font-size: 1.75em;
+    margin-top:1em;
+  }
+}
+#posts {
+  width: 75%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:30px;
+  color:#333333;
+    ul {
+    margin: 0;
+    display:block;
+    padding: 0;
+    list-style-type: none;
+    margin-bottom: 2em;
+    li {
+      margin-bottom: 1em;
+      display:block;
+      font-size: 1.2em;
+    }
+
+    li time {
+      color: #aaa;
+      font-size: 90%;
+    }
+    }
+
+}
+#about {
+  width: 80%;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom:20px;
+  color:#333333;
+}
+#about{
+  font-size:1.2em;
+}
+#about a ,#posts a {
+  color: $link-color;
+  text-decoration: none;
+  font-size:0.95em;
+  &:hover {
+    color: darken($link-color, 10%);
+  }
+}
+
+#contact {
+  width: 250px;
+  margin: 2em auto;
+  margin-bottom:30px;
+  span {
+    display: block;
+    width: 2em;
+    height: 2em;
+    margin: 0 auto;
+    background-color: $link-color;
+    color: #fff;
+    font-size: 1.75em;
+    line-height: 2em;
+    text-align: center;
+    border-radius: 50%;
+    
+    &:hover {
+      background-color: darken($link-color, 10%);
+    }
+  }
+  #blue
+  {
+      background-color:lighten($header-color, 5%);
+	  &:hover {
+      background-color: darken($header-color, 5%);
+    }
+  }
+}
+
+/* responsive */
+@media (max-width: 767px) {
+  #portrait {
+    #me {
+      width: 120px;
+      height: 120px;
+    }
+  }
+#posts {
+    ul {
+      li {
+        font-size: 1.1em;
+      }
+    }
+
+}
+  #intro {
+    font-size: 0.8em;
+  }
+  #contact {
+    width: 180px;
+    
+    span {
+      font-size: 1.3em;
+    }
+  }
+  #about{
+    font-size:1.1em;
+  }
+  #about a ,#posts a {
+    font-size:0.95em;
+  }
+ #posts h2 { font-size: 1.2em; }
+}
