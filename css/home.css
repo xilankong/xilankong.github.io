@@ -104,8 +104,8 @@ $header-color: #6A85B3;
   text-align: center;
   border-radius: 50%;
 }
-#contact span :hover {
-  background-color: #A1B373;
+#contact span :hover >span {
+  background-color: #899d5b;
 }
 #blue
 {
