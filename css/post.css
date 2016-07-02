@@ -68,8 +68,7 @@ time {
 @media (max-width: 767px) {
 	
   .content{
-	padding-left:15px;
-	padding-right:15px;
+	width:95%;
   	margin: 0 auto;
   }
   article {
