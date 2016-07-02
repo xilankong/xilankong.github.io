@@ -1,6 +1,7 @@
 
 .content{
-	width:70%;
+	padding-left:15%;
+	padding-right:15%;
   	margin: 0 auto;
 }
 .content img{max-width:100%;height:auto}
@@ -68,7 +69,8 @@ time {
 @media (max-width: 767px) {
 	
   .content{
-	width:100%;
+	padding-left:15px;
+	padding-right:15px;
   	margin: 0 auto;
   }
   article {
