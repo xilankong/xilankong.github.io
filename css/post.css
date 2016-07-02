@@ -1,8 +1,9 @@
 
 .content{
-	width:75%;
+	width:70%;
   	margin: 0 auto;
 }
+.content img{max-width:100%;height:auto}
 article {
   font-family:Microsoft YaHei,SimHei,sans-serif;
   padding-bottom:3em;
@@ -65,6 +66,12 @@ time {
 
 /* responsive */
 @media (max-width: 767px) {
+	
+  .content{
+	padding-left:15px;
+	padding-right:15px;
+  	margin: 0 auto;
+  }
   article {
     padding: 1em;
     font-size: 1.1em;
