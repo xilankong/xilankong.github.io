@@ -65,6 +65,10 @@ time {
   color: #aaa;
   margin-top:1em;
 }
+time a 
+{
+  padding-top: 10px;
+}
 
 /* responsive */
 @media (max-width: 767px) {
