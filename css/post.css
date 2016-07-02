@@ -65,6 +65,10 @@ time {
   color: #aaa;
   margin-top:1em;
 }
+article p
+{
+  font-size: 13px;
+}
 /* responsive */
 @media (max-width: 767px) {
 	
