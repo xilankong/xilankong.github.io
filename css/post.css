@@ -43,7 +43,7 @@ article     h6 {
     margin-top: 1em;
     margin-bottom: 1em;
     color: #333333;
-    font-weight:bold; 
+    font-weight:600; 
 }
 a {
     color: #6A85B3;
@@ -52,7 +52,7 @@ a:hover {
     color: #6A85B3;
 }
 strong{
-   font-weight:bold; 
+   font-weight:600; 
    color: #333333;
 }
 time {
