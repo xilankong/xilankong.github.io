@@ -2,20 +2,20 @@
 <html>
 <head>
   <title>汐蓝·空 | {{ page.title }}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:url" content="{{ site.github.url }}{{ page.url }}">
   <meta property="og:title" content="{{ page.title }}">
-  <meta property="og:locale" content="en_US">
   <meta property="og:image" content="{{ site.github.url }}/img/portrait.JPG">
   <meta property="og:site_name" content="汐蓝·空">
-  {% include head.html %}
+  <link rel="stylesheet" href="{{ site.github.url }}/css/universal.css">
+  <link rel="stylesheet" href="{{ site.github.url }}/css/post.css">
+  <link rel="stylesheet" href="{{ site.github.url }}/css/pygments.css">
 </head>
 <body>
-  <div class="pure-g-r">
-    <div class="pure-u-1-4">
-      {% include sidebar.html %}
-    </div>
-    <div class="pure-u-3-4">
-      <article vocab="http://schema.org/" typeof="BlogPosting" resource="{{ site.github.url }}{{ page.url }}">
+  <div class="mianBody">
+    <div class="content">
+      <article>
         <h1 property="name">{{ page.title }}</h1>
         <time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
         <div class="body" property="articleBody">
