@@ -1,14 +1,15 @@
 
 body{
+  font-family:Microsoft YaHei,SimHei,sans-serif;
+  font-weight: 100;
+  font-size: 100%;
+  font: inherit;
   margin:0;
   text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -moz-font-feature-settings: "liga" on;
-  font-family: "Hiragino Sans GB", "Microsoft YaHei", STHeiti, "WenQuanYi Micro Hei", Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 100%;
-  font: inherit;
+
 }
 h1{font-size:1.75em;}
 h2{font-size:1.3em;}
