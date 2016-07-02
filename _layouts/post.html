@@ -17,7 +17,7 @@
     <div class="content">
       <article>
         <h1 property="name">{{ page.title }}</h1>
-        <time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }} | </time> <a href="javascript:history.go(-1)">move back</a>
+        <time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }} - · - </time> <a href="javascript:history.go(-1)">move back</a>
         <div class="body" property="articleBody">
           {{ content }}
         </div>
