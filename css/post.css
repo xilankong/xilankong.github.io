@@ -52,6 +52,7 @@ article     h6 {
 }
 a {
     color: #6A85B3;
+    text-decoration: none;
 }
 a:hover {
     color: #6A85B3;
@@ -64,7 +65,10 @@ time {
   color: #aaa;
   margin-top:1em;
 }
-
+article span
+{
+  font-size: 10px;
+}
 /* responsive */
 @media (max-width: 767px) {
 	
