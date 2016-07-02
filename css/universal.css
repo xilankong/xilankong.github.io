@@ -1,6 +1,8 @@
 *{
   font-family:Microsoft YaHei,SimHei,sans-serif;
-  font-weight: 100;
+}
+a{
+  text-decoration: :none;
 }
 .pure-u-1-4,.pure-u-3-4
 {
@@ -43,6 +45,8 @@ header   h2 {
     margin-top:1em;
     color: #aaa;
   }
+
+
  header  nav {
     margin-top: 1em;
     margin-bottom: 0.5em;
