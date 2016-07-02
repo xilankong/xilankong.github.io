@@ -68,6 +68,7 @@ time {
 article span
 {
   font-size: 10px;
+  line-height:25px;
 }
 /* responsive */
 @media (max-width: 767px) {
