@@ -48,7 +48,7 @@ h2{font-size:1.3em;}
 }
 
 #intro {
-  color:#666;
+  color:#444;
   text-align: center;
 }
 #intro  h1 {
@@ -58,14 +58,14 @@ h2{font-size:1.3em;}
 #intro   p {
   font-size: 1.75em;
   margin-top:1em;
-  color:#666;
+  color:#444;
 }
 #posts {
   width: 75%;
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
-  color:#666;
+  color:#444;
 }
 
 #posts ul {
@@ -92,7 +92,7 @@ h2{font-size:1.3em;}
   margin-left: auto;
   margin-right: auto;
   margin-bottom:4em;
-  color:#666;
+  color:#444;
 }
 #about{
   font-size:1.2em;
