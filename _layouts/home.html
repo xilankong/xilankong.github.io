@@ -82,7 +82,9 @@
 	<h2>{{ category | first }}</h2>
 	<ul>
     {% for post in category.last %}
-	  <li>         <p class="post-time"> {{ page.time }}</p><time datetime="{{ post.date | date:"%Y/%m/%d" }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
+	  <li> 
+{{ post.time  | date: "%Y/%m/%d" }}
+	  	&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
 	</ul>
 	</div>
