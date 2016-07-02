@@ -67,6 +67,8 @@ time {
 }
 article p
 {
+  display: inline-block;
+  color: #aaa;
   font-size: 13px;
 }
 /* responsive */
