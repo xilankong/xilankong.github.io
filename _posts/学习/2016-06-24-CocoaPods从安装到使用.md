@@ -11,7 +11,7 @@ CocoaPods 是开发 OS X 和 iOS 应用程序的一个第三方库的依赖管�
 
 ## 2.CocoaPods的安装
 
-### 1.安装过程
+### 2.1.安装过程
 
 安装方式异常简单 , Mac 下都自带 ruby，使用 ruby 的 gem 命令即可下载安装：
 
@@ -21,9 +21,9 @@ $ sudo gem install cocoa pods
 $ pod setup
 ```
 
-### 2.安装过程可能出现的错误
+### 2.2.安装过程可能出现的错误
 
-**1.gem版本需要更新**
+**2.2.1.gem版本需要更新**
 
 首先确认软件源地址是正确的，然后如果你的 gem 太老，可能也会有问题，可以尝试用如下命令升级 gem。
 
@@ -47,7 +47,7 @@ $ pod repo update —verbose //更新repo
 $ rm -rf ~/.cocoapods/repos/master //然后再 pod setup。
 ```
 
-**2.pod setup 卡住在 Setting up CocoaPods master repo**
+**2.2.2.pod setup 卡住在 Setting up CocoaPods master repo**
 
 这步其实是 Cocoapods 在将它的信息下载到  ~/.cocoapods 目录下，如果你等太久，可以试着 cd 到那个目录，用  du -sh * 来查看下载进度。
 
@@ -65,7 +65,7 @@ gem sources -l //查看sources源 看是否已经更换
 
 ## 3.CocoaPods的使用
 
-### 1.项目中的使用方法
+### 3.1.项目中的使用方法
 
 使用时需要新建一个名为 Podfile 的文件，以如下格式，将依赖的库名字依次列在文件中即可:
 
@@ -95,7 +95,7 @@ pod install
 
 当不知道某款第三方库的引入方法时可以直接在终端查找第三方库 或者 你如果不知道 CocoaPods 管理的库中，是否有你想要的库，那么你可以通过  pod search xxx 命令进行查找
 
-### 2.CocoaPods使用中的tips
+### 3.2.CocoaPods使用中的tips
 
 **1.关于 Podfile.lock**
 
@@ -107,15 +107,15 @@ pod install
 
 > 后面的CocoaPods私人仓库创建会讲到 podspec 文件的问题
 
-**2.–no-repo-update**
+**2.–-no-repo-update**
 
 CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 podspec 索引,会去更新 repo。
 
 使用 --no-repo-update 参数可以禁止其做索引更新操作。如下所示：
 
-> pod install –no-repo-update
+> pod install –-no-repo-update
 >
-> pod update –no-repo-update
+> pod update –-no-repo-update
 
 **3.移除tag0.0.1，再重现提交新的tag0.0.1**
 
@@ -129,7 +129,7 @@ git tag 0.0.1
 git push origin 0.0.1
 ```
 
-**3.CocoaPods原理**
+**4.CocoaPods原理**
 
 大概研究了一下 CocoaPods 的原理，它是将所有的依赖库都放到另一个名为 Pods 项目中，然后让主项目依赖 Pods 项目，这样，源码管理工作都从主项目移到了 Pods 项目中。发现的一些技术细节有：
 
@@ -139,11 +139,11 @@ git push origin 0.0.1
 >
 > 3.CocoaPods 通过一个名为 Pods.xcconfig 的文件来在编译时设置所有的依赖和参数。
 
-### 3.创建私有仓库
+### 3.3.创建私有仓库
 
 使用pod的时候 我们会遇到需要将自己的代码封装出去 单独管理的情况，这种情况下 我们就需要一个私有的仓库来管理这些单独的部件。
 
-#### 1.创建一个支持pod引入的项目
+#### 3.3.1.创建一个支持pod引入的项目
 
 cocoapods提供了一个快捷的项目模板创建命令：
 
@@ -244,7 +244,7 @@ $ git push origin v1.0.0
 >
 > 2.版本管理忽略掉pods文件夹 保留 podfile podfile.lock 跟着版本同步
 
-#### 2.创建私有仓库
+#### 3.3.2.创建私有仓库
 
 首先创建放私有库(repo) git地址 ：
 
@@ -282,7 +282,7 @@ $ pod repo push demoRepo demoProject.podspec –-verbose
 └─ README.md
 ```
 
-#### 3.获取私有仓库中的pod项目
+#### 3.3.3.获取私有仓库中的pod项目
 
 上面已经将我们自己创建的项目注册到了我们自己的私有repo中，在我们的主项目中需要引入这些pod部件的时候。首先在项目的 `.xcodeproj` 文件同级 创建一个 podfile 文件 文件内容如下：
 
@@ -301,7 +301,7 @@ end
 
 然后重新 pod install 一下就好了
 
-#### 4.删除repo
+#### 3.3.4.删除repo
 
 如何删除一个私有Spec Repo，只需要执行一条命令即可：
 
@@ -325,7 +325,7 @@ pod repo add demoRepo git@coding.net:wtlucky/WTSpecs.git
 
 然后在将Git的变动push到远端仓库即可。
 
-#### 5.可能遇见的问题
+#### 3.3.5.可能遇见的问题
 
 **1.spec文件无法校验通过**
 
@@ -343,7 +343,7 @@ pod repo add demoRepo git@coding.net:wtlucky/WTSpecs.git
 --sources=https://github.com/artsy/Specs,master  
 ```
 
-#### 6.开发pod项目的其他问题
+#### 3.3.6.开发pod项目的其他问题
 
 **1.怎么在开发中调试程序**
 
@@ -353,11 +353,15 @@ pod repo add demoRepo git@coding.net:wtlucky/WTSpecs.git
 #pod 'Stock', :path => '/Users/xxxx/desktop/workplace/Stock'
 ```
 
-**2.模块之间的命名问题，最好以模块为单位添加不同的前缀。**
+**2.模块之间的命名问题**
+
+最好以模块为单位添加不同的前缀。
 
 **3.Pod之间的引用**
 
-**4.添加pod的某个tag如0.0.1 到repo后，需要修改代码但又不想提升tag版本时，注意修改完后清理CocoaPods的本地缓存**
+**4.tag缓存问题**
+
+添加pod的某个tag如0.0.1 到repo后，需要修改代码但又不想提升tag版本时，注意修改完后清理CocoaPods的本地缓存
 
 ```
 $ rm -rf “${HOME}/Library/Caches/CocoaPods”
@@ -365,7 +369,9 @@ $ rm -rf “${HOME}/Library/Caches/CocoaPods”
 
 **5.第三方库的修改，尽量fork再通过pod引用**
 
-**6.有时候突然想要忽略某个文件，但是跟新 .gitignore 以后，remote 端并没有马上删除这个文件，原因是ignore文件只能忽略没有加入版本管理的文件，已经被纳入了版本管理的文件是无效的。**
+**6.ignore 文件忽略问题**
+
+有时候突然想要忽略某个文件，但是跟新 .gitignore 以后，remote 端并没有马上删除这个文件，原因是ignore文件只能忽略没有加入版本管理的文件，已经被纳入了版本管理的文件是无效的
 
 ```
 git rm -r --cached .
