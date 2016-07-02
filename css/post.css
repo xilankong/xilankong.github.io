@@ -1,6 +1,7 @@
 
 .content{
-width:75%;*width:74.969%
+	width:75%;
+  	margin: 0 auto;
 }
 article {
   font-family:Microsoft YaHei,SimHei,sans-serif;
