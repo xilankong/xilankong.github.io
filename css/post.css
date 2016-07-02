@@ -69,8 +69,8 @@ time {
 @media (max-width: 767px) {
 	
   .content{
-	padding-left:15px;
-	padding-right:15px;
+	padding-left:10px;
+	padding-right:10px;
   }
   article {
     font-size: 1.1em;
