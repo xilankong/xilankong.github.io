@@ -1,10 +1,7 @@
 
 
-html{
-  font-size:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;
+*{
   font-family:Microsoft YaHei,SimHei,sans-serif;
-  font-weight: normal; 
-  font-size: 15px;
 }
 body{margin:0}
 h1{font-size:1.75em;}
