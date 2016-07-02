@@ -58,13 +58,13 @@ h2{font-size:1.3em;}
 #intro   p {
   font-size: 1.75em;
   margin-top:1em;
+  color:#666;
 }
 #posts {
   width: 75%;
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom:4em;
   color:#666;
 }
 
@@ -88,11 +88,11 @@ h2{font-size:1.3em;}
 }
 #about {
   width: 80%;
-  max-width: 450px;
+  max-width: 440px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom:20px;
-  color:#333333;
+  margin-bottom:4em;
+  color:#666;
 }
 #about{
   font-size:1.2em;
