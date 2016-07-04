@@ -256,6 +256,7 @@ git@gitlab.xxx.net:xxxxx/demoRepo.git
 
 ```
 $ pod repo add demoRepo git@gitlab.xxx.net:xxxxx/demoRepo.git
+$ pod repo //查看本地所有repo
 ```
 
 私有库创建好了后，回到之前创建的pod项目下，一般修改好podspec后会进行校验必须是无错误、无警告才能提交。校验命令：
