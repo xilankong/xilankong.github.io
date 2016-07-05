@@ -110,9 +110,7 @@ var BlogDirectory = {
         //获取div中所有元素结点
         var nodes = elem.getElementsByTagName("*");
         //创建博客目录的div容器
-        var divSideBar = document.createElement('DIV');
-        divSideBar.className = 'sideBar';
-        divSideBar.setAttribute('id', 'sideBar');
+        var divSideBar = document.getElementById("sideBar");
         var divSideBarContents = document.createElement('DIV');
         divSideBarContents.style.display = 'block';
         divSideBarContents.setAttribute('id', 'sideBarContents');
@@ -160,8 +158,6 @@ var BlogDirectory = {
         }
         
         if(num == 0) return false; 
-
-        document.getElementById("mianBody").appendChild(divSideBar);
     }
     
 };
@@ -182,6 +178,11 @@ window.onload=function(){
           {{ content }}
         </div>
       </article>
+    </div>
+    <div id="sideBar" class = "sideBar">
+  <section id="portrait">
+    <div id="me"><img src="{{ site.github.url }}/img/portrait.JPG" alt="汐蓝·空"></div>
+  </section>
     </div>
   </div>
 </body>
