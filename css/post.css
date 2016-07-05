@@ -119,10 +119,10 @@ time a
     text-align:left;
     position:fixed;
     top:50px;
-    left: 75%;
+    left: 77%;
     width: auto;
     height: auto; 
-    border: 1px solid #333;
+    /*border: 1px solid #333;*/
     color: #444444;
 }
 #sideBarContents{
