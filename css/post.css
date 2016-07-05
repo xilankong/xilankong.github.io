@@ -98,9 +98,10 @@ time a
     top:50px;
     left: 77%;
     width: auto;
-    height: auto; 
+    bottom: 50px;
     border: 1px solid #333;
     color: #444444;
+    background-color: red;
 }
 
 #portrait {
