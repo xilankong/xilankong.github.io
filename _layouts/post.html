@@ -183,13 +183,15 @@ function pageScroll(){
     </div>
     <div id="sideBar" class = "sideBar">
       <section id="portrait">
-        <div id="me"><a href="javascript:history.go(-1)"><img src="{{ site.github.url }}/img/portrait.JPG" alt="汐蓝·空"></a></div>
-        <a href="javascript:history.go(-1)">汐蓝·空 | 返回</a>
+        <div id="me"><img src="{{ site.github.url }}/img/portrait.JPG" alt="汐蓝·空"></div>
+        <div id="a_div">
+        <a href="javascript:history.go(-1)">返回</a><span> | </span><a id="top" href="javascript:;" onclick="pageScroll()">顶部</a>
+        </div>
         <hr>
       </section>
       <section id="toc">
       </section>
-      <a id="top" href="javascript:;" onclick="pageScroll()">顶部</a>
+
     </div>
   </div>
 </body>

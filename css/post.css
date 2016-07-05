@@ -102,13 +102,7 @@ time a
     overflow:hidden;!important;
     color: #444444;
 }
-#top{
-  display: block;
-  width: 100%;
-  color:#6A85B3;
-  font-size:1.75em;
-  text-align: center;
-}
+
 
 #portrait {
   display:block;
@@ -128,13 +122,27 @@ time a
   display: block;
   margin-bottom: 10px;
 }
-#me a{
-  color: #ffffff;
-}
 #me img {
   border-radius: 50%;
   max-width: 100%;
 }
+#a_div
+{
+  display: block;
+}
+#a_div a
+{
+  display: inline-block;
+  color:#6A85B3;
+  font-size:1.75em;
+}
+#a_div span
+{
+    display: inline-block;
+  color:#6A85B3;
+  font-size:1.75em;
+}
+
 #sideBarContents{
   display: block;
   width:100%;
