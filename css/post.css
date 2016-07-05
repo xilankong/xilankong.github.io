@@ -155,8 +155,13 @@ time a
     cursor: pointer;
 
 }
+#toc
+{
+  display: block;
+}
 #back
 {
+  display: block;
   margin-top: 3em;
 }
 #back a{
