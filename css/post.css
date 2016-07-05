@@ -129,6 +129,8 @@ time a
 #sideBarContents dl{
     margin:0;
     padding:0;
+    margin-left:15px;
+    margin-top:5px;
 }
 
 #sideBarContents dt{
@@ -138,7 +140,7 @@ time a
 
 #sideBarContents dd, dt {
     cursor: pointer;
-    
+
 }
 
 #sideBarContents dd:hover, dt:hover {
