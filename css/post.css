@@ -89,6 +89,20 @@ time a
 
 
 
+/*生成博客目录的CSS*/
+#sideBar{
+    font-size:14px;
+    font-family:Microsoft YaHei,SimHei,sans-serif;
+    text-align:left;
+    position:fixed;
+    top:50px;
+    left: 77%;
+    width: auto;
+    height: 100%; 
+    /*border: 1px solid #333;*/
+    color: #444444;
+}
+
 #portrait {
   display:block;
   text-align: center;
@@ -114,26 +128,11 @@ time a
   border-radius: 50%;
   max-width: 100%;
 }
-/*生成博客目录的CSS*/
-#sideBar{
-    font-size:14px;
-    font-family:Microsoft YaHei,SimHei,sans-serif;
-    text-align:left;
-    position:fixed;
-    top:50px;
-    left: 77%;
-    width: auto;
-    height: auto; 
-    /*border: 1px solid #333;*/
-    color: #444444;
-}
 #sideBarContents{
     float:left;
     overflow:auto; 
     overflow-x:hidden;!important;
     width:200px;
-    min-height:108px;
-    max-height:600px;
     background:#ffffff;
     margin-top: 10px;
 }
