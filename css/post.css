@@ -136,7 +136,6 @@ time a
     min-height:108px;
     max-height:600px;
     background:#ffffff;
-    margin-top: 10px;
 }
 #sideBarContents dl{
     margin:0;
@@ -158,11 +157,11 @@ time a
 #toc
 {
   display: block;
+  margin-bottom: 3em;
 }
 #back
 {
   display: block;
-  margin-top: 3em;
 }
 #back a{
   font-size: 1.25em;
