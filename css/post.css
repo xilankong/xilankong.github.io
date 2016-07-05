@@ -11,7 +11,7 @@ article {
   padding-top:1.5em;
   font-weight: 200; 
   line-height:25px;
-  font-size: 1.1em;
+  font-size: 1em;
   color: #444444;
 }
 article  h1 {
@@ -105,6 +105,7 @@ time a
   width: 160px;
   margin: auto;
   display: block;
+  margin-bottom: 10px;
 }
 #me a{
   color: #ffffff;
@@ -134,6 +135,7 @@ time a
     min-height:108px;
     max-height:600px;
     background:#ffffff;
+    margin-top: 10px;
 }
 #sideBarContents dl{
     margin:0;
