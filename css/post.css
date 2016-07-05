@@ -129,17 +129,16 @@ time a
 #a_div
 {
   display: block;
+  width: 100%;
 }
 #a_div #back
 {
-  display:block;
   float: left;
   color:#6A85B3;
   font-size:1.75em;
 }
 #a_div #top
 {
-  display:block;
   float: right;
   color:#6A85B3;
   font-size:1.75em;
