@@ -139,7 +139,6 @@ var BlogDirectory = {
                 var nodetext = nodes[i].innerHTML.replace(/<\/?[^>]+>/g,"");//innerHTML里面的内容可能有HTML标签，所以用正则表达式去除HTML的标签
                 nodetext = nodetext.replace(/&nbsp;/ig, "");//替换掉所有的&nbsp;
                 nodetext = BlogDirectory.htmlDecode(nodetext);
-                alert(nodetext);
                 //插入锚        
                 nodes[i].setAttribute("id", "blogTitle" + num);
                 var item;
@@ -161,7 +160,7 @@ var BlogDirectory = {
                     var pos = BlogDirectory.getElementPosition(document.getElementById("blogTitle" + this.getAttribute("name")));
                     if(!BlogDirectory.moveScrollBar(pos.top, interval)) return false;
                 };            
-                
+                alert(item);
                 //将自定义表项加入自定义列表中
                 dlist.appendChild(item);
                 num++;
@@ -175,7 +174,7 @@ var BlogDirectory = {
         }
         /*鼠标离开时的事件处理*/
         divSideBar.onmouseleave = function() {
-            divSideBarContents.style.display = 'none';
+            divSideBarContents.style.display = 'block';
         }
 
         document.body.appendChild(divSideBar);
