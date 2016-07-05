@@ -154,28 +154,7 @@ time a
     cursor: pointer;
 
 }
-#toc
-{
-  display: block;
-  width: auto;
-  height: auto;
-  margin-bottom: 30px;
-}
-#back
-{
-  display: block;
-}
-#back a{
-  font-size: 1.25em;
-}
-#back .backBtn{
-  float: left;
-  margin-left: 20px;
-}
-#back .topBtn{
-  float: right;
-  margin-right: 20px;
-}
+
 #sideBarContents dd:hover, dt:hover {
     color:#6A85B3;
 }
