@@ -177,7 +177,7 @@ var BlogDirectory = {
             divSideBarContents.style.display = 'block';
         }
 
-        document.body.appendChild(divSideBar);
+        document.getElementById("mianBody").appendChild(divSideBar);
     }
     
 };
@@ -189,7 +189,7 @@ window.onload=function(){
   </script>
 </head>
 <body>
-  <div class="mianBody">
+  <div class="mianBody" id="mianBody">
     <div class="content">
       <article>
         <h1 property="name">{{ page.title }}</h1>
