@@ -96,7 +96,6 @@ time a
 #portrait a{
   display: block;
   width: 100%;
-  margin-top: 10px;
   color:#6A85B3;
   font-size:1.75em;
   text-align: center;
@@ -107,7 +106,9 @@ time a
   margin: auto;
   display: block;
 }
-  
+#me a{
+  color: #ffffff;
+}
 #me img {
   border-radius: 50%;
   max-width: 100%;
