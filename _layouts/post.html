@@ -108,7 +108,7 @@ var BlogDirectory = {
         var elem = document.getElementById(id);
         if(!elem) return false;
         //获取div中所有元素结点
-        var nodes = elem.getElementsByTagName("h2");
+        var nodes = elem.getElementsByTagName("*");
         //创建博客目录的div容器
         var divSideBar = document.getElementById("toc");
         var divSideBarContents = document.createElement('DIV');
