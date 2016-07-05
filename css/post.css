@@ -99,6 +99,8 @@ time a
     left: 77%;
     width: 200px;
     bottom: 50px;
+    overflow:auto; 
+    overflow-x:hidden;!important;
     border: 1px solid #333;
     color: #444444;
     background-color: red;
@@ -131,8 +133,6 @@ time a
 }
 #sideBarContents{
   display: block;
-  overflow:auto; 
-  overflow-x:hidden;!important;
   width:100%;
   min-height:108px;
   max-height:600px;
