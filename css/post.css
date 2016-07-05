@@ -133,6 +133,7 @@ time a
 #a_div a
 {
   display: inline-block;
+  float: left;
   color:#6A85B3;
   font-size:1.75em;
 }
