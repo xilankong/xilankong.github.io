@@ -89,6 +89,21 @@ time a
 
 
 
+#portrait {
+  display:block;
+  text-align: center;
+}
+  
+#me {
+  height: 168px;
+  width: 168px;
+  margin: auto;
+}
+  
+#me img {
+  border-radius: 50%;
+  max-width: 100%;
+}
 /*生成博客目录的CSS*/
 #sideBar{
     font-size:12px;
