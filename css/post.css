@@ -100,15 +100,6 @@ time a
     width: auto;
     height: auto; 
 }
-#sideBarTab{
-    float:left;
-    width:30px; 
-    border:1px solid #e5e5e5;
-    border-right:none;
-    text-align:center;
-    background:#ffffff;
-}
-
 #sideBarContents{
     float:left;
     overflow:auto; 

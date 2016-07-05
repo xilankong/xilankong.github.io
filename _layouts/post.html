@@ -113,13 +113,6 @@ var BlogDirectory = {
         var divSideBar = document.createElement('DIV');
         divSideBar.className = 'sideBar';
         divSideBar.setAttribute('id', 'sideBar');
-        var divSideBarTab = document.createElement('DIV');
-        divSideBarTab.setAttribute('id', 'sideBarTab');
-        divSideBar.appendChild(divSideBarTab);
-        var h2 = document.createElement('H2');
-        divSideBarTab.appendChild(h2);
-        var txt = document.createTextNode('目录导航');
-        h2.appendChild(txt);
         var divSideBarContents = document.createElement('DIV');
         divSideBarContents.style.display = 'block';
         divSideBarContents.setAttribute('id', 'sideBarContents');
@@ -167,14 +160,6 @@ var BlogDirectory = {
         }
         
         if(num == 0) return false; 
-        /*鼠标进入时的事件处理*/
-        divSideBarTab.onmouseenter = function(){
-            divSideBarContents.style.display = 'block';
-        }
-        /*鼠标离开时的事件处理*/
-        divSideBar.onmouseleave = function() {
-            divSideBarContents.style.display = 'block';
-        }
 
         document.getElementById("mianBody").appendChild(divSideBar);
     }
