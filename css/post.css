@@ -93,7 +93,10 @@ time a
   display:block;
   text-align: center;
 }
-#portrait h2{
+#portrait a{
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
   color:#6A85B3;
   font-size:1.25em;
   text-align: center;
@@ -102,6 +105,7 @@ time a
   height: 160px;
   width: 160px;
   margin: auto;
+  display: block;
 }
   
 #me img {
