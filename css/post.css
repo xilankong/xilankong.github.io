@@ -129,15 +129,16 @@ time a
 #sideBarContents dl{
     margin:0;
     padding:0;
-    margin-left:15px;
-    margin-top:5px;
 }
 
 #sideBarContents dt{
     margin-top:5px;
     margin-left:5px;
 }
-
+#sideBarContents dd{
+    margin-top:5px;
+    margin-left:15px;
+}
 #sideBarContents dd, dt {
     cursor: pointer;
 
