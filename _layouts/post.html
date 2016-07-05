@@ -59,7 +59,7 @@ var BlogDirectory = {
         var currentpos =BlogDirectory.getScrollBarPosition();//获取滚动条当前位置
 
         var dist = 0; 
-        if (currentpos == finalpos) {//到达预定位置，则解禁鼠标滚轮，并退出
+        if (currentpos == finalpos-10) {//到达预定位置，则解禁鼠标滚轮，并退出
             window.onmousewheel = function(){
                 return true;
             }
@@ -85,7 +85,7 @@ var BlogDirectory = {
         }
         
         //进行下一步移动
-        var repeat = "BlogDirectory.moveScrollBar(" + finalpos-10 + "," + interval + ")"; 
+        var repeat = "BlogDirectory.moveScrollBar(" + finalpos + "," + interval + ")"; 
         document.body.movement = setTimeout(repeat, interval); 
     },
     
