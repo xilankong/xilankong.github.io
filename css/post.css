@@ -98,7 +98,7 @@ time a
     top:50px;
     left: 77%;
     width: auto;
-    height: 100%; 
+    height: auto; 
     /*border: 1px solid #333;*/
     color: #444444;
 }
@@ -133,6 +133,8 @@ time a
     overflow:auto; 
     overflow-x:hidden;!important;
     width:200px;
+    min-height:108px;
+    max-height:600px;
     background:#ffffff;
     margin-top: 10px;
 }
@@ -153,7 +155,17 @@ time a
     cursor: pointer;
 
 }
-
+#back a{
+  font-size: 1.25em;
+}
+#back .backBtn{
+  float: left;
+  margin-left: 20px;
+}
+#back .topBtn{
+  float: right;
+  margin-right: 20px;
+}
 #sideBarContents dd:hover, dt:hover {
     color:#6A85B3;
 }
