@@ -158,7 +158,7 @@ var BlogDirectory = {
                 item.setAttribute("name", num);
                 item.onclick = function(){        //添加鼠标点击触发函数
                     var pos = BlogDirectory.getElementPosition(document.getElementById("blogTitle" + this.getAttribute("name")));
-                    if(!BlogDirectory.moveScrollBar(pos.top-10, interval)) return false;
+                    if(!BlogDirectory.moveScrollBar(pos.top-15, interval)) return false;
                 };            
                 //将自定义表项加入自定义列表中
                 dlist.appendChild(item);
