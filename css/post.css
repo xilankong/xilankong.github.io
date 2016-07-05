@@ -130,14 +130,20 @@ time a
 {
   display: block;
 }
-#a_div a
+#a_div #back
 {
-  display: inline-block;
+  display:block;
   float: left;
   color:#6A85B3;
   font-size:1.75em;
 }
-
+#a_div #top
+{
+  display:block;
+  float: right;
+  color:#6A85B3;
+  font-size:1.75em;
+}
 #sideBarContents{
   display: block;
   width:100%;
