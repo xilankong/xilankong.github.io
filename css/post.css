@@ -132,6 +132,7 @@ time a
     float:left;
     overflow:auto; 
     overflow-x:hidden;!important;
+    overflow-y:scroll;
     width:200px;
     min-height:108px;
     max-height:600px;
