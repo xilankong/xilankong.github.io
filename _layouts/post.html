@@ -156,7 +156,8 @@ var BlogDirectory = {
                 num++;
             }
         }
-        
+        var hr =document.createElement("hr");
+        divSideBar.appendChild(hr);
         if(num == 0) return false; 
     }
     
@@ -189,7 +190,6 @@ function pageScroll(){
         <hr>
       </section>
       <section id="toc">
-        <hr>
       </section>
       <section id="back">
         <a href="javascript:history.go(-1)">返回</a>
