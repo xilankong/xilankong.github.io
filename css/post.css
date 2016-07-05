@@ -96,9 +96,9 @@ time a
 #portrait a{
   display: block;
   width: 100%;
-  margin-bottom: 10px;
+  margin-top: 10px;
   color:#6A85B3;
-  font-size:1.25em;
+  font-size:1.75em;
   text-align: center;
 }
 #me {
@@ -145,7 +145,7 @@ time a
 }
 #sideBarContents dd{
     margin-top:5px;
-    margin-left:15px;
+    margin-left:20px;
 }
 #sideBarContents dd, dt {
     cursor: pointer;
