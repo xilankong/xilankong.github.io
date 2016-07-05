@@ -157,7 +157,9 @@ time a
 #toc
 {
   display: block;
-  margin-bottom: 1000px;
+  width: auto;
+  height: auto;
+  margin-bottom: 30px;
 }
 #back
 {
