@@ -1,7 +1,7 @@
 
 .content{
 	padding-left:15%;
-	padding-right:15%;
+	padding-right:25%;
   	margin: 0 auto;
 }
 .content img{max-width:100%;height:auto}
@@ -82,6 +82,9 @@ time a
       padding-top:0.3em;
   }
   h1 { font-size: 1.5em; }
+  #sideBar{
+    display: none;
+  }
 }
 
 
