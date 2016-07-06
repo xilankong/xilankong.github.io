@@ -114,12 +114,14 @@ a:active,a:hover{outline:0}
 }
 #studyBody{
   width: 100%;
+  margin-top: 0px;
 }
 #posts
 {
   width: 100%;
   max-width: 100%;
   min-width: 100%;
+  margin-top: 20px;
 }
 
 #posts ul  li {
