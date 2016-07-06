@@ -1,12 +1,17 @@
 
-/*生成博客目录的CSS*/
+*
+{
+  font-family:Microsoft YaHei,SimHei,sans-serif;
+  font-weight: 100; 
+  font-size: 15px;
+}
 #sideBar{
     font-size:14px;
     font-family:Microsoft YaHei,SimHei,sans-serif;
     text-align:left;
     position:fixed;
     top:50px;
-    left: 70%;
+    left: 60%;
     width: 200px;
     bottom: 100px;
     overflow:hidden;!important;
