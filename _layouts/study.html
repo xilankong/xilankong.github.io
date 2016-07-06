@@ -15,6 +15,7 @@
   </style>
 </head>
 <body>
+  <div id = "studyBody">
   <section id="posts">
 	{% for category in site.categories %}
 	<div id="div_{{ forloop.rindex}}">
@@ -28,11 +29,13 @@
 	</div>
 	{% endfor %}
   </section>
+    </div>
     <div id="sideBar" class = "sideBar">
       <section id="portrait">
         <div id="me"><img src="{{ site.github.url }}/img/portrait.JPG" alt="汐蓝·空"></div>
         <a id="back" href="javascript:history.go(-1)">所有类别</a>
       </section>
     </div>
+
 </body>
 </html>

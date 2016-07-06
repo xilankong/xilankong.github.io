@@ -13,7 +13,12 @@
     color: #444444;
 }
 
-
+#studyBody
+{
+  width: 60%;
+  margin-left: 0;
+  background: red;
+}
 #portrait {
   display:block;
   margin-left: auto;
@@ -51,12 +56,11 @@
   color:#444;
 }
 #posts {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 800px;
+  margin-right: 0;
   color:#444;
   margin-top: 50px;
-  background: red;
+  background: black;
 }
 
 #posts ul {
