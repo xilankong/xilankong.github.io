@@ -15,8 +15,9 @@
 
 #studyBody
 {
-  width: 60%;
-  float: left;
+  padding-left:15%;
+  padding-right:25%;
+  margin: 0 auto;
   background: red;
 }
 #portrait {
