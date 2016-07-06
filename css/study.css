@@ -119,6 +119,7 @@ a:active,a:hover{outline:0}
 {
   width: 100%;
   max-width: 100%;
+  min-width: 100%;
 }
 
 #posts ul  li {
