@@ -407,6 +407,30 @@ expect eof
 EOF
 ```
 
+10.其他知识点
+
+pod 在多人协作的时候 如何保证 发布版本不会跟着开发走动  ：
+
+我们从开发过程可以看到 当我们pod install的时候 会出现下面代码：
+
+```
+Pre-downloading: `Category` from `git@gitlab.xxx.net:xxx_iOS/Category.git`, commit `e244ac83e027b8f6247e702603ecf0209c9d4878`
+```
+
+这里说明 Category这个库 更新了 pod去拉取Category库最新的代码
+
+cocoapods是根据 podfile文件中得 配置去指向指定库 同时 也有一个pod.lock文件 这个文件用于锁定 pod拉取代码的 commit 节点。如下是Category在pod.lock文件中生成的，commit 就是指向对应commit节点。
+
+```
+  Category:
+    :commit: 03c7a540b5c24eda6cea048048adef887cbbc77a
+    :git: git@gitlab.jfz.net:gxq_iOS/JFZReportModule.git
+```
+
+当然  如果是已经打了tag的不存在这个问题 因为它是按tag去拉取，这里针对的时尚未打tag的库。
+
+
+
 ## 4.参考文献
 
 [cocoapods官网](https://cocoapods.org)
