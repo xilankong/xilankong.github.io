@@ -6,7 +6,7 @@
     text-align:left;
     position:fixed;
     top:50px;
-    left: 60%;
+    left: 75%;
     width: 200px;
     bottom: 100px;
     overflow:hidden;!important;
@@ -15,7 +15,10 @@
 
 #studyBody
 {
-  width: 100%;
+  width: 60%;
+  margin-left: 0;
+  color:#444;
+  margin-top: 50px;
   background: red;
 }
 #portrait {
@@ -56,10 +59,11 @@
 }
 #posts {
   max-width: 800px;
-  float: right;
+  margin-left: auto;
+  margin-right: auto;
   color:#444;
   margin-top: 50px;
-  background: black;
+  background: red;
 }
 
 #posts ul {
