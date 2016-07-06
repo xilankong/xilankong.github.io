@@ -112,6 +112,14 @@ a:active,a:hover{outline:0}
 #sideBar{
   display: none;
 }
+#studyBody{
+  width: 100%;
+}
+#posts
+{
+  width: 100%;
+}
+
 #posts ul  li {
   font-size: 1.1em;
 }
