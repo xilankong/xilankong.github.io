@@ -1,0 +1,14 @@
+
+/*生成博客目录的CSS*/
+#sideBar{
+    font-size:14px;
+    font-family:Microsoft YaHei,SimHei,sans-serif;
+    text-align:left;
+    position:fixed;
+    top:50px;
+    left: 77%;
+    width: 200px;
+    bottom: 100px;
+    overflow:hidden;!important;
+    color: #444444;
+}

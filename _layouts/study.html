@@ -8,7 +8,7 @@
   <meta property="og:url" content="{{ site.github.url }}">
   <meta property="og:image" content="{{ site.github.url }}/img/portrait.png">
   <link rel="stylesheet" href="{{ site.github.url }}/css/home.css">
-  <link rel="stylesheet" href="{{ site.github.url }}/css/combo.css">
+  <link rel="stylesheet" href="{{ site.github.url }}/css/study.css">
     <style>
   #div_1{
     display: none;
@@ -29,6 +29,15 @@
 	</div>
 	{% endfor %}
   </section>
+    <div id="sideBar" class = "sideBar">
+      <section id="portrait">
+        <div id="me"><img src="{{ site.github.url }}/img/portrait.JPG" alt="汐蓝·空"></div>
+        <a id="back" href="javascript:history.go(-1)">{{page.category}}</a>
+        <hr>
+      </section>
+      <section id="toc">
+      </section>
 
+    </div>
 </body>
 </html>
