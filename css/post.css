@@ -2,7 +2,8 @@
 .content{
 	padding-left:15%;
 	padding-right:25%;
-  	margin: 0 auto;
+  max-width: 1500px;
+  margin: 0 auto;
 }
 .content img{max-width:100%;height:auto}
 article {
