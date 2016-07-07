@@ -13,11 +13,7 @@
   width: 168px;
   margin: auto;
 }
-#intro strong
-{
-  font-size: 1.5em;
-  color:#6A85B3;
-}  
+ 
 #me img {
   border-radius: 50%;
   max-width: 100%;
@@ -30,11 +26,13 @@
 #intro {
   color:#444;
   text-align: center;
+  margin-top: 20px;
 }
-#intro  h1 {
-  font-size: 2.5em;
+#intro strong
+{
+  font-size: 1.5em;
   color:#6A85B3;
-  }
+} 
 #intro   p {
   font-size: 1.3em;
   margin-top:1em;
