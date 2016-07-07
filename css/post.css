@@ -102,11 +102,7 @@ time a
     bottom: 100px;
     overflow:hidden;!important;
     color: #444444;
-    /*border-left: 1px solid #ccc; */
-}
-#sideBar toc{
-  border-left: 1px solid #ccc;
-  padding-left: 10px;
+    border: 1px solid #ccc; 
 }
 
 #portrait {
@@ -119,7 +115,7 @@ time a
   width: 100%;
   color:#6A85B3;
   font-size:1.75em;
-  text-align: left;
+  text-align: center;
 }
 
 #sideBarContents{
