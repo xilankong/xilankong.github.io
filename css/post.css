@@ -108,6 +108,7 @@ time a
 #portrait {
   display:block;
   text-align: center;
+  border-left: 1px solid #ccc; 
 }
 #portrait a{
   display: block;
@@ -115,17 +116,6 @@ time a
   color:#6A85B3;
   font-size:1.75em;
   text-align: center;
-}
-#me {
-  height: 160px;
-  width: 160px;
-  margin: auto;
-  display: block;
-  margin-bottom: 10px;
-}
-#me img {
-  border-radius: 50%;
-  max-width: 100%;
 }
 
 #sideBarContents{
