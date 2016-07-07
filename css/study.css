@@ -110,6 +110,7 @@ a:active,a:hover{outline:0}
     font-size:1.5em;
     color: #6A85B3;
     margin-top: 1em;
+    display:block;
 }
 #portrait a :hover{
     color: #6A85B3;
