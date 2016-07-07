@@ -21,6 +21,7 @@
 #studyBody
 {
   max-width: 1000px;
+  min-width: 800px;
   width: 65%;
   color:#444;
   margin-left: auto;
