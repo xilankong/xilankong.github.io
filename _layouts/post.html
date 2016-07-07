@@ -156,7 +156,10 @@ var BlogDirectory = {
                 num++;
             }
         }
-        if(num == 0) return false; 
+        if(num == 0) {
+            divSideBar.display = "none";
+            return false; 
+        }
     }
     
 };
