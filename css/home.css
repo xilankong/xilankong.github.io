@@ -9,7 +9,6 @@
   display:block;
   margin-left: auto;
   margin-right: auto;
-  margin-top:4em;
   text-align: center;
 }
   
@@ -29,6 +28,7 @@
 }
 
 #intro {
+  display: block;
   color:#444;
   text-align: center;
   margin-top: 20px;
