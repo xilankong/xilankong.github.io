@@ -115,7 +115,8 @@ time a
   width: 100%;
   color:#6A85B3;
   font-size:1.75em;
-  text-align: center;
+  text-align: left;
+  margin-bottom: 15px;
 }
 
 #sideBarContents{
