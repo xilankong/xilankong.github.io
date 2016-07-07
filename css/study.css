@@ -5,6 +5,9 @@
   font-weight: 100; 
   font-size: 15px;
 }
+a{
+  text-decoration: none;
+}
 #sideBar{
     font-size:14px;
     font-family:Microsoft YaHei,SimHei,sans-serif;
@@ -84,7 +87,6 @@
 
 #posts  a {
   color:#A1B373;
-  text-decoration: none;
   font-size:0.97em;
 }
 #posts  a:hover{
@@ -100,11 +102,11 @@
 #back :hover{
     color: #6A85B3;
 }
-.github a{
+.github {
     color: #444;
     font-size: 15px;
 }
-.github a:hover
+.github :hover
 {
   color: #6A85B3;
 }
