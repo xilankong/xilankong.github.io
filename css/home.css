@@ -3,7 +3,9 @@
   background: red;
   width: 400px;
   height: 400px;
-  vertical-align:middle;
+  position:absolute;
+  top:50%;
+
 }
 
 #portrait {
