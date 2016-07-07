@@ -99,7 +99,7 @@ time a
     top:50px;
     left: 77%;
     width: 200px;
-    bottom: 100px;
+    min-height: 100px;
     overflow:hidden;!important;
     color: #444444;
     /*border-left: 1px solid #ccc; */
