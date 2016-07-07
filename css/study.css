@@ -82,12 +82,12 @@
   font-size: 90%;
 }
 
-#post a {
+#post > a {
   color:#A1B373;
   text-decoration: none;
   font-size:0.97em;
 }
-#post a:hover{
+#post > a:hover{
   color: #899d5b;
 }
 
