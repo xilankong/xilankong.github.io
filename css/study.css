@@ -100,11 +100,11 @@
 #portrait a :hover{
     color: #6A85B3;
 }
-#github{
+.github{
     color: #444;
     font-size: 0.9em;
 }
-#github :hover
+.github :hover
 {
   color: #6A85B3;
 }
