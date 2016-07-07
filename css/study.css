@@ -8,7 +8,7 @@
 #sideBar{
     font-size:14px;
     font-family:Microsoft YaHei,SimHei,sans-serif;
-    background: blue;
+    /*background: blue;*/
     width: 200px;
     height: 400px;
     bottom: 100px;
@@ -28,7 +28,7 @@
   margin-top: 50px;
 
 /*  text-align: right;*/
-  background: red;
+  /*background: red;*/
 }
 #portrait {
   display:block;
@@ -71,8 +71,7 @@
   max-width: 800px;
   display: inline-block;
   color:#444;
-  margin-top: 50px;
-  background: black;
+  /*background: black;*/
   text-align: left;
 }
 
