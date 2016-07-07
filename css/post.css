@@ -102,13 +102,14 @@ time a
     bottom: 100px;
     overflow:hidden;!important;
     color: #444444;
+    border-left: 1px solid #ccc; 
 }
 
 
 #portrait {
   display:block;
   text-align: center;
-  border-left: 1px solid #ccc; 
+  margin-bottom: 15px;
 }
 #portrait a{
   display: block;
@@ -116,7 +117,6 @@ time a
   color:#6A85B3;
   font-size:1.75em;
   text-align: left;
-  margin-bottom: 15px;
 }
 
 #sideBarContents{
