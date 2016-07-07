@@ -8,11 +8,12 @@
 #sideBar{
     font-size:14px;
     font-family:Microsoft YaHei,SimHei,sans-serif;
-    text-align:left;
+/*    text-align:left;
     position:fixed;
     top:50px;
-    left: 60%;
+    left: 60%;*/
     width: 200px;
+    height: 400px;
     bottom: 100px;
     overflow:hidden;!important;
     color: #444444;
@@ -22,9 +23,10 @@
 {
   width: 60%;
   color:#444;
-  margin-left: 0;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 50px;
-  text-align: right;
+/*  text-align: right;*/
   /*background: red;*/
 }
 #portrait {
