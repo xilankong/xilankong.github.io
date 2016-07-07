@@ -100,6 +100,14 @@ a:active,a:hover{outline:0}
 #portrait a :hover{
     color: #6A85B3;
 }
+.small_a{
+    color: #444;
+    font-size: 0.9em;
+}
+.small_a :hover
+{
+  color: #6A85B3;
+}
 /* responsive */
 @media (max-width: 767px) {
 #sideBar{
