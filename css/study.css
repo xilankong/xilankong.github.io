@@ -108,6 +108,11 @@ a:active,a:hover{outline:0}
 
 #portrait a{
     font-size:1.5em;
+    color: #6A85B3;
+    margin-top: 1em;
+}
+#portrait a :hover{
+    color: #6A85B3;
 }
 /* responsive */
 @media (max-width: 767px) {
