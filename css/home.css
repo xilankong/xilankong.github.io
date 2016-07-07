@@ -127,7 +127,8 @@ a:active,a:hover{outline:0}
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  margin-left:0px;margin-top:0px;
+
+  position: relative;
 }
 #portrait #me {
   width: 120px;
