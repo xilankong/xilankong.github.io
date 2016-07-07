@@ -13,7 +13,7 @@
     top:50px;
     left: 60%;*/
     display: inline-block;
-    float: right;
+    /*float: right;*/
     width: 200px;
     height: 400px;
     bottom: 100px;
@@ -23,7 +23,7 @@
 
 #studyBody
 {
-  width: 60%;
+  width: 70%;
   color:#444;
   margin-left: auto;
   margin-right: auto;
