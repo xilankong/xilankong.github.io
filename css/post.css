@@ -104,7 +104,10 @@ time a
     color: #444444;
     /*border-left: 1px solid #ccc; */
 }
-
+#sideBar toc{
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
 
 #portrait {
   display:block;
