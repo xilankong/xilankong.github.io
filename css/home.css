@@ -13,7 +13,11 @@
   width: 168px;
   margin: auto;
 }
-  
+#intro strong
+{
+  font-size: 1.75em;
+  color:#6A85B3;
+}  
 #me img {
   border-radius: 50%;
   max-width: 100%;
