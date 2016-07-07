@@ -102,11 +102,11 @@ a:active,a:hover{outline:0}
 #portrait a :hover{
     color: #6A85B3;
 }
-.small_a{
+#github{
     color: #444;
     font-size: 0.9em;
 }
-.small_a :hover
+#github :hover
 {
   color: #6A85B3;
 }
