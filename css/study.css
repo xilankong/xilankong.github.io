@@ -8,12 +8,7 @@
 #sideBar{
     font-size:14px;
     font-family:Microsoft YaHei,SimHei,sans-serif;
-/*    text-align:left;
-    position:fixed;
-    top:50px;
-    left: 60%;*/
-    display: inline-block;
-    /*float: right;*/
+    background: blue;
     width: 200px;
     height: 400px;
     bottom: 100px;
@@ -23,11 +18,13 @@
 
 #studyBody
 {
-  width: 70%;
+  max-width: 70%;
+  min-width: 60%;
   color:#444;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
+  display: inline-block;
 /*  text-align: right;*/
   background: red;
 }
