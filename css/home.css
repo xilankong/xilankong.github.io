@@ -1,4 +1,6 @@
-
+.mainBody{
+  margin:auto;
+}
 
 #portrait {
   display:block;
@@ -125,19 +127,7 @@ a:active,a:hover{outline:0}
 }
 #intro {
   font-size: 0.8em;
+  padding-left: 5px;
+  padding-right: 5px;
 }
-#contact {
-  width: 180px;
-}
-
-#contact  span {
-  font-size: 1.3em;
-}
-#about{
-  font-size:1.1em;
-}
-#about a ,#posts a {
-  font-size:0.95em;
-}
- #posts h2 { font-size: 1.2em; }
 }
