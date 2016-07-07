@@ -16,6 +16,7 @@
     float: right;
     color: #444444;
     display: inline-block;
+    margin-top:50px;
 }
 
 #studyBody
@@ -35,7 +36,6 @@
   display:block;
   margin-left: auto;
   margin-right: auto;
-  margin-top:4em;
   text-align: center;
 }
   
@@ -113,6 +113,7 @@ a:active,a:hover{outline:0}
 @media (max-width: 767px) {
 #sideBar{
   display: none;
+  margin-top: 0px;
 }
 #studyBody{
   width: 100%;
@@ -125,7 +126,6 @@ a:active,a:hover{outline:0}
   width: 100%;
   max-width: 100%;
   min-width: 100%;
-  margin-top: 0px;
 }
 
 #posts ul  li {
