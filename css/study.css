@@ -12,6 +12,8 @@
     position:fixed;
     top:50px;
     left: 60%;*/
+    display: inline-block;
+    float: right;
     width: 200px;
     height: 400px;
     bottom: 100px;
@@ -71,7 +73,7 @@
   display: inline-block;
   color:#444;
   margin-top: 50px;
-  /*background: black;*/
+  background: black;
   text-align: left;
 }
 
