@@ -1,3 +1,13 @@
+*
+{
+  font-family:Microsoft YaHei,SimHei,sans-serif;
+  font-weight: 100; 
+  font-size: 15px;
+}
+/* inline elements */
+a {
+  text-decoration: none;
+}
 .mainBody{
   /*background: red;*/
   width: 400px;
