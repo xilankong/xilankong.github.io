@@ -104,15 +104,14 @@ a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
 #contact {
   width: 250px;
-  margin: 2em auto;
-  margin-bottom:30px;
-  display: inline-block;
+  height: 50px;
+  background: black;
 }
 
 .one{
   display: inline-block;
-  width: 2em;
-  height: 2em;
+  width: 30%;
+  height:100%;
   margin: 0 auto;
   background-color: #A1B373;
   color: #fff;
