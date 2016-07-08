@@ -15,6 +15,7 @@ a {
   position: absolute;
   left:50%;top:50%; 
   margin-left:-200px;margin-top:-250px;
+  background: red;
 }
 
 #portrait {
