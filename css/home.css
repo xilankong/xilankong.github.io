@@ -109,7 +109,7 @@ a:active,a:hover{outline:0}
 }
 
 .one{
-  display: block;
+  display: inline-block;
   width: 2em;
   height: 2em;
   margin: 0 auto;
@@ -118,7 +118,6 @@ a:active,a:hover{outline:0}
   font-size: 1.75em;
   line-height: 2em;
   text-align: center;
-  border-radius: 50%;
 }
 .one:hover{
   background-color: #899d5b;
