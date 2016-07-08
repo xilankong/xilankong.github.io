@@ -15,7 +15,7 @@ a {
   position: absolute;
   left:50%;top:50%; 
   margin-left:-200px;margin-top:-250px;
-  background: red;
+  /*background: red;*/
 }
 
 #portrait {
@@ -61,7 +61,7 @@ a {
   height: 30px;
   margin: 0 auto;
   margin-top: 40px;
-  background: black;
+  /*background: black;*/
 }
 
 .one{
@@ -69,8 +69,8 @@ a {
   width: 32%;
   height:100%;
   margin: 0 auto;
-  background-color: #A1B373;
-  color: #fff;
+  /*background-color: #A1B373;*/
+  color: #444;
   font-size: 1.3em;
   line-height: 2em;
   text-align: center;
