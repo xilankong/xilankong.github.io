@@ -104,7 +104,7 @@ a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
 #contact {
   width: 250px;
-  height: 50px;
+  height: 20px;
   background: black;
 }
 
