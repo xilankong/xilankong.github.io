@@ -106,6 +106,7 @@ a:active,a:hover{outline:0}
   width: 250px;
   margin: 2em auto;
   margin-bottom:30px;
+  display: inline-block;
 }
 
 .one{
