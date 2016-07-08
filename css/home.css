@@ -70,13 +70,13 @@ a {
   height:100%;
   margin: 0 auto;
   /*background-color: #A1B373;*/
-  color: #444;
+  color: #666;
   font-size: 1.3em;
   line-height: 2em;
   text-align: center;
 }
 .one:hover{
-  background-color: #899d5b;
+  text-decoration:underline;
 }
 #blue
 {
