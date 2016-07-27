@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>{{ page.title }}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:url" content="{{ site.github.url }}">
+  <meta property="og:image" content="{{ site.github.url }}/img/portrait.png">
+  <link rel="stylesheet" href="{{ site.github.url }}/css/study.css">
+</head>
+<body>
+  <div id = "studyBody">
+  <section id="posts">
+	{% for category in site.categories %}
+	{% if forloop.rindex == 1 %}
+	<div id="div_{{ forloop.rindex}}">
+	<br/>
+	<h2>{{ category | first }}</h2>
+	<ul>
+    {% for post in category.last %}
+	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+	</ul>
+	</div>
+	{% endif %}
+	{% endfor %}
+  </section>
+      <div id="sideBar" class = "sideBar">
+      <section id="portrait">
+        <div id="me"><a href="{{ site.github.url }}"><img src="{{ site.github.url }}/img/portrait.JPG" alt="汐蓝·空"></a></div>
+        <a id="back" href="{{ site.github.url }}">汐蓝·空</a>
+        <p>个人整理学习生活的地方</p>
+        <div class="github" >
+        <a target="_blank" href="https://github.com/xilankong">goto : GitHub </a></div>
+      </section>
+    </div>
+    </div>
+</body>
+</html>
