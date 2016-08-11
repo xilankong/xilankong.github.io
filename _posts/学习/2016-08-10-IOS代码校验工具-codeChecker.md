@@ -103,6 +103,8 @@ Ctrl - u 撤销修改(保证光标在需要撤销的文件下 处于INSERT模式
 
 当想恢复刚刚执行的format操作可以使用codelog命令查看format记录，codereset命令(参数是需要还原的文件在项目中的相对地址)还原刚刚操作过的文件。(暂时只支持单文件还原，每个文件的备份数据在本地进行迭代。如果需要某个文件的多个版本前的备份记录，需要先还原备份目录到指定节点)。
 
+codelog
+
 ![](https://xilankong.github.io/resource/codelog.png)
 
 codereset
