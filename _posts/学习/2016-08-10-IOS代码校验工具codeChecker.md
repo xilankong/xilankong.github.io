@@ -117,3 +117,4 @@ codereset
 
 
 
+每次的format过程都会备份文件，并且这些文件以迭代的方式保存。目录 Document/codeCheckerCache
