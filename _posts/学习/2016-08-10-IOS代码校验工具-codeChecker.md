@@ -5,7 +5,7 @@ category: 学习之路
 
 之前分享的Git hooks 遗留下来的那个问题，怎么更好的去使用 spacecommander 去做事情，去优化我们的代码风格。
 
-TASK:
+任务:
 
 1.更完善的代码校验
 
@@ -21,7 +21,7 @@ TASK:
 
 ## the CodeChecker
 
-IOS 代码校验，一键完善，只需要执行一次命令文件就可以给IOS项目部署代码校验工具
+IOS 代码校验，一键部署，只需要执行一次命令文件就可以给IOS项目部署代码校验工具
 
 依赖于Git hooks 每次代码 commit 的时候进行代码强制校验。
 
@@ -34,20 +34,24 @@ IOS 代码校验，一键完善，只需要执行一次命令文件就可以给I
 工具部署只需要一个启动脚本，自动下载校验工具、部署脚本和钩子以及创建新的操作命令
 
 ```
-提取项目中得setup.command文件放置到工程的根目录，双击执行 并根据提示操作command文件
+1.提取项目中得setup.command文件放置到工程的根目录，双击执行 并根据提示操作command文件
 
-如果执行无权限 > 终端 cd 到当前目录 执行 chmod +x setup.command
+2.如果执行提示无权限 > 终端 cd 到当前目录 执行 chmod +x setup.command
 
-Would you like to use the code check 选中 no 为卸载操作，当不需要代码校验的时候执行此操作
+3.Would you like to use the codeChecker ? [ yes / no ]
 
-选择yes为安装操作，安装过程可以选择两种模式，下面会提到。
+4.选中 no 为卸载操作，当不需要代码校验的时候执行此操作 / 选择yes为安装操作。
+
+5.Which style do you need ?  [ list / window ]
+
+6.提供两种模式
 ```
 
 ### 2.提供两种代码提示
 
 为方便不同的使用，现提供两种代码规范提示模式：list 模式 / window 模式
 
-list模式每次commit会自动文档显示代码纠正点，开发查看后可以自行修改 或者使用快捷命令自动修改代码格式。
+list模式每次commit会自动显示错误文档，显示代码纠正点，可以根据代码问题点自行进行代码修整 或者使用快捷命令自动修改代码格式。
 
 
 
