@@ -1,7 +1,5 @@
----
 layout: post
 category: 学习之路
----
 
 之前分享的Git hooks 遗留下来的那个问题，怎么更好的去使用 spacecommander 去做事情，去优化我们的代码风格。
 
@@ -67,7 +65,9 @@ list模式每次commit会自动显示错误文档，显示代码纠正点，可�
 
 window模式开启代码对比功能，左侧为自己的代码、右侧为规范代码，提供快捷方式进行代码修正覆盖。
 
+![](https://xilankong.github.io/resource/window.png)
 
+如上图部分，左侧为我们的代码，右侧为format后的代码，其中有变更的地方都有颜色标明。我们可以使用快捷键来快速的在需要变更的节点跳转和节点覆盖。以及代码的还原和撤销，当处理完成后颜色光标会消失，wqa 保存退出即可。下面是常用快捷方式
 
 ```
 window 模式下的操作快捷方式
@@ -103,11 +103,11 @@ Ctrl - u 撤销修改(保证光标在需要撤销的文件下 处于INSERT模式
 
 当想恢复刚刚执行的format操作可以使用codelog命令查看format记录，codereset命令(参数是需要还原的文件在项目中的相对地址)还原刚刚操作过的文件。(暂时只支持单文件还原，每个文件的备份数据在本地进行迭代。如果需要某个文件的多个版本前的备份记录，需要先还原备份目录到指定节点)。
 
+![](https://xilankong.github.io/resource/codelog.png)
 
+codereset
 
-
-
-
+![](https://xilankong.github.io/resource/codereset.png)
 
 
 
