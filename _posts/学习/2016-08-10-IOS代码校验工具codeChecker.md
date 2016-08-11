@@ -57,7 +57,7 @@ list模式每次commit会自动显示错误文档，显示代码纠正点，可�
 
 ![](https://xilankong.github.io/resource/list.png)
 
-如上图部分，※号下面为原本的错误样式 —号下面部分为校验后代码样式 数字分别表示从多少行开始到多少行。:q 退出查看，每一份代码文件都会单独展示样式修改信息。
+如上图部分，※号下面为原本的错误样式  — 号下面部分为校验后代码样式 数字分别表示从多少行开始到多少行。!号表示有变更的行，+号表示新增，-号表示删除   :q 退出查看，每一份代码文件都会单独展示样式修改信息。
 
 ![](https://xilankong.github.io/resource/list-tips.png)
 
@@ -113,7 +113,7 @@ codereset
 
 ![](https://xilankong.github.io/resource/codereset.png)
 
-
+每次的format过程都会备份文件，并且这些文件以迭代的方式保存。目录 Document/codeCheckerCache
 
 ### 4.问题
 
@@ -130,3 +130,4 @@ codereset
 ### 5.链接
 
  [setup.command](https://github.com/xilankong/IosCodeChecker)
+
