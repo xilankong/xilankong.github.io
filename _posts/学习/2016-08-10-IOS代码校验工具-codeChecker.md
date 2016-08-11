@@ -1,5 +1,7 @@
+---
 layout: post
 category: 学习之路
+---
 
 之前分享的Git hooks 遗留下来的那个问题，怎么更好的去使用 spacecommander 去做事情，去优化我们的代码风格。
 
@@ -113,3 +115,18 @@ codereset
 
 
 
+### 4.问题
+
+1.更完美的备份恢复机制
+
+2.vimdiff是否能更多自定义
+
+3.服务器端的静态扫描
+
+4.丰富校验规则
+
+
+
+### 5.链接
+
+ [setup.command](https://github.com/xilankong/IosCodeChecker)
