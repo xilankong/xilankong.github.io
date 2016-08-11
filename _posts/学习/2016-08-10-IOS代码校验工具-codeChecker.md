@@ -1,5 +1,9 @@
+---
 layout: post
 category: 学习之路
+---
+
+
 
 之前分享的Git hooks 遗留下来的那个问题，怎么更好的去使用 spacecommander 去做事情，去优化我们的代码风格。
 
