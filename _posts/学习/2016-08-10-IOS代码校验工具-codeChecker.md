@@ -53,7 +53,7 @@ IOS 代码校验，一键部署，只需要执行一次命令文件就可以给I
 
 list模式每次commit会自动显示错误文档，显示代码纠正点，可以根据代码问题点自行进行代码修整 或者使用快捷命令自动修改代码格式。
 
-
+![](https://xilankong.github.io/resource/list.png)
 
 
 
