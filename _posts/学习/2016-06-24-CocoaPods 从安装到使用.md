@@ -1,6 +1,7 @@
 ---
 layout: post
 category: 学习之路
+title: "CocoaPods 从安装到使用" 
 ---
 
 ------
