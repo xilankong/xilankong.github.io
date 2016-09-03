@@ -1,6 +1,7 @@
 ---
 layout: post
 category: 学习之路
+title:  "AFNetworking使用细节整理" 
 ---
 
 TASK:
