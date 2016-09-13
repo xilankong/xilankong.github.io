@@ -1,6 +1,7 @@
 ---
 layout: post
 category: 学习之路
+title:  "IOS开发之layoutSubviews的作用和调用机制" 
 ---
 
 在UIView里面有一个方法layoutSubviews，这个方法具体作用是什么呢？
