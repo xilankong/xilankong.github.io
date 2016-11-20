@@ -13,8 +13,7 @@
   <div id = "studyBody">
   <section id="posts">
 	{% for category in site.categories %}
-  {% site.categories %}
-	{{ if forloop.rindex == 1 }}
+	{% if forloop.rindex == 1 %}
 	<div id="div_{{ forloop.rindex}}">
 	<br/>
 	<h2>{{ category | first }}</h2>
