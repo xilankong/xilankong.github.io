@@ -4,7 +4,7 @@ category: 学习之路
 title : "Xcode调试工具之LLDB"
 ---
 
-## **1、Xcode调试工具**之LLDB**
+## 1、Xcode调试工具之LLDB
 
  LLDB是Xcode自带的一个开源调试器。存在于主窗口底部的控制台中。调试器允许你在程序运行的特定时暂停它
 
