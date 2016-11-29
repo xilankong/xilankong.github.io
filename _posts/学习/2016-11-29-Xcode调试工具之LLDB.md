@@ -1,10 +1,10 @@
 ---
 layout: post
 category: 学习之路
-title : "Xcode调试工具 (LLDB)"
+title : "Xcode调试工具之LLDB"
 ---
 
-## **1、Xcode调试工具** **：LLDB**
+## **1、Xcode调试工具**之LLDB**
 
  LLDB是Xcode自带的一个开源调试器。存在于主窗口底部的控制台中。调试器允许你在程序运行的特定时暂停它
 
@@ -339,22 +339,6 @@ expression -- (void)[CATransaction flush] 不起作用
 
 
 http://blog.csdn.net/u011619283/article/details/53080147
-
-## 2、日志调试，xcode崩溃日志
-
-
-
-发电公司
-
-
-
-## 3、Charles 黑魔法
-
-http://blog.csdn.net/donwei8/article/details/51647752
-
-
-
-
 
 
 
