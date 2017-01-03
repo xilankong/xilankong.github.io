@@ -13,10 +13,10 @@
   <div id = "studyBody">
   <section id="posts">
 	{% for category in site.categories %}
-	{% if forloop.rindex == 2 %}
+	{% if category | first == "学习之路" %}
 	<div id="div_{{ forloop.rindex}}">
 	<br/>
-	<h2>{{ category }}</h2>
+	<h2>{{ category | first }}</h2>
 	<ul>
     {% for post in category.last %}
 	  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d"  }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
