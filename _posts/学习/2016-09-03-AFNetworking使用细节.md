@@ -152,3 +152,19 @@ httpClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"a
 常见get post 请求方法
 
 DEPRECATED_ATTRIBUTE 的意思是  废弃属性
+
+
+
+AF https
+
+http://www.jianshu.com/p/20d5fb4cd76d
+
+
+
+
+
+https 抓包
+
+
+
+http://www.jianshu.com/p/97745be81d64
