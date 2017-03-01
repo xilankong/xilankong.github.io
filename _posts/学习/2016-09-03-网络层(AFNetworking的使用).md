@@ -1,7 +1,7 @@
 ---
 layout: post
 category: 学习之路
-title:  "网络层之AFNetworking的使用" 
+title:  "网络层(AFNetworking的使用)" 
 ---
 
 AFNetworking使用细节整理

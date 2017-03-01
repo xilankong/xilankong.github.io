@@ -1,7 +1,7 @@
 ---
 layout: post
 category: 学习之路
-title:  "Blocks For IOS" 
+title:  "block in oc/closure in swift" 
 ---
 
 ## 1.解决block中的循环引用
