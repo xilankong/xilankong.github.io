@@ -174,3 +174,38 @@ block在iOS开发中被视作是对象，因此其生命周期会一直等到持
 __weak typeof(*&self) weakSelf = self;
 ```
 
+
+
+```
+typedef BOOL (^filterRule)(id item);
+typedef NSArray *(^filterMethod)(filterRule rule);
+
+@interface NSArray(FilterExtend)
+@property (nonatomic, copy, readonly) filterMethod filterMethod;
+@end
+
+@implementation NSArray(FilterExtend)
+-(filterMethod)filterMethod {
+    filterMethod filte = (filterMethod)^(filterRule rule) {
+        NSMutableArray *array = @[].mutableCopy;
+        for (id item in self)
+            if (rule(item)) {
+                [array addObject:item];
+            }
+        return array;
+    };
+    return filte;
+}
+@end
+
+
+///////////
+
+NSArray * array = @[@"111",@"222",@"333",@"444",@"ff"];
+NSArray *array_m = array.filterMethod((filterRule)^(id item){
+    NSString *str = item;
+    return str.length > 2;
+});
+NSLog(@"%@",array_m);
+```
+
