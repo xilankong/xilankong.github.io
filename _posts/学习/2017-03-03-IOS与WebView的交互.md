@@ -18,7 +18,7 @@ JockeyJS关键词就是  on  和 send
 
 on ： 挂起一个监听  send ：发出一个通知
 
-### oc 接收-js发送
+### oc接收 - js发送
 
 ```
 
@@ -47,7 +47,7 @@ $("#jump").on("click", function() {
 
 ```
 
-### js接收-oc发送
+### js接收 - oc发送
 
 ```
 send : 发送 名字为 "toggle-talk-with-callback" 的通知携带一句问候语， 并挂一个回调，会话完成后弹窗提示。
