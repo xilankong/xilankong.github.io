@@ -12,14 +12,75 @@ title : "IOS和HTML的交互"
 
 ## 2.JockeyJS
 
+[JockeyJS](https://github.com/tcoulter/jockeyjs)  WebView 与原生代码的通信。
 
+JockeyJS关键词就是  on  和 send
 
+on ： 挂起一个监听  send ：发出一个通知
 
+### oc 接收-js发送
 
-Jockey 也要注意释放的问题
+```
 
-3.注意的问题
+on : 监听来自 js 的 "jump" 名字的通知，参数放在名为 payload 的字典中
 
+[Jockey on:@"jump" perform:^(NSDictionary *payload) {
+    [_YangRoute performActionWithRouteParams:payload completion:^(id error, id callBackObject) {
+        if(!error) {
+            NSLog(@"跳转成功");
+        } else {
+            NSLog(@"跳转异常");
+        }
+    }];
+}];
 
+send : html中得id为jump的按钮 点击后发出一个名字为 "jump" 的通知，携带一个字典参数,这里传递的是之前文章IOS跳转中涉及的约定好的跳转协议。
 
-可能会出现卡死屏幕的情况，当handle递交给JS端处理，例如弹窗时，并未及时返回给客户端，导致弹窗卡死屏幕
+$("#jump").on("click", function() {
+    Jockey.send("jump", {
+        routeId:"00001",
+        param:{
+            vcName:"ViewControllerTwo"
+        }
+    });
+});
+
+```
+
+### js接收-oc发送
+
+```
+send : 发送 名字为 "toggle-talk-with-callback" 的通知携带一句问候语， 并挂一个回调，会话完成后弹窗提示。
+
+$("#toggle-talk").on("click", function() {
+    Jockey.send("toggle-talk-with-callback", {
+        text: "你好啊!"
+    }, function() {
+        alert("对话结束！");
+    });
+});
+
+on : oc 监听 名字为 "toggle-talk-with-callback" 的通知（来自js的问候语），并回复(发送一个通知 名字为 "toggle-talk-response" 携带 oc对js问候语的回话)
+
+[Jockey on:@"toggle-talk-with-callback" performAsync:^(UIWebView *webView, NSDictionary *payload, void (^complete)()) {
+    NSString *text = [payload objectForKey:@"text"];
+    NSDictionary *param = @{@"response": [NSString stringWithFormat:@"你说：%@  我回答什么好呢?",text]};
+    [Jockey send:@"toggle-talk-response" withPayload:param toWebView:weakSelf.webView];
+}];
+
+on : js 监听 名字为 "toggle-talk-response" 的通知，并弹窗显示接收内容（来自oc的回话）。
+
+Jockey.on("toggle-talk-response", function(payload) {
+    alert(payload.response);
+});
+
+最后弹窗 对话结束，会话整个结束。
+```
+
+[demo](https://github.com/xilankong/YangRoute)
+
+## 3.要注意的问题
+
+1、Jockey 也要注意释放的问题
+
+2、可能会出现卡死屏幕的情况，当handle递交给JS端处理，例如弹窗时，并未及时返回给客户端，导致弹窗卡死屏幕
