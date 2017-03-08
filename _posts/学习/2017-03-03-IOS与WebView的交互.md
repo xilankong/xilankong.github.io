@@ -63,9 +63,13 @@ $("#toggle-talk").on("click", function() {
 on : oc 监听 名字为 "toggle-talk-with-callback" 的通知（来自js的问候语），并回复(发送一个通知 名字为 "toggle-talk-response" 携带 oc对js问候语的回话)
 
 [Jockey on:@"toggle-talk-with-callback" performAsync:^(UIWebView *webView, NSDictionary *payload, void (^complete)()) {
+
     NSString *text = [payload objectForKey:@"text"];
     NSDictionary *param = @{@"response": [NSString stringWithFormat:@"你说：%@  我回答什么好呢?",text]};
     [Jockey send:@"toggle-talk-response" withPayload:param toWebView:weakSelf.webView];
+    
+    complete();//回调回去
+
 }];
 
 on : js 监听 名字为 "toggle-talk-response" 的通知，并弹窗显示接收内容（来自oc的回话）。
@@ -84,3 +88,5 @@ Jockey.on("toggle-talk-response", function(payload) {
 1、Jockey 也要注意释放的问题
 
 2、可能会出现卡死屏幕的情况，当handle递交给JS端处理，例如弹窗时，并未及时返回给客户端，导致弹窗卡死屏幕
+
+3、complete();//回调回去  这个回调别忘了
