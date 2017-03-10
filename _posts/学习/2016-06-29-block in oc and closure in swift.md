@@ -1,7 +1,7 @@
 ---
 layout: post
 category: 学习之路
-title:  "block in oc/closure in swift" 
+title:  "block in oc and closure in swift" 
 ---
 
 ## 1.什么是block
