@@ -1,11 +1,14 @@
-
+/*post 内容部分*/
 .content{
 	padding-left:15%;
 	padding-right:25%;
   max-width: 1500px;
   margin: 0 auto;
 }
-.content img{max-width:100%;height:auto}
+.content img{
+  max-width:100%;
+  height:auto;
+}
 article {
   font-family:Microsoft YaHei,SimHei,sans-serif;
   padding-bottom:3em;
@@ -19,8 +22,9 @@ article  h1 {
   font-size: 1.6em;
   margin: 0 0 0 -0.08em;
 }
-article  .body { clear: left;}
-
+article  .body { 
+  clear: left;
+}
 article  blockquote {
     border-left: 4px solid #cccccc;
     padding: 0 15px;
@@ -30,8 +34,7 @@ article  blockquote {
     margin-left:0px;
     margin-right:0px;
 }
-hr
-{
+hr {
     height: 1px;
     padding: 0;
     margin: 16px 0;
@@ -71,9 +74,8 @@ time a
   padding-top: 10px;
 }
 
-/* responsive  word-wrap 解决英文不换行问题*/
+/* 小屏幕 word-wrap 解决英文不换行问题*/
 @media (max-width: 767px) {
-	
   .content{
 	padding-left:5px;
 	padding-right:5px;
@@ -88,8 +90,6 @@ time a
     display: none;
   }
 }
-
-
 
 /*生成博客目录的CSS*/
 #sideBar{
@@ -140,9 +140,7 @@ time a
 }
 #sideBarContents dd, dt {
     cursor: pointer;
-
 }
-
 #sideBarContents dd:hover, dt:hover {
     color:#6A85B3;
 }

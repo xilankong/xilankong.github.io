@@ -1,6 +1,7 @@
 
-*
-{
+/*侧边头像块*/
+
+*{
   font-family:Microsoft YaHei,SimHei,sans-serif;
   font-weight: 100; 
   font-size: 15px;
@@ -30,9 +31,6 @@ a{
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
-
-/*  text-align: right;*/
-  /*background: red;*/
 }
 #portrait {
   display:block;
