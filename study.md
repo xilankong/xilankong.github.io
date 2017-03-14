@@ -1,5 +1,5 @@
 ---
 layout: study
-title: Yang-学习之路
+title: yang-学习之路
 ---
 

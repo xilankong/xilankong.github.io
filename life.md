@@ -1,5 +1,5 @@
 ---
 layout: life
-title: Yang-生活收获
+title: yang-生活收获
 ---
 
