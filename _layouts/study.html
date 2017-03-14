@@ -12,7 +12,7 @@
 <body>
   <div id = "studyBody">
   <section id="posts">
-	{% for category in site.categories %}
+	{% for category in site.categories reversed %}
 
 	{% if category.first == "学习之路" or category.first contains "20" %}
 	<div id="div_{{ forloop.rindex}}">
