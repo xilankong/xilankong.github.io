@@ -1,9 +1,9 @@
 ---
 layout: home
-title: Yang
+title: yang
 ---
 
-我是 **Yang**  , 从事IOS开发
+我是 **yang**  , 从事IOS开发
 
 生活只是不断的雕刻我们 , 而不是刁难
 
