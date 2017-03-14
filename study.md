@@ -1,5 +1,5 @@
 ---
 layout: study
-title: xilankong-学习之路
+title: 学习之路
 ---
 

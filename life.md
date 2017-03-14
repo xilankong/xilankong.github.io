@@ -1,5 +1,5 @@
 ---
 layout: life
-title: xilankong-生活收获
+title: 生活收获
 ---
 
