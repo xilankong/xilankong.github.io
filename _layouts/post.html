@@ -200,7 +200,13 @@ function pageScroll(){
     <div class="content">
       <article>
         <h1 property="name">{{ page.title }}</h1>
-        <time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d"  }}  /   <a href="javascript:history.go(-1)"> {{page.category}} / 汐蓝·空 </a></time>
+        <time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d"  }}  /   
+            {% if page.category == "生活收获"  %}
+            <a href="https://xilankong.github.io/life.html"> {{page.category}} / 汐蓝·空 </a>
+            {% else %}
+            <a href="https://xilankong.github.io/study.html"> {{page.category}} / 汐蓝·空 </a>
+            {% endif %}
+        </time>
         <div class="body" property="articleBody" id="articleBody">
           {{ content }}
         </div>
@@ -209,7 +215,6 @@ function pageScroll(){
     <div id="sideBar" class = "sideBar">
       <section id="portrait">
         <h1>传送标签</h1>
-        <!-- <a id="back" href="javascript:history.go(-1)">{{page.category}}</a> -->
       </section>
       <section id="toc">
       </section>
