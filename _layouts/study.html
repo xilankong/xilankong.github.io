@@ -12,6 +12,7 @@
 <body>
   <div id = "studyBody">
   <section id="posts">
+    {%site.categories%}
 	{% for category in site.categories %}
 
 	{% if category.first contains "学习之路" %}
