@@ -1,5 +1,5 @@
 ---
 layout: life
-title: 汐蓝·空-生活收获
+title: Yang-生活收获
 ---
 
