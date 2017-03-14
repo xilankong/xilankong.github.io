@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 学习之路
+category: 2016年
 title:  "网络层(AFNetworking的使用)" 
 ---
 
