@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 2016年
+//category: 2016年
 title:  "IOS热修复(JSPatch)" 
 ---
 
