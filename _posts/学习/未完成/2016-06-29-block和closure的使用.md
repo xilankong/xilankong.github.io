@@ -1,9 +1,3 @@
----
-layout: post
-
-title : "block和closure的使用"
----
-
 ## 1.什么是block
 
 在iOS 4.0之后，block横空出世，它本身封装了一段代码并将这段代码当做变量，通过block()的方式进行回调。

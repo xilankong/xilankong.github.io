@@ -1,9 +1,3 @@
----
-layout: post
-
-title:  "网络层(AFNetworking的使用)" 
----
-
 AFNetworking使用细节整理
 
 ## 1.单例
