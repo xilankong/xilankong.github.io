@@ -14,7 +14,9 @@ OC基本语法、类与对象、封装与继承、点语法、公有与私有属
 
 #### 3、Swift 语言
 
+swift 工程中得main方法入口
 
+@UIApplicationMain
 
 ## 2、xcode的使用
 
