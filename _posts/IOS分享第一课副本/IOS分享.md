@@ -2,83 +2,97 @@
 
 概述
 
-## 1、语言基础
 
-#### 1、C 语言
 
-基本数据类型、判断与循环语句、函数与变量作用域、基本运算与进制、基本算法、数组与指针、枚举、宏定义
+## 语言基础
 
-#### 2、Objective-C 语言
+### 1、C 语言
 
-OC基本语法、类与对象、封装与继承、点语法、公有与私有属性、构造方法、内存管理的原则、MRC的内存管理、ARC的内存管理、野指针与僵尸对象、分类、协议、延展、block的简单使用、代理设计模式、Foundation框架、数组持久化、单例设计模式
+熟悉基本数据类型、判断与循环语句、函数与变量作用域、基本运算与进制、基本算法、数组与指针、枚举、宏定义
 
-#### 3、Swift 语言
+### 2、Objective-C 语言
 
-swift 工程中得main方法入口
+> 面向对象、完全兼容C语言
 
-@UIApplicationMain
-
-http://www.tuicool.com/articles/fAZ3yef
-
-Swift 是 Apple 自创的一门专门为 Cocoa 和 CocoaTouch 设计的语言，意在用来替代 objc
+#### 1、.h/.m
 
 ```
-所有的 Swift 代码都将被 LLVM 编译为 native code，以极高的效率运行。按照官方今天给出的 benchmark 数据，运行时比 Python 快 3.9 倍，比 objc 快 1.4 倍左右
-另一方面，Swift 的代码又是可以 Interactive 来“解释”执行的。新的 Xcode 中加入了所谓的 Playground 来对开发者输入的 Swift 代码进行交互式的相应，开发者也可是使用 swift 的命令行工具来交互式地执行 swift 语句。细心的朋友可能注意到了，我在这里把“解释”两个字打上了双引号。这是因为即使在命令行中， Swift 其实也不是被解释执行的，而是在每个指令后进对从开始以来的 swift 代码行了一遍编译，然后执行的。这样的做法下依然可以让人“感到”是在做交互解释执行，这门语言的编译速度和优化水平，可见一斑。同时 Playground 还顺便记录了每条语句的执行时候的各种情况，叫做一组 timeline。可以使用 timeline 对代码的执行逐步检查，省去了断点 debug 的时间，也非常方便。
+.h 表示头文件，用来声明各种成员变量，方法，属性之类的。在import的时候用头文件。
+.m 主要用来实现.h 里声明的方法
 ```
 
+#### 2、@符号的使用 
 
+**@property 声明属性**
 
-Swift采用了安全的编程模式和添加现代的功能来使得编程更加简单、灵活和有趣。界面则基于广受人民群众爱戴的Cocoa和Cocoa Touch框架，展示了软件开发的新方向。
+@property (nonatomic，assign) int running
+
+常见关键字：
+
+atomic：atomic意为操作是原子的，意味着只有一个线程访问实例变量。atomic是线程安全的，至少在当前的存取器上是安全的。它是一个默认的特性，但是很少使用。
+
+nonatomic：nonatomic跟atomic刚好相反。表示非原子的，可以被多个线程访问。它的效率比atomic快。但不能保证在多线程环境下的安全性，在单线程和明确只有一个线程访问的情况下广泛使用。
+
+readwrite（默认）：readwrite是默认值，表示该属性同时拥有setter和getter。
+
+readonly： readonly表示只有getter没有setter。
+
+assign（默认）：assign用于值类型，如int、float、double和NSInteger，CGFloat等表示单纯的复制。还包括不存在所有权关系的对象，比如常见的delegate。
+
+strong：strong是在IOS引入ARC的时候引入的关键字，是retain的一个可选的替代。表示实例变量对传入的对象要有所有权关系，即强引用。strong跟retain的意思相同并产生相同的代码，但是语意上更好更能体现对象的关系。
+
+weak：在setter方法中，需要对传入的对象不进行引用计数加1的操作。简单来说，就是对传入的对象没有所有权，当该对象引用计数为0时，即该对象被释放后，用weak声明的实例变量指向nil，即实例变量的值为0。（ARC IOS 5 之后）
+
+copy：与strong类似，但区别在于实例变量是对传入对象的副本拥有所有权，而非对象本身。
+
+**其他**
+
+@interface 声明类
+
+@protocol 声明协议
+
+用作数组字典等OC专用类型
+
+NSArray  *array = @[]; 
+NSDictionary *dic = @{};
+
+还可以把普通的数据类型转换为OC的对象类型
+
+NSString *str = @"xxx";   等等
+
+#### 3、其他
+
+block、分类 categroy  延展 extension、协议 （类似java接口） 和代理模式、泛型 （IOS7 以后）等等
+
+### 3、Swift 语言（>= Xcode 6 / IOS 7）
+
+Swift 是 Apple 自创的一门专门为 Cocoa 和 CocoaTouch 设计的语言，意在用来替代 OC 
+
+Swift采用了安全的编程模式和添加现代的功能来使得编程更加简单、灵活和有趣、更容易阅读。界面则基于广受人民群众爱戴的Cocoa和Cocoa Touch框架，展示了软件开发的新方向。
+
+所有的 Swift 代码都将被 LLVM 编译为 native code，以极高的效率运行。
+
+按照官方今天给出的 数据，运行时比 Python 快 3.9 倍，比 objc 快 1.4 倍左右。
 
 ```
-cocoa与cocoa Touch区别之分
-相同之处：两者都包含OC运行时的两个核心框架：
 cocoa包含Foundation和AppKit、Core Data等框架，可用于开发Mac OS X系统的应用程序
 cocoa touch包含Foundation和UIKit框架，可用于开发iPhone OS 系统的应用程序
 ```
 
-```
-   1.swift程序的入口是UIApplicationMain;
+1.Swift中的函数和闭包都是一等公民
 
-    2.OC的类是以.h和.m组成的;swift是一.swift结尾的;
+2.Swift是强类型 ：意思就是一个变量或者常量要有确定的类型  （安全）
 
-    3.OC的类是以@interface和@end开始结尾;swift是采用{};
-
-    4.OC里语句结束以分号(;);swift里不需要分号,添加分号也不会出错;
-
-    5.OC中创建一个视图,采用alloc/init,swift采用();
-
-    6.OC中创建视图采用initWithXXX;swift里变成(XXX:)
-
-    7.swift设置属性,全面采用点语法;
-
-    8.OC中添加视图使用self.view.addSubView;swift添加视图使用view.addSubView,不使用self,为了在闭包里和构造函数里区分会在闭包里和够构造函数里用self;
-
-    9.OC中枚举需要写全,swift中采用type.类型的形式;
-
-    10.OC里的方法是采用@selector;swift采用”方法名”形式;
-
-    11.swift中的枚举可以省略前面的tyoe,直接采用点语法,只能提示不太好;
-
-    12.OC中打印使用NSLog,swift使用print;
-
-    13.等号左右两边最号用对等的空格;
-```
+3.类型推断 （语法糖）
 
 ```
-数据类型等级  http://www.jianshu.com/p/f25b1ae07103
-
-OC
-
-swift 类型体系
-Swift中的函数和闭包都是一等公民
-
+// 变量intValue没有显式声明一个特定的类型，编译器会根据其赋值语句推断出它的类型为Int
+var intValue=10;
 ```
 
+演示demo
 
-
-## 2、xcode的使用
+## xcode的使用
 
 1、项目结构、常用配置
 
@@ -215,6 +229,18 @@ AppDelegate 是干嘛的
 IOS证书
 
 GXQ导航条实现方式
+
+绑定按钮事件的时候介绍消息机制，动态绑定
+
+```
+动态类型，说简单点就是id类型。动态类型是跟静态类型相对的。像内置的明确的基本类型都属于静态类型(int、NSString等)。静态类型在编译的时候就能被识别出来。所以，若程序发生了类型不对应，编译器就会发出警告。而动态类型就编译器编译的时候是不能被识别的，要等到运行时(run time)，即程序运行的时候才会根据语境来识别。所以这里面就有两个概念要分清：编译时跟运行时。
+
+（2）动态绑定
+
+动态绑定(dynamic binding)貌似比较难记忆，但事实上很简单，只需记住关键词@selector/SEL即可。先来看看“函数”，对于其他一些静态语言，比如c++,一般在编译的时候就已经将将要调用的函数的函数签名都告诉编译器了。静态的，不能改变。而在OC中，其实是没有函数的概念的，我们叫“消息机制”，所谓的函数调用就是给对象发送一条消息。这时，动态绑定的特性就来了。OC可以先跳过编译，到运行的时候才动态地添加函数调用，在运行时才决定要调用什么方法，需要传什么参数进去。这就是动态绑定，要实现他就必须用SEL变量绑定一个方法。最终形成的这个SEL变量就代表一个方法的引用。这里要注意一点：SEL并不是C里面的函数指针，虽然很像，但真心不是函数指针。SEL变量只是一个整数，他是该方法的ID。以前的函数调用，是根据函数名，也就是字符串去查找函数体。但现在，我们是根据一个ID整数来查找方法，整数的查找字自然要比字符串的查找快得多！所以，动态绑定的特定不仅方便，而且效率更高。
+```
+
+
 
 
 
