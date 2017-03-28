@@ -18,6 +18,66 @@ swift 工程中得main方法入口
 
 @UIApplicationMain
 
+http://www.tuicool.com/articles/fAZ3yef
+
+Swift 是 Apple 自创的一门专门为 Cocoa 和 CocoaTouch 设计的语言，意在用来替代 objc
+
+```
+所有的 Swift 代码都将被 LLVM 编译为 native code，以极高的效率运行。按照官方今天给出的 benchmark 数据，运行时比 Python 快 3.9 倍，比 objc 快 1.4 倍左右
+另一方面，Swift 的代码又是可以 Interactive 来“解释”执行的。新的 Xcode 中加入了所谓的 Playground 来对开发者输入的 Swift 代码进行交互式的相应，开发者也可是使用 swift 的命令行工具来交互式地执行 swift 语句。细心的朋友可能注意到了，我在这里把“解释”两个字打上了双引号。这是因为即使在命令行中， Swift 其实也不是被解释执行的，而是在每个指令后进对从开始以来的 swift 代码行了一遍编译，然后执行的。这样的做法下依然可以让人“感到”是在做交互解释执行，这门语言的编译速度和优化水平，可见一斑。同时 Playground 还顺便记录了每条语句的执行时候的各种情况，叫做一组 timeline。可以使用 timeline 对代码的执行逐步检查，省去了断点 debug 的时间，也非常方便。
+```
+
+
+
+Swift采用了安全的编程模式和添加现代的功能来使得编程更加简单、灵活和有趣。界面则基于广受人民群众爱戴的Cocoa和Cocoa Touch框架，展示了软件开发的新方向。
+
+```
+cocoa与cocoa Touch区别之分
+相同之处：两者都包含OC运行时的两个核心框架：
+cocoa包含Foundation和AppKit、Core Data等框架，可用于开发Mac OS X系统的应用程序
+cocoa touch包含Foundation和UIKit框架，可用于开发iPhone OS 系统的应用程序
+```
+
+```
+   1.swift程序的入口是UIApplicationMain;
+
+    2.OC的类是以.h和.m组成的;swift是一.swift结尾的;
+
+    3.OC的类是以@interface和@end开始结尾;swift是采用{};
+
+    4.OC里语句结束以分号(;);swift里不需要分号,添加分号也不会出错;
+
+    5.OC中创建一个视图,采用alloc/init,swift采用();
+
+    6.OC中创建视图采用initWithXXX;swift里变成(XXX:)
+
+    7.swift设置属性,全面采用点语法;
+
+    8.OC中添加视图使用self.view.addSubView;swift添加视图使用view.addSubView,不使用self,为了在闭包里和构造函数里区分会在闭包里和够构造函数里用self;
+
+    9.OC中枚举需要写全,swift中采用type.类型的形式;
+
+    10.OC里的方法是采用@selector;swift采用”方法名”形式;
+
+    11.swift中的枚举可以省略前面的tyoe,直接采用点语法,只能提示不太好;
+
+    12.OC中打印使用NSLog,swift使用print;
+
+    13.等号左右两边最号用对等的空格;
+```
+
+```
+数据类型等级  http://www.jianshu.com/p/f25b1ae07103
+
+OC
+
+swift 类型体系
+Swift中的函数和闭包都是一等公民
+
+```
+
+
+
 ## 2、xcode的使用
 
 1、项目结构、常用配置
@@ -113,6 +173,8 @@ demo
 --Products
 --Frameworks
 ```
+
+playground的介绍 特性
 
 
 
