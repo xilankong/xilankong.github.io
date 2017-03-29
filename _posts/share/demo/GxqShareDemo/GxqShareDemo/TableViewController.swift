@@ -11,7 +11,7 @@ import UIKit
 class TableViewController: UITableViewController {
     
     let data = [["title" : "1、语言特性", "segue" : "language"],
-                ["title" : "1、语言特性", "segue" : "language"],
+                ["title" : "2、storyboard的使用", "segue" : "storyboard"],
                 ["title" : "1、语言特性", "segue" : "language"],
                 ["title" : "1、语言特性", "segue" : "language"]]
     
