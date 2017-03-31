@@ -11,9 +11,12 @@ import UIKit
 class LifeCycleViewController: UIViewController {
 
     override func loadView() {
+        //print(self.view)//如果在super之前调用self.view 又会回来调用loadView 就会出现死循环
         super.loadView()
-        //它会先去查找与LifeCycleViewController相关联的xib文件，没有的时候，创建空View。一般情况下不用用到，除非需要重写设置View
+        //这个方法主要创建self.view,一般情况下不用用到，除非需要重写设置View
+        //它会先去查找与LifeCycleViewController相关联的xib文件，没有的时候，创建空View。
         print("[生命周期] \(self.classForCoder) loadView 加载基础控制器 nib")
+        
     }
     
     override func viewDidLoad() {
