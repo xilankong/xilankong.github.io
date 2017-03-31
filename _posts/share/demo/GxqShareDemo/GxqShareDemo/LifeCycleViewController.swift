@@ -33,12 +33,12 @@ class LifeCycleViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("[生命周期] \(self.classForCoder) viewWillAppear 视图即将消失")
+        print("[生命周期] \(self.classForCoder) viewWillDisappear 视图即将消失")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("[生命周期] \(self.classForCoder) viewWillAppear 视图完全消失")
+        print("[生命周期] \(self.classForCoder) viewDidDisappear 视图完全消失")
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,7 +48,7 @@ class LifeCycleViewController: UIViewController {
     
     
     deinit {
-        print("[生命周期] \(self.classForCoder) 视图销毁")
+        print("[生命周期] \(self.classForCoder) deinit 视图销毁")
     }
 
 }
