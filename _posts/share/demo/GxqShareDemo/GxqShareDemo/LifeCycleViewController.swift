@@ -13,7 +13,7 @@ class LifeCycleViewController: UIViewController {
     override func loadView() {
         super.loadView()
         //它会先去查找与LifeCycleViewController相关联的xib文件，没有的时候，创建空View。一般情况下不用用到，除非需要重写设置View
-        print("[生命周期] \(self.classForCoder) loadView 加载基础控制器")
+        print("[生命周期] \(self.classForCoder) loadView 加载基础控制器 nib")
     }
     
     override func viewDidLoad() {
