@@ -12,7 +12,7 @@
         <!--小白的页面-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GxqShareDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LanguageViewController" customModule="GxqShareDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -185,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMs-dv-BEK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="60" y="1418"/>
+            <point key="canvasLocation" x="60" y="1456"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Uq7-X7-VTh">
@@ -201,7 +201,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y9b-bi-lbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-908" y="110"/>
+            <point key="canvasLocation" x="-1050" y="-146"/>
         </scene>
         <!--学习列表-->
         <scene sceneID="lvu-lQ-9Jk">
@@ -231,16 +231,58 @@
                         <segue destination="BYZ-38-t0r" kind="push" identifier="language" id="NRZ-fe-hhL"/>
                         <segue destination="ULs-rg-jbt" kind="push" identifier="storyboard" id="J6K-T8-qM8"/>
                         <segue destination="6sb-gA-jEW" kind="push" identifier="hitTest" id="0B0-GV-kGF"/>
+                        <segue destination="a5l-le-1hc" kind="push" identifier="lifecycle" id="wlj-rR-ocU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3VR-7b-Nfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="60" y="-145"/>
         </scene>
+        <!--生命周期-->
+        <scene sceneID="TEu-al-Nrl">
+            <objects>
+                <viewController id="a5l-le-1hc" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="T81-qY-cN3"/>
+                        <viewControllerLayoutGuide type="bottom" id="eYC-t5-qvG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZvX-aN-PJX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="生命周期" id="wzl-cK-8uV"/>
+                    <connections>
+                        <segue destination="Ct3-Qp-oDY" kind="push" id="tA4-IM-tQx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rw5-hS-Cfe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2421" y="678"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="AS4-JT-ywO">
+            <objects>
+                <viewController id="Ct3-Qp-oDY" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vaJ-G9-My4"/>
+                        <viewControllerLayoutGuide type="bottom" id="1zF-Ro-QyC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d4h-EZ-WZU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2v9-vC-UEG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O96-63-9No" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3203" y="678"/>
+        </scene>
         <!--UI控件-->
         <scene sceneID="7dg-Q7-DjY">
             <objects>
-                <viewController id="ULs-rg-jbt" sceneMemberID="viewController">
+                <viewController id="ULs-rg-jbt" customClass="DynamicBindViewController" customModule="GxqShareDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="92k-ca-ml8"/>
                         <viewControllerLayoutGuide type="bottom" id="v4U-NN-tV1"/>
@@ -260,9 +302,12 @@
                                 <rect key="frame" x="92" y="78" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="buttonAction:" destination="ULs-rg-jbt" eventType="touchUpInside" id="rJd-el-Ejk"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aem-Cx-L9n">
-                                <rect key="frame" x="169" y="80" width="121" height="29"/>
+                                <rect key="frame" x="16" y="460" width="121" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="First"/>
@@ -308,14 +353,22 @@
                                 <rect key="frame" x="212" y="234" width="71" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIS-Kx-aff">
+                                <rect key="frame" x="203" y="78" width="86" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="ButtonTwo"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="UI控件" id="qcV-FU-7J5"/>
+                    <connections>
+                        <outlet property="mybutton" destination="ZIS-Kx-aff" id="yAS-Fm-fdQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tuy-2I-dIM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="836.25" y="-146.83098591549296"/>
+            <point key="canvasLocation" x="1659.375" y="676.05633802816897"/>
         </scene>
     </scenes>
     <resources>

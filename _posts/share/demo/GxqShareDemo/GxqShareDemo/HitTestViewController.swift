@@ -21,7 +21,9 @@ class HitTestViewController: UIViewController {
     
 }
 class baseView: UIView {
+
     var dateFormatter: DateFormatter?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -36,9 +38,9 @@ class baseView: UIView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         //"每次touch会调用两次，不知道为啥 "
         //简单来讲，时间戳记录了自从上次开机的时间间隔。它的类型是 NSTimeInterval
+
         print("进入\(self.classForCoder) hitTest方法")
         let view = super.hitTest(point, with: event)
-
         print("\n当前View : \(self.classForCoder)\n返回的View : \(view?.classForCoder)\n\(event)\n\(dateFormatter?.string(from: Date()))\n");
         return view
     }

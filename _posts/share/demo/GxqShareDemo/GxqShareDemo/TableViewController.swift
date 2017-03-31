@@ -11,11 +11,9 @@ import UIKit
 class TableViewController: UITableViewController {
     
     let data = [["title" : "1、语言特性", "segue" : "language"],
-                ["title" : "2、storyboard的使用", "segue" : "storyboard"],
-                ["title" : "1、语言特性", "segue" : "language"],
-                ["title" : "1、语言特性", "segue" : "language"],
-                ["title" : "1、语言特性", "segue" : "language"],
-                ["title" : "事件响应链", "segue" : "hitTest"]]
+                ["title" : "2、Storyboard/UI控件", "segue" : "storyboard"],
+                ["title" : "3、生命周期", "segue" : "lifecycle"],
+                ["title" : "4、事件响应链", "segue" : "hitTest"]]
     
 
     override func viewDidLoad() {
@@ -40,13 +38,10 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "dell")
-        }
-        
-        cell?.textLabel?.text = data[indexPath.row]["title"]
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ??
+            UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+        cell.textLabel?.text = data[indexPath.row]["title"]
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
