@@ -249,13 +249,22 @@
                     <view key="view" contentMode="scaleToFill" id="ZvX-aN-PJX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCC-qC-9Z2">
+                                <rect key="frame" x="133" y="211" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="生命周期" id="wzl-cK-8uV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rw5-hS-Cfe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2421" y="678"/>
+            <point key="canvasLocation" x="2420.625" y="677.11267605633805"/>
         </scene>
         <!--UI控件-->
         <scene sceneID="7dg-Q7-DjY">

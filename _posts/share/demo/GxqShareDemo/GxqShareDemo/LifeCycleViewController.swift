@@ -11,9 +11,9 @@ import UIKit
 class LifeCycleViewController: UIViewController {
 
     override func loadView() {
-//        super.loadView()
-        //从同名xib载入视图,如果同名xib没有的时候。一般情况下不用用到，除非需要重写设置View
-        print("[生命周期] \(self.classForCoder) loadView 加载View")
+        super.loadView()
+        //它会先去查找与LifeCycleViewController相关联的xib文件，没有的时候，创建空View。一般情况下不用用到，除非需要重写设置View
+        print("[生命周期] \(self.classForCoder) loadView 加载基础控制器")
     }
     
     override func viewDidLoad() {
@@ -48,7 +48,7 @@ class LifeCycleViewController: UIViewController {
     
     
     deinit {
-        print("[生命周期] \(self.classForCoder) 销毁")
+        print("[生命周期] \(self.classForCoder) 视图销毁")
     }
 
 }
