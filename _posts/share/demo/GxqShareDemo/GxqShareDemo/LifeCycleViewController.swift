@@ -16,7 +16,6 @@ class LifeCycleViewController: UIViewController {
         //这个方法主要创建self.view,一般情况下不用用到，除非需要重写设置View
         //它会先去查找与LifeCycleViewController相关联的xib文件，没有的时候，创建空View。
         print("[生命周期] \(self.classForCoder) loadView 加载基础控制器 nib")
-        
     }
     
     override func viewDidLoad() {
