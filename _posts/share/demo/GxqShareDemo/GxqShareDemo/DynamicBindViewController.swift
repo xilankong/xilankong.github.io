@@ -13,7 +13,6 @@ class DynamicBindViewController: UIViewController {
     @IBOutlet weak var mybutton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        mybutton.addTarget(self, action: #selector(buttonAction(_:)), for: UIControlEvents.touchUpInside)
     }
 
     override func didReceiveMemoryWarning() {
