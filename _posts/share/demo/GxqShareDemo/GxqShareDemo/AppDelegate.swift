@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         print("[生命周期] \(self.classForCoder) - App启动")
+        
+        self.makeException()
+//        try! self.throwException()
+        if let exceptionMsg = try? self.throwException() {
+            print("可选值非空: \(exceptionMsg)")
+        }
         return true
     }
 
@@ -42,6 +48,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    enum myError: Error {
+        case testError
+    }
+    
+    func makeException() {
+        do {
+            //延迟处理
+            defer {
+                print("异常已抛出")
+            }
+            throw myError.testError
+        } catch {
+            print(error)
+        }
+    }
+    
+    func throwException() throws {
+        throw myError.testError
+    }
 }
 
