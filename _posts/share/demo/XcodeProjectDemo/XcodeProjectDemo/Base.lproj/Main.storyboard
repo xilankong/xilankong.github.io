@@ -19,31 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="kq2-fL-f0P" kind="show" id="41J-Yj-W6z"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-598" y="-147"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="FpW-Mo-2Pf">
-            <objects>
-                <viewController id="kq2-fL-f0P" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JkK-0U-ibw"/>
-                        <viewControllerLayoutGuide type="bottom" id="RVB-Ow-vvU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="reT-xS-8Qp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jaZ-SR-P49" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="148" y="-148"/>
         </scene>
     </scenes>
 </document>
