@@ -48,25 +48,8 @@ class LifeCycleViewController: UIViewController {
 
     }
     
-    
     deinit {
         print("[生命周期] \(self.classForCoder) deinit 视图销毁")
     }
 
-}
-protocol CollectionOrString {
-    var isEmpty: Bool { get }
-}
-
-extension Optional where Wrapped: CollectionOrString {
-    var isEmpty: Bool {
-        switch self {
-        case let .some(value):
-            return value.isEmpty
-        default:
-            return true
-        }
-       
-    }
-    
 }
