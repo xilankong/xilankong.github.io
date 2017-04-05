@@ -68,7 +68,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-467" y="677"/>
+            <point key="canvasLocation" x="60" y="679"/>
         </scene>
         <!--事件响应链-->
         <scene sceneID="2gS-zq-Vg4">
@@ -136,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rwu-IZ-EVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1013" y="664"/>
+            <point key="canvasLocation" x="804.375" y="677.11267605633805"/>
         </scene>
         <!--小明的页面-->
         <scene sceneID="1cl-sw-DVe">
@@ -184,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMs-dv-BEK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="336" y="677"/>
+            <point key="canvasLocation" x="60" y="1456"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Uq7-X7-VTh">
