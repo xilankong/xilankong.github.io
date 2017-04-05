@@ -54,3 +54,19 @@ class LifeCycleViewController: UIViewController {
     }
 
 }
+protocol CollectionOrString {
+    var isEmpty: Bool { get }
+}
+
+extension Optional where Wrapped: CollectionOrString {
+    var isEmpty: Bool {
+        switch self {
+        case let .some(value):
+            return value.isEmpty
+        default:
+            return true
+        }
+       
+    }
+    
+}
