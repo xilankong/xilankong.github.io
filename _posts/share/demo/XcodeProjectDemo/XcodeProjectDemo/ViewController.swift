@@ -36,17 +36,17 @@ class ViewController: UIViewController {
     }
 
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //sender为参数
-        //segue 为转场对象 segue.destination 为目标控制器
-        if segue.identifier == "segueId" {
-            guard let vc = segue.destination as? ViewControllerTwo else {
-                return
-            }
-            vc.style = "xxx"
-        }
-        
-        
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        //sender为参数
+//        //segue 为转场对象 segue.destination 为目标控制器
+//        if segue.identifier == "segueId" {
+//            guard let vc = segue.destination as? ViewControllerTwo else {
+//                return
+//            }
+//            vc.style = "xxx"
+//        }
+//        
+//        
+//    }
 }
 

@@ -16,7 +16,6 @@
 		3D8E1A411E93330700B9B30E /* XcodeProjectDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E1A401E93330700B9B30E /* XcodeProjectDemoUITests.swift */; };
 		6F5CCC311E94CD6B000A829D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5CCC301E94CD6B000A829D /* CoreGraphics.framework */; };
 		6F5CCC331E94CFC8000A829D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5CCC321E94CFC8000A829D /* MapKit.framework */; };
-		6F5CCC561E962AEC000A829D /* ViewControllerTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CCC551E962AEC000A829D /* ViewControllerTwo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +51,6 @@
 		3D8E1A421E93330700B9B30E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F5CCC301E94CD6B000A829D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6F5CCC321E94CFC8000A829D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		6F5CCC551E962AEC000A829D /* ViewControllerTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +110,6 @@
 				3D8E1A271E93330700B9B30E /* Assets.xcassets */,
 				3D8E1A291E93330700B9B30E /* LaunchScreen.storyboard */,
 				3D8E1A2C1E93330700B9B30E /* Info.plist */,
-				6F5CCC551E962AEC000A829D /* ViewControllerTwo.swift */,
 			);
 			path = XcodeProjectDemo;
 			sourceTree = "<group>";
@@ -289,7 +286,6 @@
 			files = (
 				3D8E1A231E93330700B9B30E /* ViewController.swift in Sources */,
 				3D8E1A211E93330700B9B30E /* AppDelegate.swift in Sources */,
-				6F5CCC561E962AEC000A829D /* ViewControllerTwo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

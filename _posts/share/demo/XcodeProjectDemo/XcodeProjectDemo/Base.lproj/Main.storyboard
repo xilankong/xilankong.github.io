@@ -40,7 +40,7 @@
         <!--B-->
         <scene sceneID="aHI-9y-7NW">
             <objects>
-                <viewController title="B" id="Pc0-BQ-sni" customClass="ViewControllerTwo" customModule="XcodeProjectDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="B" id="Pc0-BQ-sni" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6L0-Ri-CbC"/>
                         <viewControllerLayoutGuide type="bottom" id="Whm-uT-cj9"/>
@@ -53,9 +53,6 @@
                                 <rect key="frame" x="164" y="318" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="backAction:" destination="Pc0-BQ-sni" eventType="touchUpInside" id="OOU-TF-W5n"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
