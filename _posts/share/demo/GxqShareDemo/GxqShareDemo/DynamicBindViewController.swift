@@ -13,6 +13,13 @@ class DynamicBindViewController: UIViewController {
     @IBOutlet weak var mybutton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let XibTestView = Bundle.main.loadNibNamed("XibTestView", owner: nil, options: nil)?[0]
+        if let testview = XibTestView as? UIView {
+            view.addSubview(testview)
+            testview.frame = CGRect(x: 200, y: 500, width: 100, height: 50)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
