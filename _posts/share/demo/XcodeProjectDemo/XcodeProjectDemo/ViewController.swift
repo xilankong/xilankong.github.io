@@ -20,6 +20,10 @@ class ViewController: UIViewController {
         view.addSubview(button)
         
         button.addTarget(self, action: #selector(buttonAction(btn:)), for: UIControlEvents.touchUpInside)
+        
+        let imageView = UIImageView(image: UIImage(named: "chat"))
+        imageView.frame = CGRect(x: 50, y:100, width: 266, height: 200)
+        view.addSubview(imageView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,19 +38,5 @@ class ViewController: UIViewController {
     func AmIHansome() -> Bool {
         return true
     }
-
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        //sender为参数
-//        //segue 为转场对象 segue.destination 为目标控制器
-//        if segue.identifier == "segueId" {
-//            guard let vc = segue.destination as? ViewControllerTwo else {
-//                return
-//            }
-//            vc.style = "xxx"
-//        }
-//        
-//        
-//    }
 }
 

@@ -2,17 +2,14 @@
   "images" : [
     {
       "resizing" : {
-        "mode" : "9-part",
+        "mode" : "3-part-vertical",
         "center" : {
           "mode" : "tile",
-          "width" : 232,
-          "height" : 37
+          "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 0,
-          "top" : 32,
-          "right" : 0,
-          "left" : 11
+          "top" : 34,
+          "bottom" : 8
         }
       },
       "idiom" : "universal",
