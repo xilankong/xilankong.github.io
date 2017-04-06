@@ -49,13 +49,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qrt-61-Ecy">
-                                <rect key="frame" x="126" y="222" width="240" height="128"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cVV-4S-ebX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="Pc0-BQ-sni" id="ZOA-ZI-YWJ"/>
-                                    <outlet property="delegate" destination="Pc0-BQ-sni" id="c6P-Av-bF3"/>
+                                    <outlet property="dataSource" destination="Pc0-BQ-sni" id="xkx-0g-Wz2"/>
+                                    <outlet property="delegate" destination="Pc0-BQ-sni" id="8T5-W6-xmh"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -64,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9N2-oq-USO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="572" y="-181"/>
+            <point key="canvasLocation" x="572" y="-181.25937031484258"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fhy-Ks-1l6">
