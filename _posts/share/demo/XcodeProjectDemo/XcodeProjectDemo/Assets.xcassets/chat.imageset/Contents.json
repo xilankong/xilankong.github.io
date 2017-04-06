@@ -2,14 +2,17 @@
   "images" : [
     {
       "resizing" : {
-        "mode" : "3-part-vertical",
+        "mode" : "9-part",
         "center" : {
           "mode" : "tile",
+          "width" : 1,
           "height" : 1
         },
         "cap-insets" : {
-          "top" : 34,
-          "bottom" : 8
+          "bottom" : 9,
+          "top" : 70,
+          "right" : 253,
+          "left" : 12
         }
       },
       "idiom" : "universal",
@@ -18,12 +21,10 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "chat@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "chat@3x.png",
       "scale" : "3x"
     }
   ],

@@ -20,10 +20,6 @@ class ViewController: UIViewController {
         view.addSubview(button)
         
         button.addTarget(self, action: #selector(buttonAction(btn:)), for: UIControlEvents.touchUpInside)
-        
-        let imageView = UIImageView(image: UIImage(named: "chat"))
-        imageView.frame = CGRect(x: 50, y:100, width: 266, height: 200)
-        view.addSubview(imageView)
     }
 
     override func didReceiveMemoryWarning() {
