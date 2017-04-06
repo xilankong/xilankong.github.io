@@ -16,6 +16,7 @@ class XibTestView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         print("\(self.classForCoder) 初始化")
     }
 }
