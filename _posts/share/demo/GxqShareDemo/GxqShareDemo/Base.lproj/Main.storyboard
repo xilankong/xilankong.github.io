@@ -141,7 +141,7 @@
         <!--小明的页面-->
         <scene sceneID="1cl-sw-DVe">
             <objects>
-                <viewController id="oXn-MO-Bfi" sceneMemberID="viewController">
+                <viewController id="oXn-MO-Bfi" customClass="LanguageViewControllerTwo" customModule="GxqShareDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sVS-Y3-j9S"/>
                         <viewControllerLayoutGuide type="bottom" id="ydV-QX-0Oz"/>
@@ -169,6 +169,9 @@
                                 <rect key="frame" x="91" y="242" width="154" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="回复"/>
+                                <connections>
+                                    <action selector="backAction:" destination="oXn-MO-Bfi" eventType="touchUpInside" id="LY1-dD-7n6"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kWs-VM-s16">
                                 <rect key="frame" x="64" y="194" width="192" height="30"/>

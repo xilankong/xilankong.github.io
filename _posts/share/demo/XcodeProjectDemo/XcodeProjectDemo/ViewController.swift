@@ -29,14 +29,24 @@ class ViewController: UIViewController {
     
     func buttonAction(btn: UIButton) {
         print("按钮事件")
-        let vc = UIViewController()
-        self.show(vc, sender: nil)
     }
     
     func AmIHansome() -> Bool {
         return true
     }
 
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //sender为参数
+        //segue 为转场对象 segue.destination 为目标控制器
+        if segue.identifier == "segueId" {
+            guard let vc = segue.destination as? ViewControllerTwo else {
+                return
+            }
+            vc.style = "xxx"
+        }
+        
+        
+    }
 }
 

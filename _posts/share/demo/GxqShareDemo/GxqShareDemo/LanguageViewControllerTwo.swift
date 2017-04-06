@@ -1,14 +1,14 @@
 //
-//  ViewController.swift
+//  LanguageViewControllerTwo.swift
 //  GxqShareDemo
 //
-//  Created by yanghuang on 17/3/28.
+//  Created by yanghuang on 17/4/6.
 //  Copyright © 2017年 com.yang. All rights reserved.
 //
 
 import UIKit
 
-class LanguageViewController: UIViewController {
+class LanguageViewControllerTwo: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,10 +18,9 @@ class LanguageViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = sender
+    
+    @IBAction func backAction(_ sender: Any) {
         
     }
-}
 
+}
