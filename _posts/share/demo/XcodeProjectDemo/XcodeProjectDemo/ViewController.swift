@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var num1: Int?
+    var num1: Int? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         let button = UIButton(type: UIButtonType.custom)
