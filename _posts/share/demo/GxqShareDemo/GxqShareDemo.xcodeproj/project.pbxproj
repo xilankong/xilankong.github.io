@@ -19,8 +19,19 @@
 		6F38713B1E8E557A0019A1E7 /* XibTestView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F38713A1E8E557A0019A1E7 /* XibTestView.xib */; };
 		6F38713D1E8E59000019A1E7 /* LifeCycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F38713C1E8E59000019A1E7 /* LifeCycleViewController.swift */; };
 		6F5CCC581E962E02000A829D /* LanguageViewControllerTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CCC571E962E02000A829D /* LanguageViewControllerTwo.swift */; };
+		6F5CCC601E973A2A000A829D /* GxqShareDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CCC5F1E973A2A000A829D /* GxqShareDemoTests.swift */; };
 		FDC7CB1A57D4B5CE079544E7 /* Pods_GxqShareDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CD5B1D63FCF66689E0BAC1 /* Pods_GxqShareDemo.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6F5CCC621E973A2A000A829D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F3871061E8A687B0019A1E7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F38710D1E8A687B0019A1E7;
+			remoteInfo = GxqShareDemo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		19CD5B1D63FCF66689E0BAC1 /* Pods_GxqShareDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GxqShareDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,6 +49,9 @@
 		6F38713A1E8E557A0019A1E7 /* XibTestView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XibTestView.xib; sourceTree = "<group>"; };
 		6F38713C1E8E59000019A1E7 /* LifeCycleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifeCycleViewController.swift; sourceTree = "<group>"; };
 		6F5CCC571E962E02000A829D /* LanguageViewControllerTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageViewControllerTwo.swift; sourceTree = "<group>"; };
+		6F5CCC5D1E973A2A000A829D /* GxqShareDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GxqShareDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F5CCC5F1E973A2A000A829D /* GxqShareDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GxqShareDemoTests.swift; sourceTree = "<group>"; };
+		6F5CCC611E973A2A000A829D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7996BFBA0EAD81087CDA30A6 /* Pods-GxqShareDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GxqShareDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GxqShareDemo/Pods-GxqShareDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		EDDC198574E09BA832223670 /* Pods-GxqShareDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GxqShareDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-GxqShareDemo/Pods-GxqShareDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,6 +62,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDC7CB1A57D4B5CE079544E7 /* Pods_GxqShareDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5CCC5A1E973A2A000A829D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				6F3871101E8A687B0019A1E7 /* GxqShareDemo */,
+				6F5CCC5E1E973A2A000A829D /* GxqShareDemoTests */,
 				6F38710F1E8A687B0019A1E7 /* Products */,
 				13ADB7FB6CA5BA431B57330D /* Pods */,
 				6628E6103F1A5442FFA22E84 /* Frameworks */,
@@ -85,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				6F38710E1E8A687B0019A1E7 /* GxqShareDemo.app */,
+				6F5CCC5D1E973A2A000A829D /* GxqShareDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +130,15 @@
 				6F38713A1E8E557A0019A1E7 /* XibTestView.xib */,
 			);
 			path = GxqShareDemo;
+			sourceTree = "<group>";
+		};
+		6F5CCC5E1E973A2A000A829D /* GxqShareDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				6F5CCC5F1E973A2A000A829D /* GxqShareDemoTests.swift */,
+				6F5CCC611E973A2A000A829D /* Info.plist */,
+			);
+			path = GxqShareDemoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +164,24 @@
 			productReference = 6F38710E1E8A687B0019A1E7 /* GxqShareDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6F5CCC5C1E973A2A000A829D /* GxqShareDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F5CCC661E973A2A000A829D /* Build configuration list for PBXNativeTarget "GxqShareDemoTests" */;
+			buildPhases = (
+				6F5CCC591E973A2A000A829D /* Sources */,
+				6F5CCC5A1E973A2A000A829D /* Frameworks */,
+				6F5CCC5B1E973A2A000A829D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F5CCC631E973A2A000A829D /* PBXTargetDependency */,
+			);
+			name = GxqShareDemoTests;
+			productName = GxqShareDemoTests;
+			productReference = 6F5CCC5D1E973A2A000A829D /* GxqShareDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -145,6 +195,11 @@
 					6F38710D1E8A687B0019A1E7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
+					};
+					6F5CCC5C1E973A2A000A829D = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6F38710D1E8A687B0019A1E7;
 					};
 				};
 			};
@@ -162,6 +217,7 @@
 			projectRoot = "";
 			targets = (
 				6F38710D1E8A687B0019A1E7 /* GxqShareDemo */,
+				6F5CCC5C1E973A2A000A829D /* GxqShareDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -175,6 +231,13 @@
 				6F3871191E8A687B0019A1E7 /* Assets.xcassets in Resources */,
 				6F38713B1E8E557A0019A1E7 /* XibTestView.xib in Resources */,
 				6F3871171E8A687B0019A1E7 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F5CCC5B1E973A2A000A829D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +307,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F5CCC591E973A2A000A829D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5CCC601E973A2A000A829D /* GxqShareDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6F5CCC631E973A2A000A829D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F38710D1E8A687B0019A1E7 /* GxqShareDemo */;
+			targetProxy = 6F5CCC621E973A2A000A829D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6F3871151E8A687B0019A1E7 /* Main.storyboard */ = {
@@ -385,6 +464,34 @@
 			};
 			name = Release;
 		};
+		6F5CCC641E973A2A000A829D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = GxqShareDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yang.GxqShareDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GxqShareDemo.app/GxqShareDemo";
+			};
+			name = Debug;
+		};
+		6F5CCC651E973A2A000A829D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = GxqShareDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yang.GxqShareDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GxqShareDemo.app/GxqShareDemo";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -405,6 +512,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		6F5CCC661E973A2A000A829D /* Build configuration list for PBXNativeTarget "GxqShareDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F5CCC641E973A2A000A829D /* Debug */,
+				6F5CCC651E973A2A000A829D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

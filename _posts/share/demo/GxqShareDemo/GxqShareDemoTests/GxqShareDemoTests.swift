@@ -1,22 +1,18 @@
 //
-//  XcodeProjectDemoTests.swift
-//  XcodeProjectDemoTests
+//  GxqShareDemoTests.swift
+//  GxqShareDemoTests
 //
-//  Created by huang on 17/4/4.
-//  Copyright © 2017年 huang.com. All rights reserved.
+//  Created by yanghuang on 17/4/7.
+//  Copyright © 2017年 com.yang. All rights reserved.
 //
 
 import XCTest
-@testable import XcodeProjectDemo
 
-class XcodeProjectDemoTests: XCTestCase {
-    
-    var vc: UIViewController?
+class GxqShareDemoTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        vc = ViewController()
-
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
@@ -33,10 +29,6 @@ class XcodeProjectDemoTests: XCTestCase {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
-            guard let vc = self.vc as? ViewController else {
-                return
-            }
-            XCTAssert(vc.AmIHansome())
         }
     }
     

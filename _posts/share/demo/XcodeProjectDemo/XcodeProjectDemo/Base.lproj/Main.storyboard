@@ -29,7 +29,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="chat"/>
                                 <connections>
-                                    <segue destination="Pc0-BQ-sni" kind="show" identifier="segueId" id="mpz-nA-oOy"/>
+                                    <segue destination="Pc0-BQ-sni" kind="popoverPresentation" identifier="segueId" popoverAnchorView="Xo6-ms-q2B" id="mpz-nA-oOy">
+                                        <popoverArrowDirection key="popoverArrowDirection"/>
+                                    </segue>
                                 </connections>
                             </button>
                         </subviews>
