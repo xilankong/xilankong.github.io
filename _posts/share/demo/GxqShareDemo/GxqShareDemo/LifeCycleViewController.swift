@@ -10,6 +10,7 @@ import UIKit
 
 class LifeCycleViewController: UIViewController {
 
+    fileprivate  var timer: Timer?
     override func loadView() {
         //print(self.view)//如果在super之前调用self.view 又会回来调用loadView 就会出现死循环
         super.loadView()
@@ -21,6 +22,13 @@ class LifeCycleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("[生命周期] \(self.classForCoder) viewDidLoad 创建视图")
+        
+//        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(writing), userInfo: nil, repeats: true)
+        
+    }
+    
+    func writing() {
+        print("我还在循环")
     }
     
     override func viewWillAppear(_ animated: Bool) {
