@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,6 +31,8 @@
                                 <state key="normal" backgroundImage="chat"/>
                                 <connections>
                                     <segue destination="Pc0-BQ-sni" kind="popoverPresentation" identifier="segueId" popoverAnchorView="Xo6-ms-q2B" id="mpz-nA-oOy">
+                                        <segue key="commit" inheritsFrom="parent" id="63g-r1-wAL"/>
+                                        <segue key="preview" inheritsFrom="commit" id="atD-XJ-caZ"/>
                                         <popoverArrowDirection key="popoverArrowDirection"/>
                                     </segue>
                                 </connections>
@@ -46,6 +49,7 @@
         <!--B-->
         <scene sceneID="aHI-9y-7NW">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9N2-oq-USO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="B" id="Pc0-BQ-sni" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6L0-Ri-CbC"/>
@@ -64,7 +68,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9N2-oq-USO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="572" y="-181"/>
         </scene>
@@ -88,4 +91,7 @@
     <resources>
         <image name="chat" width="36" height="51"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mpz-nA-oOy"/>
+    </inferredMetricsTieBreakers>
 </document>
