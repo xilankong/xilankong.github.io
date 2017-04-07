@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6F38710D1E8A687B0019A1E7"
-               BuildableName = "GxqShareDemo.app"
-               BlueprintName = "GxqShareDemo"
-               ReferencedContainer = "container:GxqShareDemo.xcodeproj">
+               BlueprintIdentifier = "D52144DE9D7255DE912490FF5A806573"
+               BuildableName = "Masonry.framework"
+               BlueprintName = "Masonry"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6F5CCC5C1E973A2A000A829D"
-               BuildableName = "GxqShareDemoTests.xctest"
-               BlueprintName = "GxqShareDemoTests"
-               ReferencedContainer = "container:GxqShareDemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F38710D1E8A687B0019A1E7"
-            BuildableName = "GxqShareDemo.app"
-            BlueprintName = "GxqShareDemo"
-            ReferencedContainer = "container:GxqShareDemo.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -61,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F38710D1E8A687B0019A1E7"
-            BuildableName = "GxqShareDemo.app"
-            BlueprintName = "GxqShareDemo"
-            ReferencedContainer = "container:GxqShareDemo.xcodeproj">
+            BlueprintIdentifier = "D52144DE9D7255DE912490FF5A806573"
+            BuildableName = "Masonry.framework"
+            BlueprintName = "Masonry"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F38710D1E8A687B0019A1E7"
-            BuildableName = "GxqShareDemo.app"
-            BlueprintName = "GxqShareDemo"
-            ReferencedContainer = "container:GxqShareDemo.xcodeproj">
+            BlueprintIdentifier = "D52144DE9D7255DE912490FF5A806573"
+            BuildableName = "Masonry.framework"
+            BlueprintName = "Masonry"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

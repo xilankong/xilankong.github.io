@@ -9,7 +9,9 @@
 import UIKit
 
 class LanguageViewController: UIViewController {
+    @IBOutlet weak var sendLabel: UILabel!
 
+    @IBOutlet weak var getLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,8 +22,14 @@ class LanguageViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = sender
-        
+        guard let vc = segue.destination as? LanguageViewControllerTwo,
+                segue.identifier == "languageTwo" else {
+            return
+        }
+        vc.msgFromXB = sendLabel.text
+        vc.callbackClosure = {[weak self] (callbackMsg: String) in
+            self?.getLabel.text = callbackMsg
+        }
     }
 }
 
