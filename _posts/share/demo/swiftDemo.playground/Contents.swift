@@ -26,7 +26,7 @@ let PI_fifteen = PI + Double(fifteen_10) //这里实际是重新生成了一个D
 
 
 
-//结构体的定义 关键字 :
+//结构体的定义 关键字 : 简单数据封装、值类型
 struct myStruct {
     var myName: String
     var myAge: Int
@@ -88,7 +88,7 @@ func unPackFunc(numString: String?) {
 if let num = Int(numString ?? "") {
     print(num)
 }
-
+unPackFunc(numString: "123")
 
 
 //元祖的使用
@@ -99,14 +99,13 @@ func returnTwoValue() -> (String, Int, String) {
 print(returnTwoValue().0)
 
 
-//闭包的使用 要求打印一句话，在这句话末尾加上 “1234”
+//闭包的使用 : 要求打印一句话，在这句话末尾加上 “1234”
 
 func useTheClosure(closure: (String)->()) {
     closure("OneTwoThree")
 }
 //方式一
-var myClosure = {
-    (input: String) in
+var myClosure = { (input: String) in
     print("\(input)" + "1234")
 }
 useTheClosure(closure: myClosure)
@@ -132,6 +131,7 @@ protocol fillColor: class {
     var color: String {get set}
     func fill()
 }
+
 extension Drawable {
     func draw() {
         print("default draw")
