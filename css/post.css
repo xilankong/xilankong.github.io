@@ -10,10 +10,10 @@
   height:auto;
 }
 article {
-  font-family:Microsoft YaHei,SimHei,sans-serif;
   padding-bottom:3em;
   padding-top:1.5em;
-  font-weight: 200; 
+  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+  font-weight:lighter;
   line-height:25px;
   font-size: 1em;
   color: #444444;
