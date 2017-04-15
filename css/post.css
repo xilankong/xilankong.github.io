@@ -97,6 +97,8 @@ time a
 /*生成博客目录的CSS*/
 #sideBar{
     font-size:14px;
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight:300;
     text-align:left;
     position:fixed;
     top:50px;
