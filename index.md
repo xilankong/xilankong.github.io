@@ -1,6 +1,6 @@
 ---
 layout: home
-title: yang'blog
+title: yang's blog
 ---
 
 我是 **yang**  , 从事IOS开发
