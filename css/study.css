@@ -11,6 +11,8 @@ a{
 }
 #sideBar{
     font-size:14px;
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight:300;
     width: 200px;
     height: 400px;
     overflow:hidden;!important;
