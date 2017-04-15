@@ -3,7 +3,7 @@
 
 body{
   font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-weight:200;
+  font-weight:300;
   font-size: 15px;
 }
 a{
@@ -53,6 +53,7 @@ a{
 }
 #posts h2{
   color:#6A85B3;
+  font-weight:400;
   font-size:1.25em;
 }
 
