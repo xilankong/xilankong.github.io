@@ -11,8 +11,6 @@ a{
 }
 #sideBar{
     font-size:14px;
-    font-family:Microsoft YaHei,SimHei,sans-serif;
-    /*background: blue;*/
     width: 200px;
     height: 400px;
     overflow:hidden;!important;
