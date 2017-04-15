@@ -17,6 +17,8 @@ class LanguageViewController: UIViewController, CallbackProtocol {
     @IBOutlet weak var sendLabel: UILabel!
     @IBOutlet weak var getLabel: UILabel!
     
+    @IBOutlet weak var button: UIButton!
+    
     //MARK: - 初始化View完成
     override func viewDidLoad() {
         super.viewDidLoad()
