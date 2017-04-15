@@ -109,7 +109,7 @@ time a
     font-weight:500;
     color: #333333;
 }
-#sideBar toc{
+#sideBar dl,dt,dd{
     font-size: 9px;
     font-weight:300;
 }
