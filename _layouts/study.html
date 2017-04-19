@@ -12,9 +12,23 @@
 <body>
   <div id = "studyBody">
   <section id="posts">
+  {% for category in site.categories %}
+
+  {% if category.first == "学习之路" %}
+  <div id="div_{{ forloop.rindex}}">
+  <br/>
+  <h2>{{ category | first }}</h2>
+  <ul>
+    {% for post in category.last %}
+    <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d"  }}</time>&nbsp;&nbsp;<a href="{{ site.github.url}}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+  </div>
+  {% endif %}
+  {% endfor %}
 	{% for category in site.categories reversed %}
 
-	{% if category.first == "学习之路" or category.first contains "20" %}
+	{% if category.first contains "20" %}
 	<div id="div_{{ forloop.rindex}}">
 	<br/>
 	<h2>{{ category | first }}</h2>
