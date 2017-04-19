@@ -1,3 +1,8 @@
+*{
+  font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight:300;
+  font-size: 16px;
+}
 /*post 内容部分*/
 .content{
 	padding-left:15%;
@@ -12,8 +17,6 @@
 article {
   padding-bottom:3em;
   padding-top:1.5em;
-  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-  font-weight:lighter;
   line-height:25px;
   font-size: 1em;
   color: #444444;
@@ -93,8 +96,6 @@ time a
 
 /*生成博客目录的CSS*/
 #sideBar{
-    font-size:14px;
-    font-family:Microsoft YaHei,SimHei,sans-serif;
     text-align:left;
     position:fixed;
     top:50px;
@@ -102,9 +103,16 @@ time a
     width: 200px;
     min-height: 100px;
     overflow:hidden;!important;
-    color: #444444;
 }
-
+#sideBar h1{
+    font-size:18px;
+    font-weight:500;
+    color: #333333;
+}
+#sideBar dl,dt,dd{
+    font-size: 14px;
+    font-weight:400;
+}
 #portrait {
   display:block;
   text-align: left;

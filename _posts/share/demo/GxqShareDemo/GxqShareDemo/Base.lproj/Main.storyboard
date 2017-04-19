@@ -63,6 +63,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="closure-小白的页面" id="mmM-Ya-yzB"/>
                     <connections>
+                        <outlet property="button" destination="Eg2-YL-La2" id="QRa-lA-wkT"/>
                         <outlet property="getLabel" destination="D4g-lb-v4W" id="oQk-Yi-vuA"/>
                         <outlet property="sendLabel" destination="4C7-gF-Xz9" id="r2C-jW-jbt"/>
                     </connections>
@@ -246,11 +247,30 @@
                         <segue destination="ULs-rg-jbt" kind="push" identifier="storyboard" id="J6K-T8-qM8"/>
                         <segue destination="6sb-gA-jEW" kind="push" identifier="hitTest" id="0B0-GV-kGF"/>
                         <segue destination="a5l-le-1hc" kind="push" identifier="lifecycle" id="wlj-rR-ocU"/>
+                        <segue destination="chF-vh-OFN" kind="show" identifier="newDes" id="0Fu-Pc-mlx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3VR-7b-Nfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="60" y="-145"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="CEx-hZ-6Mg">
+            <objects>
+                <viewController id="chF-vh-OFN" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P5Z-lh-wm3"/>
+                        <viewControllerLayoutGuide type="bottom" id="hnm-Jt-DJF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F4C-ZF-5de">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KUf-T2-EtT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="889" y="-169"/>
         </scene>
         <!--生命周期-->
         <scene sceneID="TEu-al-Nrl">
@@ -358,6 +378,11 @@
                                 <frame key="frameInset" minX="203" minY="78" width="86" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="ButtonTwo"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jpn-k7-qOU">
+                                <frame key="frameInset" minX="313" minY="175" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

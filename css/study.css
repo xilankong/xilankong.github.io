@@ -2,8 +2,8 @@
 /*侧边头像块*/
 
 *{
-  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-  font-weight:lighter;
+  font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight:300;
   font-size: 15px;
 }
 a{
@@ -11,8 +11,8 @@ a{
 }
 #sideBar{
     font-size:14px;
-    font-family:Microsoft YaHei,SimHei,sans-serif;
-    /*background: blue;*/
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight:300;
     width: 200px;
     height: 400px;
     overflow:hidden;!important;
@@ -53,6 +53,7 @@ a{
 }
 #posts h2{
   color:#6A85B3;
+  font-weight:400;
   font-size:1.25em;
 }
 
