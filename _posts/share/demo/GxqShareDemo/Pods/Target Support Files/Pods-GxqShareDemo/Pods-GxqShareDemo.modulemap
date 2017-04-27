@@ -1,6 +1,0 @@
-framework module Pods_GxqShareDemo {
-  umbrella header "Pods-GxqShareDemo-umbrella.h"
-
-  export *
-  module * { export * }
-}
