@@ -42,15 +42,19 @@ Git Hooks是定制化的脚本程序，所以它实现的功能与相应的git�
 
 ![一个工程下面的.git](https://xilankong.github.io/resource/git_dir.png)
 
-挂钩都被存储在 `.git` 目录下的 hooks 子目录中，即大部分项目中的 .git/hooks  如下图。 Git 默认会放置一些脚本样本在这个目录中，除了可以作为挂钩使用，这些样本本身是可以独立使用的。所有的样本都是shell脚本，其中一些还包含了Perl的脚本，不过，任何正确命名的可执行脚本都可以正常使用 ，也可以用Ruby或Python，或其他。下图是git 初始化的时候生成的默认钩子，已包含了大部分可以钩子，但是.sample拓展名防止它们默认被执行。为了安装一个钩子，你只需要去掉.sample拓展名。或者你要写一个新的脚本，你只需添加一个文件名和上述匹配的新文件，去掉.sample拓展名。
-
-把一个正确命名且可执行的文件放入 Git 目录下的 hooks子目录中，可以激活该挂钩脚本，因此，之后他一直会被 Git 调用。
+挂钩都被存储在 `.git` 目录下的 hooks 子目录中，即大部分项目中的 .git/hooks。  如下图:
 
 ![一个工程下面的.git](https://xilankong.github.io/resource/githooks.png)
 
+Git 默认会放置一些脚本样本在这个目录中，除了可以作为挂钩使用，这些样本本身是可以独立使用的。所有的样本都是shell脚本，其中一些还包含了Perl的脚本。不过，任何正确命名的可执行脚本都可以正常使用 ，也可以用Ruby或Python，或其他脚本语言。
+
+上图是git 初始化的时候生成的默认钩子，已包含了大部分可以使用的钩子，但是 .sample 拓展名防止它们默认被执行。为了安装一个钩子，你只需要去掉 .sample 拓展名。或者你要写一个新的脚本，你只需添加一个文件名和上述匹配的新文件，去掉.sample拓展名。把一个正确命名且可执行的文件放入 Git 目录下的 hooks子目录中，可以激活该挂钩脚本，之后他一直会被 Git 调用。
+
+
+
 **一个简单的 Hooks 例子**
 
-使用shell 这里尝试写一个简单的钩子，安装一个prepare-commit-msg钩子。去掉脚本的.sample拓展名，在文件中加上下面这两行：
+使用shell 这里尝试写一个简单的钩子，安装一个 prepare-commit-msg 钩子。去掉脚本的 .sample 拓展名，在文件中加上下面这两行：
 
 ```
 #!/bin/sh
@@ -61,18 +65,20 @@ echo "# Please include a useful commit message!" > $1
 钩子需要能被执行，所以如果你创建了一个新的脚本文件，你需要修改它的文件权限。比如说，为了确保prepare-commit-msg可执行，运行下面这个命令：
 
 ```
-chmod +x prepare-commit-msg
+chmod + x prepare-commit-msg
 ```
 
 接下来你每次运行git commit时，你会看到默认的提交信息都被替换了。
 
 内置的样例脚本是非常有用的参考资料，因为每个钩子传入的参数都有非常详细的说明（不同钩子不一样）。
 
+
+
 **脚本语言**
 
-git自己生成的默认钩子的脚本大多是shell和PERL语言的，但你可以使用任何脚本语言，只要它们最后能编译到可执行文件。每次脚本中的#!/bin/sh定义了你的文件将被如何解析。比如，使用其他语言时你只需要将path改为你的解释器的路径。
+git自己生成的默认钩子的脚本大多是shell和Perl语言的，但你可以使用任何脚本语言，只要它们最后能编译到可执行文件。每次脚本中的 #!/bin/sh 定义了你的文件将被如何解析。比如，使用其他语言时你只需要将path改为你的解释器的路径。
 
-比如说，你可以在prepare-commit-msg中写一个可执行的Python脚本。下面这个钩子和上一节的shell脚本做的事完全一样。
+比如说，你可以在 prepare-commit-msg 中写一个可执行的Python脚本。下面这个钩子和上一节的shell脚本做的事完全一样。
 
 ```
 #!/usr/bin/env python
@@ -85,11 +91,15 @@ with open(commit_msg_filepath, 'w') as f:
 ```
 注意第一行改成了python解释器的路径。此外，这里用sys.argv[1]而不是$1来获取第一个参数。这个特性非常强大，因为你可以用任何你喜欢的语言来编写Git钩子。
 
+
+
 **钩子的作用域**
 
 对于任何Git仓库来说钩子都是本地的，而且它不会随着git clone一起复制到新的仓库。而且，因为钩子是本地的，任何能接触得到仓库的人都可以修改。在开发团队中维护钩子是比较复杂的，因为.git/hooks目录不随你的项目一起拷贝，也不受版本控制影响。一个简单的解决办法是把你的钩子存在项目的实际目录中（在.git外）。这样你就可以像其他文件一样进行版本控制。
 
 作为备选方案，Git同样提供了一个模板目录机制来更简单地自动安装钩子。每次你使用 git init 或 git clone 时，模板目录文件夹下的所有文件和目录都会被复制到.git文件夹。
+
+
 
 
 ## 4.客户端 Hooks
@@ -108,9 +118,9 @@ commit操作最前和最后的两个钩子执行时间如下图：
 
 ##### pre-commit
 
-pre-commit 挂钩在键入提交信息前运行，最先触发运行的脚本。被用来检查即将提交的代码快照，例如，检查是否有东西被遗漏、运行一些自动化测试、以及检查代码规范。当从该挂钩返回非零值时，Git 放弃此次提交，但可以用 git commit --no-verify 来忽略。该挂钩可以被用来检查代码错误，检查代码格式规范，检查尾部空白（默认挂钩是这么做的），检查新方法（译注：程序的函数）的说明。
+pre-commit 挂钩在键入提交信息前运行，最先触发运行的脚本。被用来检查即将提交的代码快照。例如，检查是否有东西被遗漏、运行一些自动化测试、以及检查代码规范。当从该挂钩返回非零值时，Git 放弃此次提交，但可以用 git commit --no-verify 来忽略。该挂钩可以被用来检查代码错误，检查代码格式规范，检查尾部空白（默认挂钩是这么做的），检查新方法（译注：程序的函数）的说明。
 
-pre-commit不需要任何参数，以非零值退出时将放弃整个提交。这里，我们用“强制代码格式校验”来说明(见第6点)。
+pre-commit 不需要任何参数，以非零值退出时将放弃整个提交。这里，我们用 “强制代码格式校验” 来说明 (见第6点)。
 
 ##### prepare-commit-msg
 
@@ -151,7 +161,7 @@ if branch.startswith('issue-'):
         f.write("ISSUE-%s %s" % (issue_number, content))
 ```
 
-首先，上面的prepare-commit-msg钩子告诉你如何收集传入脚本的所有参数。接下来，它调用了git symbolic-ref --short HEAD来获取对应HEAD的分支名。如果分支名以issue-开头，它会重写提交信息文件，在第一行加上issue编号。比如你的分支名issue-224，下面的提交信息将会生成:
+首先，上面的 prepare-commit-msg 钩子告诉你如何收集传入脚本的所有参数。接下来，它调用了git symbolic-ref --short HEAD 来获取对应HEAD的分支名。如果分支名以issue-开头，它会重写提交信息文件，在第一行加上issue编号。比如你的分支名issue-224，下面的提交信息将会生成:
 
 ```
 ISSUE-224 
@@ -160,7 +170,7 @@ ISSUE-224
 # with '#' will be ignored, and an empty message aborts the commit. 
 # On branch issue-224 
 # Changes to be committed: 
-#   modified:   test.txt
+# modified:   test.txt
 ```
 
 有一点要记住的是即使用户用-m传入提交信息，prepare-commit-msg也会运行。也就是说，上面这个脚本会自动插入ISSUE-[#]字符串，而用户无法更改。你可以检查第二个参数是否是提交类型来处理这个情况。但是，如果没有-m选项，prepare-commit-msg钩子允许用户修改生成后的提交信息。所以这个脚本的目的是为了方便，而不是推行强制的提交信息规范。如果你要这么做，你需要下面所讲的 commit-msg 钩子。
@@ -275,7 +285,7 @@ post-receive 挂钩在整个过程完结以后运行，可以用来更新其他�
 
 update 脚本和 pre-receive 脚本十分类似。不同之处在于它会为推送者更新的每一个分支运行一次。假如推送者同时向多个分支推送内容，pre-receive 只运行一次，相比之下 update 则会为每一个更新的分支运行一次。它不会从标准输入读取内容，而是接受三个参数：索引的名字（分支），推送前索引指向的内容的 SHA-1 值，以及用户试图推送内容的 SHA-1 值。如果 update 脚本以退出时返回非零值，只有相应的那一个索引会被拒绝；其余的依然会得到更新。
 
-## 6.使用Hooks-客户端代码规范
+## 6.使用Hooks-客户端代码规范（OC）
 
 统一的代码规范让代码更加清晰易懂。在控制代码规范方面可以执行的就是 ：
 
@@ -489,7 +499,7 @@ DisableFormat:   false #禁用当前format文件
 
 
 
-## 8.参考文献
+## 8.参考、栗子
 
 [Git Hooks 文档](https://git-scm.com/book/zh/v1/自定义-Git-Git挂钩)
 
@@ -499,3 +509,4 @@ DisableFormat:   false #禁用当前format文件
 
 [clang-format-demo](http://clangformat.com)
 
+[IOS 代码校验封装（仅限OC）](https://github.com/xilankong/IosCodeChecker)
