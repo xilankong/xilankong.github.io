@@ -3,6 +3,9 @@
   font-weight:300;
   font-size: 15px;
 }
+body{
+  background-color: #ECECEC;
+}
 /* inline elements */
 a {
   text-decoration: none;
