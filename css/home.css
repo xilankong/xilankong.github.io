@@ -6,18 +6,16 @@
 body{
   background-color: #ECECEC;
 }
-/* inline elements */
 a {
   text-decoration: none;
 }
 .mainBody{
-  /*background: red;*/
   width: 400px;
   height: 400px;
   position: absolute;
   left:50%;top:50%; 
-  margin-left:-200px;margin-top:-250px;
-  /*background: red;*/
+  margin-left:-200px;
+  margin-top:-250px;
 }
 
 #portrait {
@@ -54,7 +52,7 @@ a {
 #intro strong
 {
   font-size: 1.5em;
-  color:#6A85B3;
+  color:#5267CC;
   font-weight:400;
 }
 #contact {
@@ -62,7 +60,6 @@ a {
   height: 30px;
   margin: 0 auto;
   margin-top: 40px;
-  /*background: black;*/
 }
 
 .one{
@@ -70,7 +67,6 @@ a {
   width: 32%;
   height:100%;
   margin: 0 auto;
-  /*background-color: #A1B373;*/
   color: #666;
   font-size: 1.2em;
   line-height: 2em;
@@ -87,7 +83,6 @@ a {
     background-color: #6A85B3;
 }
 
-/* responsive */
 @media (max-width: 767px) {
 .mainBody{
   width: 100%;
