@@ -20,13 +20,14 @@ body{
 }
 article {
   padding-bottom:3em;
-  padding-top:15em;
+  padding-top:1.5em;
   line-height:25px;
   font-size: 1em;
   color: #444444;
 }
 
 article  .body { 
+  margin-top: 1em;
   clear: left;
 }
 article  blockquote {
