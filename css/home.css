@@ -73,14 +73,7 @@ a {
   text-align: center;
 }
 .one:hover{
-  color: #6A85B3;
-}
-#blue
-{
-    background-color:#6986B0;
-}
-#blue:hover {
-    background-color: #6A85B3;
+  color: #5267CC;
 }
 
 @media (max-width: 767px) {
