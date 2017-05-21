@@ -84,8 +84,7 @@ body{
 }
 
 #posts ul time {
-  color: #aaa;
-  font-size: 90%;
+  color: #666;
 }
 
 #posts  a {
@@ -107,7 +106,7 @@ body{
 }
 .github a{
     color: #444;
-    font-size: 17px;
+    font-size: 16px;
 }
 .github a:hover 
 {
