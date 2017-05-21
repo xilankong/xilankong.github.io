@@ -6,9 +6,6 @@
   font-weight:300;
   font-size: 15px;
 }
-a{
-  text-decoration: none;
-}
 body{
   background-color: #ECECEC;
 }
@@ -58,7 +55,7 @@ body{
 #posts h2{
   color:#333333;
   font-weight:600;
-  font-size:1.25em;
+  font-size:1.5em;
 }
 
 #posts {
@@ -91,9 +88,6 @@ body{
   color:#5267CC;
   font-size:1.0em;
 }
-#posts  a:hover{
-  color: #5267CC;
-}
 
 #back{
     font-size:1.5em;
@@ -101,16 +95,10 @@ body{
     margin-top: 1em;
     display:block;
 }
-#back :hover{
-    color: #5267CC;
-}
+
 .github a{
     color: #444;
     font-size: 16px;
-}
-.github a:hover 
-{
-  color: #5267CC;
 }
 /* responsive */
 @media (max-width: 767px) {
