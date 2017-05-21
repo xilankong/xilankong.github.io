@@ -27,7 +27,7 @@ article {
 }
 
 article  .body { 
-  padding-top: 1em;
+  padding-top: 10em;
   clear: left;
 }
 article  blockquote {
@@ -145,7 +145,7 @@ time {
 #portrait a{
   display: block;
   width: 100%;
-  color:#6A85B3;
+  color:#5267CC;
   font-size:1.75em;
   text-align: left;
 }
@@ -174,5 +174,5 @@ time {
     cursor: pointer;
 }
 #sideBarContents dd:hover, dt:hover {
-    color:#6A85B3;
+    color:#5267CC;
 }
