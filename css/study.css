@@ -6,6 +6,9 @@
   font-weight:300;
   font-size: 15px;
 }
+a{
+  text-decoration: none;
+}
 body{
   background-color: #ECECEC;
 }
@@ -77,16 +80,19 @@ body{
 #posts ul li {
   margin-bottom: 1em;
   display:block;
-  font-size: 1.2em;
 }
 
 #posts ul time {
   color: #666;
+  font-size: 1.2em;
 }
 
 #posts  a {
   color:#5267CC;
   font-size:1.0em;
+}
+#posts a:hover {
+  text-decoration: underline;
 }
 
 #back{
@@ -99,6 +105,9 @@ body{
 .github a{
     color: #444;
     font-size: 16px;
+}
+.github a:hover {
+  text-decoration: underline;
 }
 /* responsive */
 @media (max-width: 767px) {
