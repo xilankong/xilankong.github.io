@@ -9,9 +9,7 @@
 a{
   text-decoration: none;
 }
-body{
-  background-color: #ECECEC;
-}
+
 #sideBar{
     font-size:14px;
     font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -23,7 +21,6 @@ body{
     color: #444444;
     display: inline-block;
     margin-top: 20px;
-    background-color: #ECECEC;
 }
 
 #studyBody

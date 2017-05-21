@@ -124,7 +124,6 @@ time {
     width: 200px;
     min-height: 100px;
     overflow:hidden;!important;
-    background-color: #ECECEC;
 }
 #sideBar h1{
     font-size:18px;
@@ -153,7 +152,6 @@ time {
   width:100%;
   min-height:108px;
   margin-bottom: 30px;
-  background-color: #ECECEC;
 }
 #sideBarContents dl{
     margin:0;
