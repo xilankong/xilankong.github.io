@@ -3,32 +3,10 @@
   font-weight:300;
   font-size: 16px;
 }
-h1 {
-    padding-bottom: .3em;
-    font-size: 2.2em;
-    line-height: 1.2;
-    border-bottom: 1px solid #eee;
+body{
+  background-color: #ECECEC;
 }
-h2 {
-   padding-bottom: .3em;
-    font-size: 1.7em;
-    line-height: 1.225;
-    border-bottom: 1px solid #eee;
-}
-h3 {
-    font-size: 1.35em;
-    line-height: 1.2;
-}
-h4 {
-    font-size: 1.2em;
-}
-h5 {
-    font-size: 1.1em;
-}
-h6 {
-   font-size: 1em;
-    color: #777;
-}
+
 /*post 内容部分*/
 .content{
 	padding-left:15%;
@@ -47,10 +25,7 @@ article {
   font-size: 1em;
   color: #444444;
 }
-article  h1 {
-  font-size: 1.6em;
-  margin: 0 0 0 -0.08em;
-}
+
 article  .body { 
   clear: left;
 }
@@ -63,14 +38,6 @@ article  blockquote {
     margin-left:0px;
     margin-right:0px;
 }
-hr {
-    height: 1px;
-    padding: 0;
-    margin: 16px 0;
-    background-color: #eee;
-    border: 0 none;
-    overflow: hidden;
-}
 article     h1,
 article     h2,
 article     h3,
@@ -81,8 +48,46 @@ article     h6 {
     margin-top: 1em;
     margin-bottom: 1em;
     color: #333333;
-    font-weight:normal; 
 }
+
+article h1 {
+    padding-bottom: .3em;
+    font-size: 2.2em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+article h2 {
+   padding-bottom: .3em;
+    font-size: 1.7em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+article h3 {
+    font-size: 1.35em;
+    line-height: 1.2;
+}
+article h4 {
+    font-size: 1.2em;
+}
+article h5 {
+    font-size: 1.1em;
+}
+article h6 {
+   font-size: 1em;
+    color: #777;
+}
+
+
+
+hr {
+    height: 1px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #eee;
+    border: 0 none;
+    overflow: hidden;
+}
+
 a {
     color: #6A85B3;
     text-decoration: none;
@@ -114,7 +119,7 @@ time a
     font-size: 1.1em;
       padding-top:0.3em;
   }
-  h1 { font-size: 1.5em; }
+  article h1 { font-size: 1.5em; }
   #sideBar{
     display: none;
   }
