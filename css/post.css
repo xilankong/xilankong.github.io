@@ -48,7 +48,7 @@ article     h6 {
     position: relative;
     margin-top: 1em;
     margin-bottom: 1em;
-    color: #333333;
+    color: #000000;
 }
 
 article h1 {
@@ -96,7 +96,7 @@ strong{
    color: #333333;
 }
 time {
-  color: #aaa;
+  color: #999999;
 }
 
 /* 小屏幕 word-wrap 解决英文不换行问题*/
