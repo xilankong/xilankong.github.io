@@ -89,7 +89,7 @@ hr {
 }
 
 a {
-    color: #6A85B3;
+    color: #5267CC;
     text-decoration: none;
 }
 a:hover {
@@ -100,9 +100,7 @@ strong{
    color: #333333;
 }
 time {
-  color: #aaa;
-  margin-top:0.6em;
-  margin-bottom:0.6em;
+  color: #444;
 }
 
 /* 小屏幕 word-wrap 解决英文不换行问题*/
