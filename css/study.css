@@ -84,12 +84,12 @@ body{
 
 #posts ul time {
   color: #666;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 #posts  a {
   color:#5267CC;
-  font-size:1.0em;
+  font-size:1.2em;
 }
 #posts a:hover {
   text-decoration: underline;
