@@ -27,7 +27,7 @@ article {
 }
 
 article  .body { 
-  margin-top: 1em;
+  padding-top: 1em;
   clear: left;
 }
 article  blockquote {
@@ -75,8 +75,6 @@ article h6 {
    font-size: 1em;
     color: #777;
 }
-
-
 
 hr {
     height: 1px;
