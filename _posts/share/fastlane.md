@@ -1,58 +1,395 @@
-概念
+ 让程序员专心写代码 之 搭建持续集成系统
 
-1、介绍为什么需要持续集成
+### 概念
 
-持续集成是把代码频繁的合并到主干，通过自动构建的方式验证软件的质量，让团队快速的响应质量，快速的修复问题，快速的给客户解决问题，快速地交付更好的软件质量。
+普通情况每次构建都要面临的问题:
 
-持续集成是一种软件开发实践，即团队开发成员经常集成它们的工作，通过每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试）来验证，从而尽早地发现集成错误。
+```
+1.还要手动打包
 
-1.减少风险
-2.减少重复过程
-3.任何时间、任何地点生成可部署的软件
-4.增强项目的可见性
+2.各种证书管理更新
 
-持续集成不能消除 bug ,但能更容易地发现 bug,更快速地修复，提升产品质量。那么，持续集成能给我们带来哪些价值？
+3.怎么分发到内部测试？
 
-![](https://xilankong.github.io/resource/cxjc.jpg)
+4.如何在打包流程里插入一些测试分析？
 
-从这张图上可以看到，持续集成形成一个完美的闭环。通过持续的集成进行不断地检查、调整，同时，项目的透明性也得到了最大的体现。
+5.菊花还在转，具体走到哪了？
+
+6.符号文件在哪？
+
+7.出错了到哪找日志？
+
+8.打包结果的分析统计在哪呢？
+```
+
+怎么解决这些繁琐的问题？先介绍一个概念：
+
+**持续集成**
+
+互联网时代，人人都在追求产品的快速响应、快速迭代和快速验证。探索属于自己的敏捷开发、持续交付之道。持续集成是把代码频繁的合并到主干，通过自动构建的方式验证软件的质量，让团队快速的响应质量，快速的修复问题，快速的给客户解决问题，快速地交付更好的软件质量。
+
+为什么需要持续集成? 持续集成能给我们带来哪些价值?
+
+```
+1.减少重复过程
+
+2.减少构建花费的时间
+
+3.减少团队协作产生的问题
+
+4.任何时间、任何地点生成可部署的软件
+
+5.增强项目的可见性（面向开发，测试，甚至不懂开发的人）
+
+6.持续集成不能消除 bug，但能更容易地发现 bug，更快速地修复，提升产品质量
+```
+
+
+
+使用持续集成系统进行app构建如同工厂的生产流水线一般：
 
 ![](https://xilankong.github.io/resource/cxjc2.jpg)
 
-在日常的开发过程中，程序员在本地提交代码，持续集成流水线要求先做一次本地集成，在本地进行验证后提交到源代码管理仓库中，之后源代码工具会发出 webhook 触发到持续集成系统中。当构建/测试完成后，会及时通过钉钉或邮件通知团队（测试/研发/boss/产品经理）集成状态，产品经理或项目经理收到通知后会在测试环境做验收测试，这是一个比较完美的反馈环。
+在日常的开发过程中，程序员在本地提交代码，持续集成流水线要求先做一次本地集成（也就是我们从各自的开发分支，合并到develop分支），在本地进行验证后提交到源代码管理仓库中，触发到持续集成系统中，进行构建或者定时进行构建。当构建完成后，会及时通过邮件通知团队（测试/开发/产品经理）集成状态，各端收到通知后会在测试环境做验收测试。
 
-假如测试通过验收完毕后，持续集成系统会自动触发部署到类生产环节或测试环境，或由专人手动部署到生产环境。
+在开发期构建完成后，持续集成系统会自动触发部署到测试或预发环境。
 
-2、介绍常用现有的持续集成方式
-
-
-
-3、介绍欠缺的点，我们需要更新的点
+当测试通过验收后，自动或由专人手动部署到生产环境。
 
 
 
-4、在原有的基础上的实现方式，包括静态分析、自动化测试，代码校验的可实现方式。
+### 我们现在的持续集成方案
 
 
 
-5、新的实现，fastlane
+图：
 
 
 
-6、介绍fastlane的操作原理
+还存在的痛点
+
+图：
+
+静态分析
+
+单元 ( UI ) 测试
+
+证书管理复杂度降低
+
+自动上传TestFlight
+
+快速，自动发布Appstore
 
 
 
-7、介绍各个组件，gym，increasenum等
+### 我们需要做的改变
 
 
 
-8、介绍match 和 cert、sigh 之前 介绍证书的内容，新开一章
+静态代码分析、代码格式校验：SwiftLint、OCLint  
+
+Analyze  能不能把静态分析后的日志分析整理传到 JIRA
+
+单元测试  ：quick测试、UnitTest
+
+UI测试：
+
+KIF 、appium、UI Testing、UI Automation等
+
+[iOS UI 自动化测试和持续集成](https://zhuanlan.zhihu.com/p/22283843)
+
+[iOS自动化测试的那些干货](http://www.cocoachina.com/ios/20170401/18995.html)
+
+推荐KIF  可以集成到Jenkins
+
+详细了解一下KIF
+
+动态内存分析：Instrument
+
+提供一个快捷提交TestFlight的方式
+
+证书管理，配置信息等还是需要手动操作
 
 
 
-9、介绍pod开发的效率提升
+### 新的实现方案
+
+#### 1、fastlane 解决解决主项目问题
+
+fastlane是用Ruby语言编写的一套自动化工具集和框架，每一个工具实际都对应一个Ruby脚本，用来执行某一个特定的任务，而Fastlane核心框架则允许使用者通过类似配置文件的形式，将不同的工具有机而灵活的结合在一起，从而形成一个个完整的自动化流程。
+
+fastfile 文件分析
+
+| 执行顺序 | 方法名         | 说明                     |
+| ---- | ----------- | ---------------------- |
+| 1    | before_all  | 在执行 lane 之前只执行一次       |
+| 2    | before_each | 每次执行 lane 之前都会执行一次     |
+| 3    | lane        | 自定义的任务                 |
+| 4    | after_each  | 每次执行 lane 之后都会执行一次     |
+| 5    | after_all   | 在执行 lane 成功结束之后执行一次    |
+| 6    | error       | 在执行上述情况任意环境报错都会中止并执行一次 |
 
 
 
-10、串起来
+到目前为止，Fastlane的工具集大约包含170多个小工具，基本上涵盖了打包，签名，测试，部署，发布，库管理等等移动开发中涉及到的内容。
+
+[Actions](https://docs.fastlane.tools/actions/)
+
+我们常用的主要包括下面几部分:
+
+- 测试
+
+  - scan => 自动运行测试工具(UnitTest和UITest)，并且可以生成漂亮的HTML报告
+
+    原理：
+
+    ```
+    set -o pipefail &&
+      xcodebuild \
+        -workspace MyApp.xcworkspace \
+        -scheme "MyApp" \
+        -sdk iphonesimulator \
+        -destination 'platform=iOS Simulator,name=iPhone 6,OS=8.1' \
+        test \
+      | xcpretty \
+        -r "html" \
+        -o "tests.html"
+    ```
+
+    问题：
+
+    ```
+    release情况下无法正常运行scan，需要手动去Build Setting中更改enable Testability 在release 下的状态，改为 yes才可以运行。但是官方不建议做release下开启，Test一般在development configuration 下执行。
+    ```
+
+  - swiftlint
+
+  - oclint
+
+    ​
+
+- 证书，配置文件
+
+  - cert => 自动创建管理iOS代码签名证书
+
+    ```
+    1.检查本地是否安装，没安装就生成一个并下载安装，不会revoke之前的证书。
+    2.如果之前手动创建的证书并不能被cert使用，cert只识别自己创建的证书。
+    3.如果超出创建数量就会不执行，直接给issue地址，也不写错误原因，有点无脑
+
+    原理：利用spaceShip连接ADC进行查询获取
+    ```
+
+  - sigh => 一声叹息啊，这么多年和Provisioning Profile战斗过无数次。总是有这样那样的问题导致配置文件过期或者失效。sigh是用来创建、更新、下载、修复Provisioning Profile的工具。
+
+    resign 的 重新签名 功能。
+
+    ```
+    1.检查本地是否安装，是否过期，没安装就生成一个，并下载安装。
+    2.如果之前手动创建的PP文件（match创建的PP文件），sigh也识别不到，只能识别通过sigh创建的
+    2.如果超出创建数量就会不执行，直接给issue地址，也不写错误原因，有点无脑
+
+    原理：利用spaceShip连接ADC进行查询获取
+    ```
+
+  - pem => 自动生成、更新推送配置文件
+
+  - match => 一个新的证书和配置文件管理工具。它会把所有需要用到的证书传到git私有库上，任何需要配置的机器直接用match同步回来就不用管证书问题了。保证大家用的都是同一份。不过我们一般都是一台机器需要用到distribution证书，所以意义不大。
+
+    ```
+    1.match只认识通过match方式创建的pp文件 证书，其他方式创建的不予理会。
+    2.使用match 需要先撤销现在的证书。
+    3.如果苹果端的证书,pp文件已删除，那么远端git上的文件也会失效，并且在重新match的时候会失败,好像就只能删光 git端内容，重新match一遍。
+    ```
+
+- 截图
+
+  - snapshot  => 用Xcode7推出的UI test功能实现自动化截图
+
+    ```
+    snapshot init 会生成一个 Snapfile 配置文件，可以配置运行scheme和需要跑的各种模拟器等
+    操作步骤
+    \\ 1）在项目添加UI测试,已经添加略过
+    \\ 2）将./fastlane/SnapshotHelper.swift 添加到UI测试中
+    \\ 3）打开 UITests.swift 
+    setup方法中除了 super都删掉
+    加上
+    let app = XCUIApplication()
+            setupSnapshot(app)
+            app.launch()
+
+    然后在testExample方法中
+
+     app.buttons["next"].tap()
+      snapshot("01firstPage") // 此处截图
+      
+      app.buttons["back"].tap()
+      snapshot("02secondPage") // 此处截图
+
+    进行截图操作
+
+    会自动根据语言环境(可配置)，模拟器类型(可配置)去逐个启动运行app
+    并且与单元测试绑定，单元测试失败截图也会失败。
+    ```
+
+    ​
+
+  - frameit => 可以把截的图片自动套上一层外边框
+
+    ​
+
+- 编译
+
+  - gym => Fastlane家族的自动化编译工具，和其他工具配合的非常默契
+
+    原理：
+
+    ```
+    xcodebuild clean archive -archivePath build/MyApp \
+                             -scheme MyApp
+    xcodebuild -exportArchive \
+               -exportFormat ipa \
+               -archivePath "build/MyApp.xcarchive" \
+               -exportPath "build/MyApp.ipa" \
+               -exportProvisioningProfile "ProvisioningProfileName"
+    ```
+
+    问题：
+
+    ```
+    纯swift工程打包，在非appstore证书下签出来的包都缺少一个swiftsupport文件夹，里面放的是swift的支持库。
+    ```
+
+    ​
+
+- 发布
+
+  - produce => 如果你的产品还没在iTunes Connect(iTC)或者Apple Developer Center(ADC)建立，produce可以自动帮你完成这些工作
+  - deliver => 自动上传截图，APP的元数据，二进制(ipa)文件到iTunes Connect
+
+- TestFlight管理
+
+  - pilot => 管理TestFlight的测试用户，上传二进制文件
+  - boarding => 建立一个添加测试用户界面，发给测试者，可自行添加邮件地址，并同步到iTC
+
+- 辅助工具
+
+  - spaceship => 为pilot，boarding和deliver等工具提供和 iTC 和 ADC 的交互API。
+
+    [非官方的iTunes Connect JSON API的文档](https://github.com/fastlane/itc-api-docs)  
+
+  - jira ,自动向jira提交bug (如何读取分析测试日志，崩溃日志，并转成bug提交到jira)
+
+  - ftp 上传到服务器 （只需要本地右装ftp，通过 sh 可以直接执行脚本，plugin不太好用）
+
+  - increment_build_number => build 自增
+
+  - increment_version_number => version 自增
+
+栗子：
+
+```
+1.执行Git Pull命令，拉最新的代码到本地
+
+2.Pod Install安装最新的依赖库
+
+3.单元/UI测试
+
+4.在Xcode中将Build Version增加
+
+5.在Xcode点击Archive编译并打包
+
+6.选择输出一个iOS AppStore模式的ipa文件
+
+7.通过Application Loader将IPA上传到ITC（TestFlight）
+
+8.然后等待ITC Process完成后，登录上去选择刚才的Build进行TestFlight测试
+
+9.由于修改了版本号，所以需要将代码Commit和Push一下
+```
+
+fastfile : fastlane beta version:1.1.0
+
+```
+fastlane_version "2.30.2"
+default_platform :ios
+platform :ios do
+
+#声明
+app_name = "demo"
+ipa_time = Time.now.strftime("%Y%m%d%H%M%S")
+
+  #开始
+  before_all do
+    git_pull
+    sh "pod install --no-repo-update"
+  end
+  
+  #打上传testflight包
+  lane :beta do |options|
+   increment_build_number
+   increment_version_number(
+      version_number: options[:version],
+      xcodeproj: "demo.xcodeproj" 
+    )
+    cert(
+    	output_path: "../profile"
+    )
+    sigh(
+    	appstore: true,
+    	filename: "appstore.mobileprovision",
+    	output_path: "../profile"
+    )
+    gym(
+    	scheme: "demo",
+    	export_method: "app-store",
+    	output_directory: "../appstoreIPA",
+    	output_name: "#{app_name}" + "-appstore-" + "#{ipa_time}" + ".ipa"
+    )
+    #上传
+	pilot
+  end
+
+  after_all do |lane|
+    sh "git add ."
+    sh "git commit -m 'fastlane change'"
+    #sh "git push"
+  end
+
+  error do |lane, exception|
+  end
+end
+```
+
+
+
+#### 2、pod开发的效率提升
+
+1. 增加Podspec中的版本号
+2. 执行pod lib lint命令进行库验证
+3. Git Commit代码
+4. Git Push代码到远端
+5. 打一个Git Tag
+6. 将Tag Push到远端
+7. 执行pod repo push命令发布库到私有仓库
+
+
+
+git_pull
+
+ensure_git_branch => 确认分支情况
+
+pod_lib_lint => pod 包校验
+
+version_get_podspec => 获取podspec 版本号
+
+version_bump_podspec => 修改podspec版本号
+
+add_git_tag => 添加tag
+
+pod_push => 推送到私有repo
+
+
+
+#### 3、fastlane结合Jenkins（或者自行构建的持续集成系统）
+
