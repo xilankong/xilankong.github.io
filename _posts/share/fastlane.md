@@ -1,11 +1,13 @@
- 让程序员专心写代码 之 搭建持续集成系统
+让程序员专心写代码第一期：搭建 iOS 持续集成系统。
 
-### 概念
+把开发中更多的事情自动化，可视化，让程序员专心写代码。
 
-普通情况每次构建都要面临的问题:
+### 一、持续集成概念
+
+首先，我们总结一下普通构建方式每次构建都要面临的问题:
 
 ```
-1.还要手动打包
+1.还要手动打包，打包怎么这么久
 
 2.各种证书管理更新
 
@@ -22,13 +24,17 @@
 8.打包结果的分析统计在哪呢？
 ```
 
-怎么解决这些繁琐的问题？先介绍一个概念：
+怎么解决这些繁琐的问题？
 
 **持续集成**
 
 互联网时代，人人都在追求产品的快速响应、快速迭代和快速验证。探索属于自己的敏捷开发、持续交付之道。持续集成是把代码频繁的合并到主干，通过自动构建的方式验证软件的质量，让团队快速的响应质量，快速的修复问题，快速的给客户解决问题，快速地交付更好的软件质量。
 
-为什么需要持续集成? 持续集成能给我们带来哪些价值?
+我们从问题出发来看待持续集成
+
+Q1：为什么需要持续集成？
+
+Q2：持续集成能给我们带来哪些价值？
 
 ```
 1.减少重复过程
@@ -44,9 +50,9 @@
 6.持续集成不能消除 bug，但能更容易地发现 bug，更快速地修复，提升产品质量
 ```
 
+Q3：简单描述一下持续集成
 
-
-使用持续集成系统进行app构建如同工厂的生产流水线一般：
+如下图，使用持续集成系统进行app构建如同工厂的生产流水线一般：
 
 ![](https://xilankong.github.io/resource/cxjc2.jpg)
 
@@ -58,7 +64,7 @@
 
 
 
-### 我们现在的持续集成方案
+### 二、我们现在的持续集成方案和改进方案
 
 
 
@@ -66,59 +72,121 @@
 
 
 
-还存在的痛点
+我们现在的方案已经基本满足日常的需求，但是还是存在一些痛点：
 
 图：
 
-静态分析
+1.代码的静态分析（少量，可控性不强）
 
-单元 ( UI ) 测试
+```
+我们现在使用的是swift这部分的代码分析，而且基本上只在程序员自主执行，可控性不强
 
-证书管理复杂度降低
+我们需要强制校验，不通过不能继续打包，并且可以自带分析解析校验日志post到JIRA或者生成结果文件
 
-自动上传TestFlight
+考虑方案：
 
-快速，自动发布Appstore
+静态代码分析、代码格式校验：SwiftLint、OCLint  + push 钩子处理
+```
+
+2.单元 ( UI ) 测试 (基本没有做)
+
+```
+养成写测试用例的习惯，每次测试结果生成对应结果文件
+
+考虑方案：
+
+Quick测试、UnitTest + jenkins 脚本
+```
+
+3.证书管理复杂度降低
+
+```
+Xcode现在可以自动管理development环境的证书，但是分发测试，TestFlight等的证书和PP文件还是需要手动管理
+
+考虑方案：
+
+通过 ITC API 向 ITC(或ADP) 自动获取证书和PP文件(较为复杂)
+```
+
+4.TestFlight测试，但还不能自动上传TestFlight
+
+5.pod工程的维护困难
+
+```
+pod工程维护后需要每次手动打tag，手动维护私有repo
+
+考虑方案：
+
+脚本批量管理pod工程，并生成结果文件
+```
+
+6.还有其他的，比如monkey测试，测试日志，崩溃日志的自动解析等等
+
+```
+如何让ios也和安卓一样跑monkey测试
+利用Instrument service-client方式来做动态内存分析
+```
+
+7.这一切都是为了减少项目上线后的问题
 
 
 
-### 我们需要做的改变
+针对以上几点，后续会一一展开分析。
 
 
 
-静态代码分析、代码格式校验：SwiftLint、OCLint  
+### 三、Fastlane带来的全自动化发布
 
-Analyze  能不能把静态分析后的日志分析整理传到 JIRA
-
-单元测试  ：quick测试、UnitTest
-
-UI测试：
-
-KIF 、appium、UI Testing、UI Automation等
-
-[iOS UI 自动化测试和持续集成](https://zhuanlan.zhihu.com/p/22283843)
-
-[iOS自动化测试的那些干货](http://www.cocoachina.com/ios/20170401/18995.html)
-
-推荐KIF  可以集成到Jenkins
-
-详细了解一下KIF
-
-动态内存分析：Instrument
-
-提供一个快捷提交TestFlight的方式
-
-证书管理，配置信息等还是需要手动操作
-
-
-
-### 新的实现方案
-
-#### 1、fastlane 解决解决主项目问题
+#### 1.fastlane 介绍
 
 fastlane是用Ruby语言编写的一套自动化工具集和框架，每一个工具实际都对应一个Ruby脚本，用来执行某一个特定的任务，而Fastlane核心框架则允许使用者通过类似配置文件的形式，将不同的工具有机而灵活的结合在一起，从而形成一个个完整的自动化流程。
 
-fastfile 文件分析
+```
+#发布到AppStore
+
+lane :beta do
+  increment_build_number
+  cocoapods
+  gym
+  deliver(force: true)
+  sh "./yourScript.sh"
+end
+```
+
+**依赖环境:**
+
+- Xcode7+
+- macOS or Linux with Ruby 2.0.0 or above
+
+**版本：**
+
+fastlane版本：2.33.0
+
+**安装：**
+
+[sudo] gem install fastlane
+
+```
+如果用的是mac自带的ruby，需要 sudo权限
+使用: sudo gem install fastlane
+
+如果报错：ERROR: While executing gem ... (Errno::EPERM) Operation not permitted - /usr/bin/commander 
+使用: sudo gem install -n /usr/local/bin fastlane
+```
+
+**初始化：**
+
+在项目根目录下，初始化Fastlane：
+
+```
+fastlane init
+
+会要求填写你的Apple ID，选择你的Team(如果有多个) 然后fastlane会自动检测当前目录下项目的App Name和App Identifier、Project。然后自行确认并按流程执行
+```
+
+fastlane 初始化默认会创建三个文件：Fastfile、Appfile、Deliverfile；两个文件夹：metadata、screenshots
+
+Fastfile : 核心文件，主要用于 cli 调用和处理具体的流程
 
 | 执行顺序 | 方法名         | 说明                     |
 | ---- | ----------- | ---------------------- |
@@ -129,15 +197,35 @@ fastfile 文件分析
 | 5    | after_all   | 在执行 lane 成功结束之后执行一次    |
 | 6    | error       | 在执行上述情况任意环境报错都会中止并执行一次 |
 
+Appfile : 存储有关开发者账号相关信息
 
+Deliverfile: deliver工具的配置文件
 
-到目前为止，Fastlane的工具集大约包含170多个小工具，基本上涵盖了打包，签名，测试，部署，发布，库管理等等移动开发中涉及到的内容。
+```
+如果Deliverfile、screenshots和metadata没有自动生成，通过deliver init 可以重新初始化
+```
 
-[Actions](https://docs.fastlane.tools/actions/)
+PS：
+
+fastlane的配置会要求输入开发者账号密码，所有的密码都加密保存在系统的Keychain里
+
+fastlane env 命令 查看fastlane当前环境
+
+**Action**
+
+Action是Fastlane自动化流程中的最小执行单元，直观上来讲就是Fastfile脚本中的一个个命令，而这些命令背后都对应一个用Ruby编写的脚本。
+
+到目前为止，Fastlane的工具集大约包含180多个Action，基本上涵盖了打包，签名，测试，部署，发布，库管理等等移动开发中涉及到的内容。
+
+fastlane actions : 查看action列表
+
+fastlane action  action_name：查看具体action 描述
+
+Action列表 ：[Actions](https://docs.fastlane.tools/actions/)
 
 我们常用的主要包括下面几部分:
 
-- 测试
+- 测试、代码检查
 
   - scan => 自动运行测试工具(UnitTest和UITest)，并且可以生成漂亮的HTML报告
 
@@ -166,8 +254,6 @@ fastfile 文件分析
 
   - oclint
 
-    ​
-
 - 证书，配置文件
 
   - cert => 自动创建管理iOS代码签名证书
@@ -177,7 +263,7 @@ fastfile 文件分析
     2.如果之前手动创建的证书并不能被cert使用，cert只识别自己创建的证书。
     3.如果超出创建数量就会不执行，直接给issue地址，也不写错误原因，有点无脑
 
-    原理：利用spaceShip连接ADC进行查询获取
+    原理：利用spaceShip连接 ITC 进行查询获取
     ```
 
   - sigh => 一声叹息啊，这么多年和Provisioning Profile战斗过无数次。总是有这样那样的问题导致配置文件过期或者失效。sigh是用来创建、更新、下载、修复Provisioning Profile的工具。
@@ -189,7 +275,7 @@ fastfile 文件分析
     2.如果之前手动创建的PP文件（match创建的PP文件），sigh也识别不到，只能识别通过sigh创建的
     2.如果超出创建数量就会不执行，直接给issue地址，也不写错误原因，有点无脑
 
-    原理：利用spaceShip连接ADC进行查询获取
+    原理：利用spaceShip连接 ITC 进行查询获取
     ```
 
   - pem => 自动生成、更新推送配置文件
@@ -232,11 +318,7 @@ fastfile 文件分析
     并且与单元测试绑定，单元测试失败截图也会失败。
     ```
 
-    ​
-
   - frameit => 可以把截的图片自动套上一层外边框
-
-    ​
 
 - 编译
 
@@ -260,11 +342,9 @@ fastfile 文件分析
     纯swift工程打包，在非appstore证书下签出来的包都缺少一个swiftsupport文件夹，里面放的是swift的支持库。
     ```
 
-    ​
-
 - 发布
 
-  - produce => 如果你的产品还没在iTunes Connect(iTC)或者Apple Developer Center(ADC)建立，produce可以自动帮你完成这些工作
+  - produce => 如果你的产品还没在iTunes Connect(iTC)建立，produce可以自动帮你完成这些工作
   - deliver => 自动上传截图，APP的元数据，二进制(ipa)文件到iTunes Connect
 
 - TestFlight管理
@@ -274,7 +354,7 @@ fastfile 文件分析
 
 - 辅助工具
 
-  - spaceship => 为pilot，boarding和deliver等工具提供和 iTC 和 ADC 的交互API。
+  - spaceship => 为pilot，boarding和deliver等工具提供和 iTC  的交互API。
 
     [非官方的iTunes Connect JSON API的文档](https://github.com/fastlane/itc-api-docs)  
 
@@ -286,80 +366,158 @@ fastfile 文件分析
 
   - increment_version_number => version 自增
 
-栗子：
+    ```
+    以上两个都需要先配置好xcode 
+    文档：
+    https://developer.apple.com/library/content/qa/qa1827/_index.html
+    ```
+
+**自定义Action**
+
+由于开发需求各自不同，已有的action不满足的情况下，Fastlane支持定义自己的Action。Fastlane为我们提供了现成的模板，即使你对Ruby的语法不熟悉，也没有关系，Fastlane是开源的嘛，可以直接下载源码看看别人的Action是怎么写的就知道了，我们可以在这个目录下找到所有的Action文件：
+
+[Action_rbs](https://github.com/fastlane/fastlane/tree/master/fastlane/lib/fastlane/actions)
+
+假设，我们针对pod的执行创建一个action来针对下面三种情况的执行
 
 ```
-1.执行Git Pull命令，拉最新的代码到本地
-
-2.Pod Install安装最新的依赖库
-
-3.单元/UI测试
-
-4.在Xcode中将Build Version增加
-
-5.在Xcode点击Archive编译并打包
-
-6.选择输出一个iOS AppStore模式的ipa文件
-
-7.通过Application Loader将IPA上传到ITC（TestFlight）
-
-8.然后等待ITC Process完成后，登录上去选择刚才的Build进行TestFlight测试
-
-9.由于修改了版本号，所以需要将代码Commit和Push一下
+pod install --no-repo-update (避免master repo的每次更新耗时)
+pod update --no-repo-update (避免master repo的每次更新耗时)
+pod repo update XXX (私有repo的更新)
 ```
 
-fastfile : fastlane beta version:1.1.0
+自定义Action的流程大约如下，首先，我们在终端中执行命令：
 
 ```
-fastlane_version "2.30.2"
-default_platform :ios
-platform :ios do
+fastlane new_action
+```
 
-#声明
-app_name = "demo"
-ipa_time = Time.now.strftime("%Y%m%d%H%M%S")
+然后根据提示，在命令行中敲入action的名字pod，然后Fastlane会在当前目录的actions文件夹中帮我们创建了一个pod.rb的Ruby文件 （此处只有部分代码）
 
-  #开始
-  before_all do
-    git_pull
-    sh "pod install --no-repo-update"
-  end
-  
-  #打上传testflight包
-  lane :beta do |options|
-   increment_build_number
-   increment_version_number(
-      version_number: options[:version],
-      xcodeproj: "demo.xcodeproj" 
-    )
-    cert(
-    	output_path: "../profile"
-    )
-    sigh(
-    	appstore: true,
-    	filename: "appstore.mobileprovision",
-    	output_path: "../profile"
-    )
-    gym(
-    	scheme: "demo",
-    	export_method: "app-store",
-    	output_directory: "../appstoreIPA",
-    	output_name: "#{app_name}" + "-appstore-" + "#{ipa_time}" + ".ipa"
-    )
-    #上传
-	pilot
-  end
+```ruby
+module Fastlane
+  module Actions
+    module SharedValues
+      POD_CUSTOM_VALUE = :POD_CUSTOM_VALUE
+    end
 
-  after_all do |lane|
-    sh "git add ."
-    sh "git commit -m 'fastlane change'"
-    #sh "git push"
-  end
+    class PodAction < Action
+      def self.run(params)
+        UI.message "Parameter API Token: #{params[:api_token]}"
+      end
+      ......
+      def self.available_options
+        # Define all options your action supports. 
+      end
+      ......
 
-  error do |lane, exception|
+```
+
+可以看到，自定义的Action都是隶属于Fastlane/Actions这个module，并且继承自Action这个父类。虽然模板中的内容还挺多，不过不用担心，大部分内容都是一些简单的文本描述，对于我们来说只需要重点关注这两个方法就行：
+
+1. self.run方法：这里放置的是实际的业务处理代码。
+2. self.available_options方法：这里声明需要对外暴露出的参数，没有声明的参数在执行过程中无法使用。
+
+最终写完结果如下：
+
+```ruby
+module Fastlane
+  module Actions
+    module SharedValues
+      POD_INSTALL_CUSTOM_VALUE = :POD_INSTALL_CUSTOM_VALUE
+    end
+
+    class PodInstallAction < Action
+      def self.run(params)
+        repo = "-no-repo-update"
+        command = []
+        command << "pod install"
+        if params[:repo_update]
+          repo = "--repo-update"
+        end
+        command << repo
+        if params[:verbose]
+          command << "--verbose"
+        end
+        result = Actions.sh(command.join(' '))
+        UI.success(command.join(' ') + " Successfully ")
+
+        return result
+      end
+
+      def self.description
+        "pod install action"
+      end
+
+      def self.details
+        "verbose / repo-update /"
+      end
+
+      def self.available_options
+        [
+          FastlaneCore::ConfigItem.new(key: :verbose,
+                                       description: "Allow output detail in console",
+                                       optional: true,
+                                       is_string: false,
+                                       default_value: false),
+          FastlaneCore::ConfigItem.new(key: :repo_update,
+                                       description: "Allow output detail in console",
+                                       optional: true,
+                                       is_string: false,
+                                       default_value: false)
+        ]
+      end
+
+      def self.output
+      end
+
+      def self.return_value
+      end
+
+      def self.authors
+        ["yang"]
+      end
+
+      def self.is_supported?(platform)
+        platform == :ios
+      end
+    end
   end
 end
 ```
+
+Action引用机制
+
+远程引用
+
+```
+# 远程Git引用：
+import_from_git(url: 'https://github.com/xilankong/ruby', branch: 'master')
+# 复写发布项目的lane
+lane :do_deliver_app do |options|
+  # ...
+end
+```
+
+本地引用
+
+```
+import "../GeneralFastfile"
+actions_path '../custom_actions_folder/'
+lane :appstore do |options|
+  # ...
+end
+```
+
+
+
+
+
+**Plugin**
+
+Plugin就是RubyGem封装的Action，我们可以像管理RubyGems一样来管理Fastlane的Plugin。
+
+但是我们并不存在需要Plugin的使用情况，暂不考虑，后期再更新。
 
 
 
@@ -391,5 +549,5 @@ pod_push => 推送到私有repo
 
 
 
-#### 3、fastlane结合Jenkins（或者自行构建的持续集成系统）
+### 四、fastlane结合Jenkins（或者自行构建的持续集成系统）
 
