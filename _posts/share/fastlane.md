@@ -124,7 +124,10 @@ pod工程维护后需要每次手动打tag，手动维护私有repo
 
 ```
 如何让ios也和安卓一样跑monkey测试
-利用Instrument service-client方式来做动态内存分析
+利用Instrument service-client方式来做动态内存分析 (xcode 8 移除了Automation 所以不能再用)
+
+使用UITest录制，比较麻烦，而且需要集成代码在工程里
+使用KIF，对于代码量大的工程来说，也是很麻烦
 ```
 
 7.这一切都是为了减少项目上线后的问题
