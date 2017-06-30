@@ -1,10 +1,10 @@
 ---
 layout: post
 category: 2017年
-title : "IOS和WebView的交互"
+title : "iOS和WebView的交互"
 ---
 
-## 1.什么时候需要IOS和WebView的交互
+## 1.什么时候需要iOS和WebView的交互
 
 由于现在的开发过程中，多量的活动或者推广页面都是采用的H5在展示，从而，不可避免的需要H5和原生内容进行交互,这里介绍几个交互库，具体就是采用原生代码调用JS，JS调用原生代码来实现交互。
 
