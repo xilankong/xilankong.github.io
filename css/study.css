@@ -11,13 +11,13 @@ a{
 }
 
 #sideBar{
-    font-size:14px;
-    font-weight:1000;
     width: 200px;
     height: 400px;
     position:fixed;
     top:90px;
     left: 70%;
+    color:#5267CC;
+    font-size:1.2em;
     overflow:hidden;!important;
 }
 
