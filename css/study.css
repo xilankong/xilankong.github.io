@@ -91,7 +91,7 @@ a{
 #back{
     font-size:1.5em;
     color: #5267CC;
-    font-weight: 600;
+    font-weight: 400;
     margin-top: 1em;
     display:block;
 }
@@ -99,7 +99,7 @@ a{
 .github a{
     color: #444;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
 }
 .github a:hover {
   text-decoration: underline;
