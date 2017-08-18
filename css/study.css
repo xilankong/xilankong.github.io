@@ -11,14 +11,12 @@ a{
 }
 
 #sideBar{
-    width: 200px;
-    height: 400px;
-    position:fixed;
-    top:90px;
-    left: 70%;
-    color:#5267CC;
-    font-size:1.2em;
-    overflow:hidden;!important;
+  width: 200px;
+  height: 400px;
+  position:fixed;
+  top:90px;
+  left: 70%;
+  overflow:hidden;!important;
 }
 
 #studyBody
@@ -93,6 +91,7 @@ a{
 #back{
     font-size:1.5em;
     color: #5267CC;
+    font-weight: 400;
     margin-top: 1em;
     display:block;
 }
