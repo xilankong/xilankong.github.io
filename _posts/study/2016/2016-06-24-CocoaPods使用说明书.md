@@ -1,7 +1,7 @@
 ---
 layout: post
 category: 2016年
-title: "CocoaPods 从安装到使用" 
+title: "CocoaPods使用说明书" 
 ---
 
 ------
