@@ -64,7 +64,7 @@ gem sources -a https://gems.ruby-china.org // 添加新的源
 gem sources -l //查看sources源 看是否已经更换
 ```
 
-## 3.CocoaPods的使用
+## 3.CocoaPods基础应用
 
 ### 3.1.项目中的使用方法
 
@@ -432,7 +432,13 @@ cocoapods是根据 podfile文件中得 配置去指向指定库 同时 也有一
 
 
 
-## 4.参考文献
+## 4.CocoaPods高级应用
+
+子包、资源文件、动态库相关、头文件
+
+
+
+## 5.参考文献
 
 [cocoapods官网](https://cocoapods.org)
 
