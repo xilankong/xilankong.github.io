@@ -436,6 +436,24 @@ cocoapods是根据 podfile文件中得 配置去指向指定库 同时 也有一
 
 子包、资源文件、动态库相关、头文件
 
+子包嵌套
+
+subspec 中可以继续使用 subspec
+
+```
+s.subspec 'YangPageControl' do |page|
+    page.source_files = 'YangWidgets/Classes/YangPageControl/**/*'
+
+    page.subspec 'more' do |more|
+    more.source_files = 'YangWidgets/Classes/YangPageControl/more/**/*'
+    end
+end
+
+如果像上面一样 page里面包括了所有的文件，Development Pods开发的时候会出现显示没文件的问题，但是不影响正常使用，也不会影响podspec 的提交
+```
+
+
+
 
 
 ## 5.参考文献
