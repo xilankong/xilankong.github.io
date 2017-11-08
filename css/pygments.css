@@ -1,5 +1,5 @@
 /* 代码块样式 */
-div .highlight{
+.highlighter-rouge{
       background: #f8f8f8;
       border: 1px solid #DDDDDD;
       padding:15px;
@@ -10,8 +10,4 @@ div .highlight{
       line-height:25px;
       word-wrap: break-word;
       white-space: pre-wrap;
-}
-
-pre .highlight{
-      
 }
