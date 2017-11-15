@@ -27,25 +27,74 @@ UIApplication、UIViewController、UIView、和所有从UIView派生出来的UIK
 
 #### UIView 和 CALayer在基础属性的区别
 
-UIView
+**UIView**
 
 ```
-frame
-bounds
-center
-transform
+transform ： CGAffineTransform
 ```
 
-CALayer
+**CALayer**
+
+**zPosition ：** 
+
+决定层级，zPosition的数值相当于层在垂直屏幕的Z轴 上的位移值。在没有经过任何Transform的2D环境下，zPosition仅仅会决定谁覆盖谁，具体差值是没有意义的，但是经过3D Transform，他们之间的差值，也就是距离，会显现出来。
+
+我们写个测试：
 
 ```
-frame
-bounds
-position
-zPosition
-anchorPoint
-transform
+CGRect frame = CGRectInset(self.view.bounds, 50, 50);
+CALayer *layer = [CALayer layer];
+layer.frame = frame;
+[self.view.layer addSublayer:layer];
+//第一个椭圆
+CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+shapeLayer.contentsScale = [UIScreen mainScreen].scale;
+CGMutablePathRef path = CGPathCreateMutable();
+CGPathAddEllipseInRect(path, NULL, layer.bounds);
+shapeLayer.path = path;
+shapeLayer.fillColor = [UIColor blueColor].CGColor;
+shapeLayer.zPosition = 40;
+[layer addSublayer:shapeLayer];
+
+//第二个椭圆
+CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
+shapeLayer2.contentsScale = [UIScreen mainScreen].scale;
+CGMutablePathRef path2 = CGPathCreateMutable();
+CGPathAddEllipseInRect(path2, NULL, layer.bounds);
+shapeLayer2.path = path2;
+shapeLayer2.fillColor = [UIColor greenColor].CGColor;
+shapeLayer2.zPosition = 0;
+[layer addSublayer:shapeLayer2];
+
+//背景矩形
+CALayer *backLayer = [CALayer layer];
+backLayer.contentsScale = [UIScreen mainScreen].scale;
+backLayer.backgroundColor = [UIColor grayColor].CGColor;
+backLayer.frame = layer.bounds;
+backLayer.zPosition = -40;
+[layer addSublayer:backLayer];
+    
+//Identity transform
+CATransform3D transform = CATransform3DIdentity;
+//Perspective 3D
+transform.m34 = -1.0 / 700;
+//旋转
+transform = CATransform3DRotate(transform, M_PI / 3, 0, 1, 0);
+//设置CALayer的sublayerTransform
+layer.sublayerTransform = transform;
 ```
+
+
+
+
+
+**anchorPoint** ： 
+
+锚点 默认为(0.5,0.5),即边界矩形的中心
+
+**transform ：** 
+
+CATransform3D
 
 
 
