@@ -6,124 +6,13 @@ title : "UIView、CALayer的联系和区别"
 
 ## 前言
 
-​	前文整理了UIView和CALayer的使用方法，那么这里就有个问题了：你给我解析清楚，为什么要有CALayer和UIView两个差不多功能的东西，整理成一个不就好了么？（[答案](http://www.cocoachina.com/ios/20150828/13257.html)）
+前文整理了UIView和CALayer的使用方法，下面我们比较分析UIView和CALayer之间的差异和联系。
 
-​	如果你看了答案指的文章应该能知道，这是一种为了维护升级更方便的原因、苹果把功能拆分为两部分，下面我们比较分析UIView和CALayer之间的差异和联系。
-
-
-
-## 1、UIView 和 CALayer的区别
-
-#### UIView可以响应用户事件、而 CALayer不能
-
-UIView继承自UIResponder， 在 UIResponder中定义了处理各种事件和事件传递的接口, 而 CALayer直接继承 NSObject，并没有相应的处理事件的接口。
-
-```
-UIKit使用UIResponder作为响应对象，来响应系统传递过来的事件并进行处理。
-UIApplication、UIViewController、UIView、和所有从UIView派生出来的UIKit类（包括UIWindow）都直接或间接地继承自UIResponder类。
-```
+> 所有测试基于iOS 11.0、Xcode9.0。
 
 
 
-#### UIView 和 CALayer在基础属性的区别
-
-**UIView**
-
-```
-transform ： CGAffineTransform
-```
-
-**CALayer**
-
-**zPosition ：** 
-
-决定层级，zPosition的数值相当于层在垂直屏幕的Z轴 上的位移值。在没有经过任何Transform的2D环境下，zPosition仅仅会决定谁覆盖谁，具体差值是没有意义的，但是经过3D Transform，他们之间的差值，也就是距离，会显现出来。
-
-我们写个测试：
-
-```
-CGRect frame = CGRectInset(self.view.bounds, 50, 50);
-CALayer *layer = [CALayer layer];
-layer.frame = frame;
-[self.view.layer addSublayer:layer];
-//第一个椭圆
-CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-shapeLayer.contentsScale = [UIScreen mainScreen].scale;
-CGMutablePathRef path = CGPathCreateMutable();
-CGPathAddEllipseInRect(path, NULL, layer.bounds);
-shapeLayer.path = path;
-shapeLayer.fillColor = [UIColor blueColor].CGColor;
-shapeLayer.zPosition = 40;
-[layer addSublayer:shapeLayer];
-
-//第二个椭圆
-CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
-shapeLayer2.contentsScale = [UIScreen mainScreen].scale;
-CGMutablePathRef path2 = CGPathCreateMutable();
-CGPathAddEllipseInRect(path2, NULL, layer.bounds);
-shapeLayer2.path = path2;
-shapeLayer2.fillColor = [UIColor greenColor].CGColor;
-shapeLayer2.zPosition = 0;
-[layer addSublayer:shapeLayer2];
-
-//背景矩形
-CALayer *backLayer = [CALayer layer];
-backLayer.contentsScale = [UIScreen mainScreen].scale;
-backLayer.backgroundColor = [UIColor grayColor].CGColor;
-backLayer.frame = layer.bounds;
-backLayer.zPosition = -40;
-[layer addSublayer:backLayer];
-    
-//Identity transform
-CATransform3D transform = CATransform3DIdentity;
-//Perspective 3D
-transform.m34 = -1.0 / 700;
-//旋转
-transform = CATransform3DRotate(transform, M_PI / 3, 0, 1, 0);
-//设置CALayer的sublayerTransform
-layer.sublayerTransform = transform;
-```
-
-
-
-
-
-**anchorPoint** ： 
-
-锚点 默认为(0.5,0.5),即边界矩形的中心
-
-**transform ：** 
-
-CATransform3D
-
-
-
-
-
-#### UIView 和 CALayer在动画中的区别
-
-在做 iOS 动画的时候，修改非 RootLayer的属性，会默认产生隐式动画，而修改UIView则不会。
-
-
-
-```
-对于每一个 UIView 都有一个 layer,把这个 layer 且称作RootLayer,而不是 View 的根 Layer的叫做 非 RootLayer。我们对UIView的属性修改时时不会产生默认动画，而对单独 layer属性直接修改会，这个默认动画的时间缺省值是0.25s.
-在 Core Animation 编程指南的 “How to Animate Layer-Backed Views” 中，对为什么会这样做出了一个解释：
-UIView 默认情况下禁止了 layer 动画，但是在 animation block 中又重新启用了它们
-是因为任何可动画的 layer 属性改变时，layer 都会寻找并运行合适的 'action' 来实行这个改变。在 Core Animation 的专业术语中就把这样的动画统称为动作 (action，或者 CAAction)。  
-layer 通过向它的 delegate 发送 actionForLayer:forKey: 消息来询问提供一个对应属性变化的 action。delegate 可以通过返回以下三者之一来进行响应：    
-
-它可以返回一个动作对象，这种情况下 layer 将使用这个动作。
-它可以返回一个 nil， 这样 layer 就会到其他地方继续寻找。
-它可以返回一个 NSNull 对象，告诉 layer 这里不需要执行一个动作，搜索也会就此停止。  
-
-当 layer 在背后支持一个 view 的时候，view 就是它的 delegate；
-
-```
-
-
-
-## 2、UIView 和 CALayer的联系
+## UIView 和 CALayer的联系
 
 #### UIView和CALayer在构建方面的联系
 
@@ -146,7 +35,7 @@ DemoView中
 4 - [DemoView initWithFrame]
 ```
 
-从上面堆栈信息我们可以看到，当我们初始化DemoView的时候，会自动调用 _createLayerWithFrame 方法创建rootLayer
+从上面堆栈信息我们可以看到，当我们初始化DemoView的时候，会自动调用 `_createLayerWithFrame` 方法创建rootLayer
 
 3、layer创建完成后，我们重写一些方法来检查一下UIView和CALayer在几个基础属性上面的联系
 
@@ -162,7 +51,7 @@ ViewController中:
 DemoView *view1 = [[DemoView alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];
 [self.view addSubview:view1];
 
-执行顺序结果：
+执行结果：
 DemoLayer - setBounds
 DemoView - setFrame 开始
 DemoLayer - setFrame
@@ -178,10 +67,11 @@ DemoLayer - setBounds
 DemoView - setFrame 结束
 ```
 
-分析上面执行顺序结果：
+**分析上面执行结果的顺序：**
+
 我们对DemoView的frame设置中执行了对DemoLayer的frame、position、bounds的设置，并且并未执行DemoView中的center和bounds的设置。
 
-后续测试中执行UIView的bounds 和 center的修改、属性的获取:
+**继续测试：**执行UIView的bounds 和 center的修改、属性的获取:
 
 ```
 修改center 
@@ -198,13 +88,13 @@ DemoLayer - frame
 ...
 ```
 
-分析上面执行的结果：
+**分析上面执行的结果可知：**
 
-DemoView中的frame、bounds、center属性的setter方法执行了DemoLayer中的setter方法
+1、DemoView中的frame、bounds、center属性的setter方法执行了DemoLayer中的setter方法
 
-DemoView中的frame、bounds和center  的 getter方法，UIView并没有做什么工作，只是简单的各自调用它底层的CALayer的frame，bounds和position方法。
+2、DemoView中的frame、bounds和center  的 getter方法，UIView并没有做什么工作，只是简单的各自调用它底层的CALayer的frame，bounds和position方法。
 
-注意：
+**注意：**
 
 frame属于派生属性，依赖于 bounds、 anchorPoint、transform 和 position
 
@@ -214,7 +104,7 @@ bounds 和 frame的区别: bounds原点默认 （0，0）基于view本身的坐�
 
 #### UIView和CALayer在绘制方面的联系
 
-接着上面的demo，
+**接着上面的demo测试：**
 
 重写DemoView中的 drawRect、drawLayer:inContext:方法，用来画一条线
 
@@ -269,13 +159,11 @@ DemoLayer - drawInContext
 DemoView - drawLayer:inContext:
 ```
 
-分析以上结果：
+**分析以上结果：**
 
 UIView实现了CALayerDelegate代理，rootLayer的代理就是DemoView，所以会执行 drawLayer:inContext: 方法，由上面的测试结果，我们可以推断一下，DemoView的drawRect 方法的执行是在 drawLayer:inContext:  方法的过程中完成的。
 
-
-
-我们继续做一个测试，先修改DemoView和DemoLayer中的代码：
+**我们继续测试：**先修改DemoView和DemoLayer中的代码：
 
 ```
 DemoLayer中：
@@ -298,17 +186,146 @@ DemoView中：
 结果：成功绘制一条线
 ```
 
-分析以上结果：
+**分析以上结果：**
 
-CALayer 和 UIView中都可以根据上下文进行绘制，UIView的drawRect依赖CALayer传递过来的上下文才能执行，CALayer绘制并不依赖UIView
+1、CALayer 和 UIView中都可以根据上下文进行绘制，UIView的drawRect依赖CALayer传递过来的上下文才能执行
+
+2、CALayer绘制并不依赖UIView
 
 
 
+## UIView 和 CALayer的区别
+
+#### UIView可以响应用户事件、而 CALayer不能
+
+UIView继承自UIResponder， 在 UIResponder中定义了处理各种事件和事件传递的接口, 而 CALayer直接继承 NSObject，并没有相应的处理事件的接口。
+
+```
+UIKit使用UIResponder作为响应对象，来响应系统传递过来的事件并进行处理。
+UIApplication、UIViewController、UIView、和所有从UIView派生出来的UIKit类（包括UIWindow）都直接或间接地继承自UIResponder类。
+```
 
 
-## 4、总结
+
+#### UIView 和 CALayer 在基础属性上的区别
+
+这一部分可以看之前的[UIView和CALayer的使用介绍](https://xilankong.github.io/学习之路/2017/11/13/UIView-CALayer使用说明书.html)
+
+
+
+#### UIView 和 CALayer在动画中的区别
+
+在做 iOS 动画的时候，修改非 RootLayer的属性，会默认产生隐式动画，而修改UIView则不会。
+
+[官方文档](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/ReactingtoLayerChanges/ReactingtoLayerChanges.html#//apple_ref/doc/uid/TP40004514-CH7-SW1)
+
+**可动画属性：**在Api属性说明中 有 Animatable 结尾的都是可动画属性，属性的变化都会产生隐式动画。
+
+**隐式动画实现原理:**
+
+**做一个测试:** 1、2 号针对rootLayer ; 3、4号针对 非rootLayer ;  5、6号针对UIView属性变更
+
+```
+DemoView中重写actionForLayer:forKey:
+-(id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event {
+    id<CAAction> action = [super actionForLayer:layer forKey:event];
+    NSLog(@"action for layer: %@, for key:%@ is %@", layer, event, action);
+    return action;
+}
+DemoLayer中重写 addAnimation:forKey
+-(void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key {
+    NSLog(@"anim : %@, for key:%@", anim, key);
+    [super addAnimation:anim forKey:key];
+}
+
+事件触发：
+1:
+self.layer.position = CGPointMake(120, 120);
+2:
+[UIView animateWithDuration:0.3 animations:^{
+    self.layer.position = CGPointMake(120, 120);
+}];
+3：
+self.otherLayer.position = CGPointMake(120, 120);
+4：
+[UIView animateWithDuration:0.3 animations:^{
+    self.otherLayer.position = CGPointMake(120, 120);
+}];
+5：
+self.center = CGPointMake(120, 120);
+6：
+[UIView animateWithDuration:0.3 animations:^{
+    self.center = CGPointMake(120, 120);
+}];
+
+self.layer是rootLayer、self.otherLayer是加在self.layer上的非rootLayer
+结果：
+1：
+action for layer: <DemoLayer: 0x60300009e260>, for key:position is <null>
+anim无输出
+2：
+action for layer: <DemoLayer: 0x60300009cc10>, for key:position is <_UIViewAdditiveAnimationAction: 0x6030000b5330>
+anim : <CABasicAnimation: 0x6030000b5000>, for key:position
+3：
+action无输出
+anim : <CABasicAnimation: 0x6030000b66e0>, for key:position
+4：
+action无输出
+anim : <CABasicAnimation: 0x6030000b4e20>, for key:position
+5:
+action for layer: <DemoLayer: 0x60300009cbe0>, for key:position is <null>
+anim无输出
+6:
+action for layer: <DemoLayer: 0x60300009ca60>, for key:position is <_UIViewAdditiveAnimationAction: 0x6030000bc6b0>
+anim : <CABasicAnimation: 0x6030000bc380>, for key:position
+
+初始化DemoView时候的输出：
+action for layer: <DemoLayer: 0x60300009c670>, for key:bounds is <null>
+action for layer: <DemoLayer: 0x60300009c670>, for key:opaque is <null>
+action for layer: <DemoLayer: 0x60300009c670>, for key:position is <null>
+action for layer: <DemoLayer: 0x60300009c670>, for key:sublayers is <null>
+action for layer: <DemoLayer: 0x60300009c670>, for key:onOrderIn is <null>
+```
+
+**分析测试结果：**
+
+1、从1、2、5、6号输出结果来看，view.layer正如官方文档中所写：每一个view.layer都以该view作为其delegate，并通过询问view的`actionForLayer:forKey:`方法来获得自己应该执行的CAAction对象。
+
+2、从2、6输出结果我们可以看到、返回的action是 `_UIViewAdditiveAnimationAction`这么一个action，然后再有animation被添加到layer中，从上也可以看出来UIView的动画，属于对CAAnimation的一层封装。
+
+3、从3、4号输出结果，我们看到除了rootLayer之外的layer属性变化就不再经过UIView这一层的action获取，而是直接由layer层进行动画添加。
+
+
+
+**去除CALayer隐式动画：**
+
+```
+[CATransaction begin];
+[CATransaction setDisableActions:YES];
+//要去掉动画的操作
+self.otherLayer.position = CGPointMake(120, 120);
+[CATransaction commit];
+```
+
+
+
+## 总结
 
 1、每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。
 
 2、两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews。但是 Layer 比 View 多了个anchorPoint
+
+3、UIView的frame、bounds、center基础属性都获取于view.layer的基础属性，setter方法也会调用view.layer的setter方法
+
+4、CALayer 和 UIView中都可以根据上下文进行绘制，UIView的drawRect依赖CALayer传递过来的上下文才能执行、CALayer绘制并不依赖UIView，依赖UIView进行展示
+
+5、在做 iOS 动画的时候，修改非 RootLayer的属性，会默认产生隐式动画，而修改UIView则不会。
+
+
+
+## 参考
+
+
+
+[iOS图形渲染分析](http://www.cocoachina.com/ios/20160929/17673.html)
 
