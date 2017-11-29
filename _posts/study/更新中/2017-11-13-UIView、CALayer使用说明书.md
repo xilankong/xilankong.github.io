@@ -12,44 +12,115 @@ title : "UIView、CALayer使用说明书"
 
 UIView表示屏幕上的一块矩形区域，负责渲染区域的内容，并且响应该区域内发生事件。
 
-基本属性：
+### 几何类别(UIViewGeometry)
 
-```
+属性：
+
 frame
+
 bounds
+
 center
-树形结构，可以添加subView
-层次结构，App中的UIView各自有各自的层次
+
+transform
+
+contentScaleFactor
+
+exclusiveTouch
+
+autoresizesSubviews
+
+autoresizingMask
+
+方法：
+
+sizeToFit
+
+UIView继承自UIResponder, 事件响应部分见：[iOS事件响应链](https://xilankong.github.io/2017年/2016/06/23/iOS事件响应链.html)
+
+
+
+
+
+### 层次类别(UIViewHierarchy)
+
+插入指定层次、变更View层次等：
+
+```
+- (void)insertSubview:(UIView *)view atIndex:(NSInteger)index
+- (void)exchangeSubviewAtIndex:(NSInteger)index1 withSubviewAtIndex:(NSInteger)index2
 ```
 
-UIView可以渲染内容:
+UIView添加subView的生命周期
 
 ```
-- drawRect:(CGRect)rect;
-alpha
+- (void)didAddSubview:(UIView *)subview;
+- (void)willRemoveSubview:(UIView *)subview;
+- (void)willMoveToSuperview:(nullable UIView *)newSuperview;
+- (void)didMoveToSuperview;
+- (void)willMoveToWindow:(nullable UIWindow *)newWindow;
+- (void)didMoveToWindow;
+```
+
+
+
+```
+- (void)setNeedsLayout;
+- (void)layoutIfNeeded;
+- (void)layoutSubviews; 
+```
+
+
+
+### 渲染类别(UIViewRendering)
+
+属性：
+
+clipsToBounds
+
 opaque
-hidden
+
+clearsContextBeforeDrawing
+
+contentMode
+
+contentStretch
+
+maskView
+
+
+
+方法：
+
+```
+- (void)drawRect:(CGRect)rect;
+
+- (void)setNeedsDisplay;
+- (void)setNeedsDisplayInRect:(CGRect)rect;
 ```
 
-UIView可以执行动画：
+
+
+### 动画类别(UIViewAnimation)
 
 ```
-+ animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay...
-+ beginAnimations:(nullable NSString *)animationID context:(nullable void *)context
++ (void)beginAnimations:(nullable NSString *)animationID context:(nullable void *)context;  // additional context info passed to will start/did stop selectors. begin/commit can be nested
++ (void)commitAnimations;         
 ```
 
-UIView继承自UIResponder，可以响应用户事件：
+
+
+### 手势类别(UIViewAnimation)
 
 ```
-响应触摸事件
-– touchesBegan:withEvent:
-– touchesMoved:withEvent:
-– touchesEnded:withEvent:
-– touchesCancelled:withEvent:
+- (void)addGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer NS_AVAILABLE_IOS(3_2);
+- (void)removeGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer NS_AVAILABLE_IOS(3_2);
 
-添加其他操作手势 等等
-- addGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer
-- removeGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer
+// called when the recognizer attempts to transition out of UIGestureRecognizerStatePossible if a touch hit-tested to this view will be cancelled as a result of gesture recognition
+// returns YES by default. return NO to cause the gesture recognizer to transition to UIGestureRecognizerStateFailed
+// subclasses may override to prevent recognition of particular gestures. for example, UISlider prevents swipes parallel to the slider that start in the thumb
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer NS_AVAILABLE_IOS(6_0);
+
 ```
 
 
@@ -59,6 +130,62 @@ UIView继承自UIResponder，可以响应用户事件：
 
 
 ## 2、CALayer
+
+
+
+presentationLayer
+
+modelLayer
+
+
+
+bounds
+
+position
+
+zPosition
+
+anchorPoint
+
+anchorPointZ
+
+transform
+
+frame
+
+masksToBounds
+
+mask
+
+
+
+contents
+
+contentsRect
+
+contentsGravity
+
+contentsScale
+
+contentsCenter
+
+shadowColor
+
+shadowOpacity
+
+shadowOffset
+
+shadowRadius
+
+
+
+\- (void)setNeedsDisplay;
+
+\- (void)setNeedsDisplayInRect:(CGRect)r;
+
+
+
+CAAction
 
 
 
