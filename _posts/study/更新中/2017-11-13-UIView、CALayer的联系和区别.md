@@ -6,7 +6,7 @@ title : "UIView、CALayer的联系和区别"
 
 ## 前言
 
-前文整理了UIView和CALayer的使用方法，下面我们比较分析UIView和CALayer之间的差异和联系。
+前文整理了UIView和CALayer的使用方法，下面我们通过举例测试来比较、分析UIView和CALayer之间的联系和差异。
 
 > 所有测试基于iOS 11.0、Xcode9.0。
 
@@ -16,7 +16,9 @@ title : "UIView、CALayer的联系和区别"
 
 #### UIView和CALayer在构建方面的联系
 
-1、写个DemoView，重新设置它的rootLayerClass为DemoLayer
+我们新增两个类：DemoView：UIView 和 DemoLayer：CALayer
+
+1、重新设置DemoView的rootLayer de的layerClass为DemoLayer（rootLayer：view的默认layer）
 
 ```
 DemoView中
@@ -47,7 +49,6 @@ CALayer ： frame、bounds、position
 
 ```
 ViewController中:
-//frame布局
 DemoView *view1 = [[DemoView alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];
 [self.view addSubview:view1];
 
@@ -69,7 +70,7 @@ DemoView - setFrame 结束
 
 **分析上面执行结果的顺序：**
 
-我们对DemoView的frame设置中执行了对DemoLayer的frame、position、bounds的设置，并且并未执行DemoView中的center和bounds的设置。
+我们对DemoView的frame设置中执行了对DemoLayer的frame、position、bounds的设置，并且没有执行DemoView中的center和bounds的设置。
 
 **继续测试：**执行UIView的bounds 和 center的修改、属性的获取:
 
