@@ -14,9 +14,9 @@ UIView表示屏幕上的一块矩形区域，负责渲染区域的内容，并�
 
 ### 几何类别(UIViewGeometry)
 
-属性：
+#### 属性：
 
-frame、bounds、center
+**frame、bounds、center**
 
 ```
 frame 复合属性 由bounds表示大小、center表示位置 后续介绍UIView和CALayer的区别文章中会具体解释
@@ -32,7 +32,7 @@ bounds属性与center属性是完全独立的，前者规定尺寸，后者定�
 bounds中位置的修改不会影响自身在父视图中的位置，但是会影响自己的subView的位置
 ```
 
-transform
+**transform**
 
 ```
 用于给UIView做一些形变(平移、缩放、旋转)
@@ -58,7 +58,7 @@ _redView.transform = CGAffineTransformMakeRotation(M_PI_4);
 _redView.transform = CGAffineTransformRotate(_redView.transform, M_PI_4);
 ```
 
-contentScaleFactor
+**contentScaleFactor**
 
 ```
 这个属性代表了从逻辑坐标系转化成当前的设备坐标系的转化比例，在[UIScreen mainScreen]中有个属性叫做scale 和这个是一样的
@@ -94,7 +94,7 @@ scale属性反映了从逻辑坐标到设备屏幕坐标的转换。在非视网
 
 
 
-exclusiveTouch
+**exclusiveTouch**
 
 ```
 ExclusiveTouch的作用是：可以达到同一界面上多个控件接受事件时的排他性,从而避免bug。
@@ -102,7 +102,7 @@ ExclusiveTouch的作用是：可以达到同一界面上多个控件接受事件
 当这个UIView成为第一响应者时，在手指离开屏幕前其他view不会响应任何touch事件。
 ```
 
-autoresizesSubviews、autoresizingMask
+**autoresizesSubviews、autoresizingMask**
 
 ```
 自动尺寸调整行为
@@ -131,25 +131,26 @@ UIViewAutoresizingFlexibleTopMargin
 自动尺寸调整行为可以适合一些布局的要求，但是如果您希望更多地控制视图的布局，可以在适当的视图类中重载layoutSubviews方法。
 ```
 
+#### 方法：
 
+**sizeToFit、sizeThatFits:(CGSize)size**
 
+```
+- (CGSize)sizeThatFits:(CGSize)size;     // return 'best' size to fit given size. does not actually resize view. Default is return existing view size
+- (void)sizeToFit;                       // calls sizeThatFits: with current view bounds and changes bounds size
 
-
-
-
-方法：
-
-sizeToFit
+根据文档解释，我们可以知道 sizeThatFits 会返回一个最合适的size，但是并不更新View的size，sizeToFit 调用 sizeThatFits： 并更新size
+sizeToFit不应该在子类中被重写，应该重写sizeThatFits
+sizeThatFits传入的参数是receiver当前的size，返回一个适合的size
+```
 
 UIView继承自UIResponder, 事件响应部分见：[iOS事件响应链](https://xilankong.github.io/2017年/2016/06/23/iOS事件响应链.html)
 
 
 
-
-
 ### 层次类别(UIViewHierarchy)
 
-插入指定层次、变更View层次等：
+插入指定层次、变更View层次等
 
 ```
 - (void)insertSubview:(UIView *)view atIndex:(NSInteger)index
@@ -167,40 +168,53 @@ UIView添加subView的生命周期
 - (void)didMoveToWindow;
 ```
 
-
+UI更新
 
 ```
-- (void)setNeedsLayout;
-- (void)layoutIfNeeded;
-- (void)layoutSubviews; 
+
+//标记为需要重新布局，异步调用layoutIfNeeded刷新布局，不立即刷新，但layoutSubviews一定会被调用
+- (void)setNeedsLayout; 
+//如果有需要刷新的标记，立即调用layoutSubviews进行布局（如果没有标记，不会调用layoutSubviews）
+//在视图第一次显示之前，标记总是“需要刷新”的，可以直接调用[view layoutIfNeeded]
+- (void)layoutIfNeeded; 
+- (void)layoutSubviews; //重新布局会进的方法、这个方法，默认没有做任何事情，需要子类进行重写
 ```
+
+更详细的UIView的更新机制、以上方法的更多使用细节见：[UIView的更新机制](https://xilankong.github.io/2016年/2016/06/22/iOS自动布局使用说明书.html)
 
 
 
 ### 渲染类别(UIViewRendering)
 
-属性：
+#### 属性：
 
-clipsToBounds
+clipsToBounds：是否遮盖越界部分subView的显示，默认NO
 
-opaque
+opaque : view的不透明度  默认YES
 
 clearsContextBeforeDrawing
 
-contentMode
+```
+重绘的时候清除原有内容
+当view没有设置背景色的时候，或者说opaque为透明的时候不生效。
+```
 
-contentStretch
+contentMode： 填充模式
 
-maskView
+contentStretch：内容拉伸
+
+maskView：view上的遮罩层，不存在和view的层级关系
 
 
 
-方法：
+#### 方法：
 
 ```
+//重写此方法，执行重绘任务
 - (void)drawRect:(CGRect)rect;
-
+//标记为需要重绘，异步调用drawRect,标上一个需要被重新绘图的标记，在下一个draw周期自动重绘，iphone device的刷新频率是60hz，也就是1/60秒后重绘 
 - (void)setNeedsDisplay;
+//标记为需要局部重绘
 - (void)setNeedsDisplayInRect:(CGRect)rect;
 ```
 
@@ -242,67 +256,18 @@ presentationLayer
 
 modelLayer
 
-
-
-bounds
-
-position
-
-zPosition
-
-anchorPoint
-
-anchorPointZ
-
-transform
-
-frame
-
-masksToBounds
-
-mask
-
-
-
-contents
-
-contentsRect
-
-contentsGravity
-
-contentsScale
-
-contentsCenter
-
-shadowColor
-
-shadowOpacity
-
-shadowOffset
-
-shadowRadius
-
-
-
-\- (void)setNeedsDisplay;
-
-\- (void)setNeedsDisplayInRect:(CGRect)r;
-
-
-
-CAAction
-
-
-
-#### 2、UIView 和 CALayer在基础属性的区别
-
-**UIView**
-
 ```
-transform ： CGAffineTransform
+CALayer中存在三个tree，他们分别是：Model Tree
+Presentation Tree
+Render Tree
+Model Tree代表CALayer的真实属性，Presentation Tree对应动画过程中的属性。无论动画进行中还是已经结束，Model Tree都不会发生变化，变化的是Presentation Tree。而动画结束后，Presentation Tree就被重置回到了初始状态。为了让其保持旋转状态，需要在加两句代码：
+
+ba.fillMode=kCAFillModeForwards;
+
+ba.removedOnCompletion=NO;
 ```
 
-**CALayer**
+
 
 **zPosition** 
 
@@ -377,9 +342,58 @@ layer.sublayerTransform = transform;
 
 
 
+**anchorPoint** ： 
+
+是一个CGPoint值，x，y取值范围（0~1），默认为（0.5，0.5） 对于图层本身而言，顾名思义，锚点就用来定位图层的点。
+
+锚点有两个职能：
+
+1）与position一同确定图层相对于父图层的位置；
+
+2）作为图层旋转、平移、缩放的中心。
+
+锚点 默认为(0.5,0.5)，即边界矩形的中心。
+
+
+
 **transform ：CATransform3D**
 
-三维变换矩阵
+CATransform3D 的数据结构定义了一个同质的三维变换（4x4 CGFloat值的矩阵），用于图层的旋转，缩放，偏移，歪斜和应用的透视。
+
+```
+CALayer的2个属性指定了变换矩阵：transform 和 sublayerTransform。
+
+transform ： 是结合 anchorPoint（锚点）的位置来对图层和图层上的子图层进行变化。
+
+sublayerTransform：是结合anchorPoint（锚点）的位置来对图层的子图层进行变化，不包括本身。
+
+CATransform3DIdentity 是单位矩阵，该矩阵没有缩放，旋转，歪斜，透视。该矩阵应用到图层上，就是设置默认值。
+
+```
+
+分析一下CATransform3D的结构：
+
+```
+struct CATransform3D
+{
+  CGFloat m11, m12, m13, m14;
+  CGFloat m21, m22, m23, m24;
+  CGFloat m31, m32, m33, m34;
+  CGFloat m41, m42, m43, m44;
+};
+
+typedef struct CATransform3D CATransform3D;
+```
+
+4 * 4 矩阵乘法：
+
+![](https://xilankong.github.io/resource/transform3D.png)
+
+转换计算：
+
+
+
+
 
 
 
@@ -395,15 +409,39 @@ m34负责z轴方向的translation（移动），m34= -1/D,  默认值是0，也�
 
 
 
+masksToBounds
+
+mask
 
 
-**anchorPoint** ： 
 
-是一个CGPoint值，x，y取值范围（0~1），默认为（0.5，0.5） 对于图层本身而言，顾名思义，锚点就用来定位图层的点。锚点有两个职能：（1）与position一同确定图层相对于父图层的位置；（2）作为图层旋转、平移、缩放的中心。
+contents
 
-锚点 默认为(0.5,0.5),即边界矩形的中心
+contentsRect
+
+contentsGravity
+
+contentsScale
+
+contentsCenter
+
+shadowColor
+
+shadowOpacity
+
+shadowOffset
+
+shadowRadius
 
 
+
+\- (void)setNeedsDisplay;
+
+\- (void)setNeedsDisplayInRect:(CGRect)r;
+
+
+
+CAAction
 
 
 
