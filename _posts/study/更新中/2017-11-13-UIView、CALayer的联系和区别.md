@@ -90,13 +90,17 @@ DemoLayer - frame
 
 **分析上面执行的结果可知：**
 
-1、DemoView中的frame、bounds、center属性的setter方法执行了DemoLayer中的setter方法
+1、DemoView中的frame、bounds、center属性的setter方法执行了DemoLayer中的对应属性（center -> position）的setter方法
+
+frame属于派生属性，依赖于 bounds、 anchorPoint、transform 和 position
+
+当我们设置frame的时候，默认会执行DemoView的setFrame、CALayer的setFrame - setPosition -  setBounds
 
 2、DemoView中的frame、bounds和center  的 getter方法，UIView并没有做什么工作，只是简单的各自调用它底层的CALayer的frame，bounds和position方法。
 
 **注意：**
 
-frame属于派生属性，依赖于 bounds、 anchorPoint、transform 和 position
+
 
 bounds 和 frame的区别: bounds原点默认 （0，0）基于view本身的坐标系统，frame原点基于父视图中的位置
 
