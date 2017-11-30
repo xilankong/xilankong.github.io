@@ -82,11 +82,7 @@ scale属性反映了从逻辑坐标到设备屏幕坐标的转换。在非视网
 
 非视网膜屏幕和视网膜屏幕上一个线宽时的显示情况：
 
-
-
 ![](https://xilankong.github.io/resource/scale.png)
-
-
 
 在非视网膜屏幕中，当我们把线宽为1的线画在(3,0)上时，线为一个`像素点`的宽度(虚线部分)，由于事实上不能让一个像素点显示半个像素，所以iOS的反锯齿技术让1个线宽的线显示出了2个像素宽度的一条线(浅色部分)，并且颜色变浅。只有对线进行0.5的偏移才能显示真正的线宽为1的线。
 
@@ -100,9 +96,46 @@ scale属性反映了从逻辑坐标到设备屏幕坐标的转换。在非视网
 
 exclusiveTouch
 
-autoresizesSubviews
+```
+ExclusiveTouch的作用是：可以达到同一界面上多个控件接受事件时的排他性,从而避免bug。
+也就是说避免在一个界面上同时点击多个UIButton导致同时响应多个方法。
+当这个UIView成为第一响应者时，在手指离开屏幕前其他view不会响应任何touch事件。
+```
 
-autoresizingMask
+autoresizesSubviews、autoresizingMask
+
+```
+自动尺寸调整行为
+当您改变视图的边框矩形时，其内嵌子视图的位置和尺寸往往也需要改变，以适应原始视图的新尺寸。如果视图的autoresizesSubviews属性声明被设置为YES，则其子视图会根据autoresizingMask属性的值自动进行尺寸调整。简单配置一下视图的自动尺寸调整掩码常常就能使应用程序得到合适的行为；否则，应用程序就必须通过重载layoutSubviews方法来提供自己的实现。
+设置视图的自动尺寸调整行为的方法是通过位OR操作符将期望的自动尺寸调整常量连结起来，并将结果赋值给视图的autoresizingMask属性。表2-1列举了自动尺寸调整常量，并描述这些常量如何影响给定视图的尺寸和位置。举例来说，如果要使一个视图和其父视图左下角的相对位置保持不变，可以加入UIViewAutoresizingFlexibleRightMargin 和UIViewAutoresizingFlexibleTopMargin常量，并将结果赋值给autoresizingMask属性。当同一个轴向有 多个部分被设置为可变时，尺寸调整的裕量会被平均分配到各个部分上。
+ 	 
+UIViewAutoresizingNone
+这个常量如果被设置，视图将不进行自动尺寸调整。
+UIViewAutoresizingFlexibleHeight
+这个常量如果被设置，视图的高度将和父视图的高度一起成比例变化。否则，视图的高度将保持不变。
+UIViewAutoresizingFlexibleWidth
+这个常量如果被设置，视图的宽度将和父视图的宽度一起成比例变化。否则，视图的宽度将保持不变。
+UIViewAutoresizingFlexibleLeftMargin
+这个常量如果被设置，视图的左边界将随着父视图宽度的变化而按比例进行调整。否则，视图和其父视图的左边界的相对位置将保持不变。
+UIViewAutoresizingFlexibleRightMargin
+这个常量如果被设置，视图的右边界将随着父视图宽度的变化而按比例进行调整。否则，视图和其父视图的右边界的相对位置将保持不变。
+UIViewAutoresizingFlexibleBottomMargin
+这个常量如果被设置，视图的底边界将随着父视图高度的变化而按比例进行调整。否则，视图和其父视图的底边界的相对位置将保持不变。
+UIViewAutoresizingFlexibleTopMargin
+这个常量如果被设置，视图的上边界将随着父视图高度的变化而按比例进行调整。否则，视图和其父视图的上边界的相对位置将保持不变。
+
+
+如 果您通过Interface Builder配置视图，则可以用Size查看器的Autosizing控制来设置每个视图的自动尺寸调整行为。上图中的灵活宽度及高度常量和 Interface Builder中位于同样位置的弹簧具有同样的行为，但是空白常量的行为则是正好相反。换句话说，如果要将灵活右空白的自动尺寸调整行为应用到 Interface Builder的某个视图，必须使相应方向空间的Autosizing控制为空，而不是放置一个支柱。幸运的是，Interface Builder通过动画显示了您的修改对视图自动尺寸调整行为的影响。
+如果视图的autoresizesSubviews属性被设置为 NO，则该视图的直接子视图的所有自动尺寸调整行为将被忽略。类似地，如果一个子视图的自动尺寸调整掩码被设置为 UIViewAutoresizingNone，则该子视图的尺寸将不会被调整，因而其直接子视图的尺寸也不会被调整。
+请注意：为了使自动尺寸调整的行为正确，视图的transform属性必须设置为恒等变换；其它变换下的尺寸自动调整行为是未定义的。
+自动尺寸调整行为可以适合一些布局的要求，但是如果您希望更多地控制视图的布局，可以在适当的视图类中重载layoutSubviews方法。
+```
+
+
+
+
+
+
 
 方法：
 
