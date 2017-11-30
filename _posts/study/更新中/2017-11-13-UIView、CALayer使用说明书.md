@@ -8,6 +8,8 @@ title : "UIView、CALayer使用说明书"
 
 ​	iOS开发中 UI是很重要也是最直观可见的一部分，而所有的控件都是继承自UIView的，UIView既可以实现显示的功能，又可以实现响应用户操作的功能。我们还知道每个UIView中都存在一个东西叫CALayer，实现了内容绘制等功能。本文总结整理UIView和CALayer的常用属性、方法、开发中容易遇到的问题等
 
+
+
 ## 1、UIView
 
 UIView表示屏幕上的一块矩形区域，负责渲染区域的内容，并且响应该区域内发生事件。
@@ -246,15 +248,9 @@ maskView：view上的遮罩层，不存在和view的层级关系
 
 
 
-
-
 ## 2、CALayer
 
-
-
-presentationLayer
-
-modelLayer
+**presentationLayer、modelLayer**
 
 ```
 CALayer中存在三个tree，他们分别是：Model Tree
@@ -263,7 +259,6 @@ Render Tree
 Model Tree代表CALayer的真实属性，Presentation Tree对应动画过程中的属性。无论动画进行中还是已经结束，Model Tree都不会发生变化，变化的是Presentation Tree。而动画结束后，Presentation Tree就被重置回到了初始状态。为了让其保持旋转状态，需要在加两句代码：
 
 ba.fillMode=kCAFillModeForwards;
-
 ba.removedOnCompletion=NO;
 ```
 
@@ -371,33 +366,33 @@ CATransform3DIdentity 是单位矩阵，该矩阵没有缩放，旋转，歪斜�
 
 ```
 
-分析一下CATransform3D的结构：
+分析一下CATransform3D的结构：[iOS CATransform3D](http://www.jianshu.com/p/e8d1985dccec)
+
+**CATransform3D 函数：**
 
 ```
-struct CATransform3D
-{
-  CGFloat m11, m12, m13, m14;
-  CGFloat m21, m22, m23, m24;
-  CGFloat m31, m32, m33, m34;
-  CGFloat m41, m42, m43, m44;
-};
+//-----平移
+//返回一个平移变换的transform3D对象 tx，ty，tz对应x，y，z轴的平移
+CATransform3D CATransform3DMakeTranslation (CGFloat tx, CGFloat ty, CGFloat tz);
+//在某个transform3D变换的基础上进行平移变换，t是上一个transform3D，其他参数同上
+CATransform3D CATransform3DTranslate (CATransform3D t, CGFloat tx, CGFloat ty, CGFloat tz);
 
-typedef struct CATransform3D CATransform3D;
+
+//-----缩放
+//x，y，z分别对应x轴，y轴，z轴的缩放比例
+CATransform3D CATransform3DMakeScale (CGFloat sx, CGFloat sy, CGFloat sz);
+//在一个transform3D变换的基础上进行缩放变换，其他参数同上
+CATransform3D CATransform3DScale (CATransform3D t, CGFloat sx, CGFloat sy, CGFloat sz);
+
+
+//-----旋转
+//angle参数是旋转的角度 ，x，y，z决定了旋转围绕的中轴，取值为-1 — 1之间，如（1，0，0）,则是绕x轴旋转，（0.5，0.5，0），则是绕x轴与y轴中间45度为轴旋转
+CATransform3D CATransform3DMakeRotation (CGFloat angle, CGFloat x, CGFloat y, CGFloat z);
+//在一个transform3D的基础上进行旋转变换，其他参数如上
+CATransform3D CATransform3DRotate (CATransform3D t, CGFloat angle, CGFloat x, CGFloat y, CGFloat z);
 ```
 
-4 * 4 矩阵乘法：
-
-![](https://xilankong.github.io/resource/transform3D.png)
-
-转换计算：
-
-
-
-
-
-
-
-接着上面的测试我们继续分析：
+接着上面的zPosition的测试我们继续分析：
 
 1、CALayer的 transform和sublayerTransform 属性都是CATransform3D 类型，允许实现3D变换
 
@@ -409,29 +404,34 @@ m34负责z轴方向的translation（移动），m34= -1/D,  默认值是0，也�
 
 
 
-masksToBounds
+**masksToBounds：**是否遮盖越界部分Layer，比如常用于边角等
 
-mask
+**mask** ：类似于UIView中的 maskView
+
+**contents、contentsRect、contentsGravity、contentsScale、contentsCenter**
+
+```
+1> CALayer 有一个属性叫做contents，这个属性的类型被定义为id，意味着它可以是任何类型的对象。在这种情况下，你可以给contents属性赋任何值，你的app仍然能够编译通过。但是，在实践中，如果你给contents赋的不是CGImage，那么你得到的图层将是空白的。 
+2> 事实上，你真正要赋值的类型应该是CGImageRef，它是一个指向CGImage结构的指针。UIImage有一个CGImage属性，它返回一个”CGImageRef”,如果你想把这个值直接赋值给CALayer的contents，那你将会得到一个编译错误。因为CGImageRef并不是一个真正的Cocoa对象，而是一个Core Foundation类型。 
+尽管Core Foundation类型跟Cocoa对象在运行时貌似很像（被称作toll-free bridging），他们并不是类型兼容的，不过你可以通过bridged关键字转换。 
+所以要为CALayer图层设置寄宿图片属性的最终代码： 
+layer.contents = (__bridge id)image.CGImage; 
+
+
+contentsGravity：类似于UIView的contentMode
+```
 
 
 
-contents
+**shadowColor、shadowOpacity、shadowOffset、shadowRadius**
 
-contentsRect
-
-contentsGravity
-
-contentsScale
-
-contentsCenter
-
-shadowColor
-
-shadowOpacity
-
-shadowOffset
-
-shadowRadius
+```
+self.startButton.layer.borderWidth = 1；／／按钮边缘宽度
+self.startButton.layer.borderColor = [[UIColor whiteColor] CGColor];  //按钮边缘颜色
+self.startButton.layer.shadowColor = [UIColor blackColor].CGColor; //按钮阴影颜色
+self.startButton.layer.shadowOffset = CGSizeMake(3,3); //按钮阴影偏移量 正负值确认偏移方向
+self.startButton.layer.shadowOpacity = 1; // 阴影的透明度，默认是0   范围 0-1 越大越不透明
+```
 
 
 
