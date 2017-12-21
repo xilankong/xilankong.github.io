@@ -448,3 +448,15 @@ CAAction
 
 
 UIView 自动布局的时候，frame的变化过程，
+
+
+
+layer绘制的时候默认不会处理scale的问题
+
+在CALayer中绘制图形会出现锯齿和模糊，同样绘图在UIView中就没有问题。经查资料发现**不自动处理两倍像素的情况**。
+
+解决方案为：设置layer的contentsScale属性为[[UIScreen mainScreen] scale];
+
+
+
+或者复写drawRect方法也有效
