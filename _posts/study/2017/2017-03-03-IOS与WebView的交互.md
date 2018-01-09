@@ -83,6 +83,16 @@ Jockey.on("toggle-talk-response", function(payload) {
 
 [demo](https://github.com/xilankong/YangRoute)
 
+
+
+原理
+
+
+
+
+
+
+
 ## 3.要注意的问题
 
 1、Jockey 也要注意释放的问题
