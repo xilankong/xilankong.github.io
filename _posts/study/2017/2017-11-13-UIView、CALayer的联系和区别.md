@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 学习之路
+category: 2017年
 title : "UIView、CALayer的联系和区别"
 ---
 
