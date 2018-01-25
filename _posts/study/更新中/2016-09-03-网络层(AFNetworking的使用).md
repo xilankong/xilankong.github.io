@@ -164,3 +164,27 @@ https 抓包
 
 
 http://www.jianshu.com/p/97745be81d64
+
+
+
+
+
+https://www.jianshu.com/p/fafc67475c73
+
+
+
+
+
+** finished with error - code: -1002**
+
+1002错误代码显示一个无效的URL。也许你的HTTP流媒体播放列表文件结构包含一个无效的URL(例如,失踪的方案,方案除了HTTP / https,等等)?额外的调试、设置环境变量CFNETWORK_DIAGNOSTICS = 1在Xcode项目并重新运行应用程序。一旦你知道URL是失败,这个问题可能会变得更加明显。
+
+-999错误，https证书信任
+
+
+
+本地调试https的时候，需要处理证书的信任安装问题
+
+
+
+https://www.jianshu.com/p/4b5d2d47833d
