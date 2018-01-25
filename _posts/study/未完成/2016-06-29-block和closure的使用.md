@@ -28,7 +28,6 @@ int (^myBlock)(int a,int b);
 2、typedef int (^myBlock)(int a,int b) ;
 
 -(void)func:(myBlock)block ;
-
 ```
 
 
