@@ -41,7 +41,6 @@ import {
     Image,
     Text
 } from 'react-native'
-
 ```
 
 ### 导出单个类
@@ -525,3 +524,4 @@ The resource could not be loaded because the App Transport Security policy requi
 
 Info.plist 写入**App Transport Security Settings**然后回车，先点击左侧展开箭头，再点右侧加号，Allow Arbitrary Loads 已经自动生成，直接回车。
 
+http://blog.csdn.net/wintelsui/article/details/59525889
