@@ -6,13 +6,91 @@ title: "CocoaPods使用说明书"
 
 ------
 
-## 1.什么是CocoaPods
+## 1、什么是CocoaPods
 
 CocoaPods 是开发 OS X 和 iOS 应用程序的一个第三方库的依赖管理工具。利用它可以定义自己的依赖关系 (称作 pods)，并且随着时间的变化，以及在整个开发环境中对第三方库的版本管理非常方便。这里整理了从基本安装到使用的操作流程和期间容易出现的问题以及解决办法。
 
-## 2.CocoaPods的安装
 
-### 2.1.安装过程
+
+## 2、CocoaPods都做了什么
+
+简单查看一下[cocoapods源代码](https://github.com/CocoaPods/CocoaPods)（[ruby语言](https://xilankong.github.io/2016年/2016/07/01/Ruby使用说明书.html)），了解一下install和update过程都干了什么。 参考：[cocoapods都做了什么](https://www.jianshu.com/p/84936d9344ff)
+
+#### 1.CocoaPods/lib/cocoapods/command/install.rb
+
+```
+def run
+    verify_podfile_exists!
+    installer = installer_for_config //Podfile的内容解析
+    installer.repo_update = repo_update?(:default => false)
+    installer.update = false //和update的区别
+    installer.install!
+ end
+```
+
+#### 2.CocoaPods/lib/cocoapods/command/update.rb
+
+```
+def run
+    verify_podfile_exists!
+
+    installer = installer_for_config
+    installer.repo_update = repo_update?(:default => true)
+    if @pods
+      verify_lockfile_exists!
+      verify_pods_are_installed!
+      installer.update = { :pods => @pods }
+    else
+      UI.puts 'Update all pods'.yellow
+      installer.update = true
+    end
+    installer.install!
+end
+```
+
+
+
+####  3.CocoaPods/lib/cocoapods/installer.rb
+
+```
+def install!
+  prepare
+  resolve_dependencies //处理依赖关系、比如是根据本地specs文件呢还是远端git地址等
+  download_dependencies//跟进依赖关系下载对应依赖包
+  validate_targets
+  generate_pods_project //生成pods.xcodeproj工程，将依赖中的文件、Library加入工程，设置target dependencies、生成workspace//
+  if installation_options.integrate_targets?
+    integrate_user_project
+  else
+    UI.section 'Skipping User Project Integration'
+  end
+  perform_post_install_actions
+end
+```
+
+#### 4.总结
+
+Podfile的内容解析
+
+repo的更新检查
+
+处理Podfile中的依赖关系
+
+下载依赖资源
+
+生成pods.xcodeproj工程
+
+将依赖中的文件、Library加入工程
+
+设置target dependencies
+
+生成workspace
+
+
+
+## 3、CocoaPods的安装
+
+### 1.安装过程
 
 安装方式异常简单 , Mac 下都自带 ruby，使用 ruby 的 gem 命令即可下载安装：
 
@@ -22,7 +100,7 @@ $ sudo gem install cocoa pods
 $ pod setup
 ```
 
-### 2.2.安装过程可能出现的错误
+### 2.安装过程可能出现的错误
 
 **2.2.1.gem版本需要更新**
 
@@ -64,7 +142,7 @@ gem sources -a https://gems.ruby-china.org // 添加新的源
 gem sources -l //查看sources源 看是否已经更换
 ```
 
-## 3.CocoaPods基础应用
+## 4、CocoaPods基础应用
 
 ### 3.1.项目中的使用方法
 
@@ -432,11 +510,11 @@ cocoapods是根据 podfile文件中得 配置去指向指定库 同时 也有一
 
 
 
-## 4.CocoaPods高级应用
+## 5、CocoaPods高级应用
 
-子包、资源文件、动态库相关、头文件
+#### 子包
 
-子包嵌套
+podspec文件
 
 subspec 中可以继续使用 subspec
 
@@ -454,9 +532,125 @@ end
 
 
 
+### podfile文件的更多应用
+
+都是ruby语言
+
+#### 1、pod引用参数
+
+1、Build configurations（编译配置）
+
+```
+pod 'PonyDebugger', :configurations => ['Debug', 'Beta']
+```
+
+2、Subspecs（子模块）
+
+```
+pod 'QueryKit', :subspecs => ['Attribute', 'QuerySet']
+pod 'QueryKit/Attribute'
+```
+
+3、branch、tag、commit
+
+```
+pod 'AFNetworking', :git => 'https://github.com/gowalla/AFNetworking.git', :branch => 'dev'
+pod 'AFNetworking', :git => 'https://github.com/gowalla/AFNetworking.git', :tag => '0.7.0'
+pod 'AFNetworking', :git => 'https://github.com/gowalla/AFNetworking.git', :commit => '082f8319af'
+```
+
+4、指定podspec
+
+```
+pod 'JSONKit', :podspec => 'https://example.com/JSONKit.podspec'
+```
 
 
-## 5.参考文献
+
+#### 2、target
+
+一个工程多个taget需要不同pod配置项的时候
+
+```
+workspace 'xxx.xcworkspace' 指定对应xcworkspace
+target :ZipApp do
+  project 'FastGPS' 指定对应project
+
+  pod 'SSZipArchive'
+end
+
+使用自定义构建配置
+project 'TestProject', 'Mac App Store' => :release, 'Test' => :debug
+
+```
+
+#### 3、inhibit_all_warnings!
+
+屏蔽cocoapods库里面的所有警告
+
+```
+inhibit_all_warnings!
+or
+pod 'SSZipArchive', :inhibit_warnings => true
+```
+
+
+
+#### 4、pre_install
+
+这个钩子允许你在Pods被下载后但是还未安装前对Pods做一些改变
+
+```
+pre_install do |installer|
+  # Do something fancy!
+end
+```
+
+
+
+#### 5、post_install
+
+这个钩子允许你在生成的Xcode project写入硬盘或者其他你想执行的操作前做最后的改动
+
+```
+给所有target自定义编译配置
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_ENABLE_OBJC_GC'] = 'supported' //配置环境变量等
+    end
+  end
+end
+
+
+
+```
+
+#### 6、abstract_target
+
+```
+
+```
+
+
+
+#### 7、其他参数 swift_version、platform、use_frameworks、inherit! :search_paths
+
+```
+
+platform：指定系统、版本 
+
+platform :ios, '4.0'
+platform :ios
+
+inherit! :search_paths
+明确指定继承于父层的所有pod，默认就是继承的
+```
+
+
+
+## 6、参考文献
 
 [cocoapods官网](https://cocoapods.org)
 
