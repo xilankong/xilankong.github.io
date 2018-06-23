@@ -604,27 +604,56 @@ post_install do |installer|
     end
   end
 end
-
-
-
 ```
 
 #### 6、abstract_target
 
 ```
+抽象target、当多个target的工程并且工程中各个target之间有很大一部分依赖是相同的时候，我们可以抽象出一个抽象target
 
+抽象target中的所有target都自动继承抽象target定义的所有依赖
+
+abstract_target 'Shows' do
+  pod 'ShowsKit'
+
+  # The target ShowsiOS has its own copy of ShowsKit (inherited) + ShowWebAuth (added here)
+  target 'ShowsiOS' do
+    pod 'ShowWebAuth'
+  end
+
+  # The target ShowsTV has its own copy of ShowsKit (inherited) + ShowTVAuth (added here)
+  target 'ShowsTV' do
+    pod 'ShowTVAuth'
+  end
+
+  # Our tests target has its own copy of
+  # our testing frameworks, and has access
+  # to ShowsKit as well because it is
+  # a child of the abstract target 'Shows'
+
+  target 'ShowsTests' do
+    inherit! :search_paths
+    pod 'Specta'
+    pod 'Expecta'
+  end
+end
 ```
 
 
 
-#### 7、其他参数 swift_version、platform、use_frameworks、inherit! :search_paths
+#### 7、其他参数 swift_version、platform、use_frameworks、inherit
 
 ```
+swift_version：指定swift版本号
+swift_version = '4.0'
 
 platform：指定系统、版本 
 
 platform :ios, '4.0'
 platform :ios
+
+use_frameworks：使用动态库
+use_frameworks!
 
 inherit! :search_paths
 明确指定继承于父层的所有pod，默认就是继承的
