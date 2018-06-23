@@ -144,7 +144,7 @@ gem sources -l //查看sources源 看是否已经更换
 
 ## 4、CocoaPods基础应用
 
-### 3.1.项目中的使用方法
+### 4.1.项目中的使用方法
 
 使用时需要新建一个名为 Podfile 的文件，以如下格式，将依赖的库名字依次列在文件中即可:
 
@@ -174,7 +174,7 @@ pod install
 
 当不知道某款第三方库的引入方法时可以直接在终端查找第三方库 或者 你如果不知道 CocoaPods 管理的库中，是否有你想要的库，那么你可以通过  pod search xxx 命令进行查找
 
-### 3.2.CocoaPods使用中的tips
+### 4.2.CocoaPods使用中的tips
 
 **1.关于 Podfile.lock**
 
@@ -218,11 +218,11 @@ git push origin 0.0.1
 >
 > 3.CocoaPods 通过一个名为 Pods.xcconfig 的文件来在编译时设置所有的依赖和参数。
 
-### 3.3.创建私有仓库
+### 4.3.创建私有仓库
 
 使用pod的时候 我们会遇到需要将自己的代码封装出去 单独管理的情况，这种情况下 我们就需要一个私有的仓库来管理这些单独的部件。
 
-#### 3.3.1.创建一个支持pod引入的项目
+#### 1.创建一个支持pod引入的项目
 
 cocoapods提供了一个快捷的项目模板创建命令：
 
@@ -323,7 +323,7 @@ $ git push origin v1.0.0
 >
 > 2.版本管理忽略掉pods文件夹 保留 podfile podfile.lock 跟着版本同步
 
-#### 3.3.2.创建私有仓库
+#### 2.创建私有仓库
 
 首先创建放私有库(repo) git地址 ：
 
@@ -362,7 +362,7 @@ $ pod repo push demoRepo demoProject.podspec –-verbose
 └─ README.md
 ```
 
-#### 3.3.3.获取私有仓库中的pod项目
+#### 3.获取私有仓库中的pod项目
 
 上面已经将我们自己创建的项目注册到了我们自己的私有repo中，在我们的主项目中需要引入这些pod部件的时候。首先在项目的 `.xcodeproj` 文件同级 创建一个 podfile 文件 文件内容如下：
 
@@ -381,7 +381,7 @@ end
 
 然后重新 pod install 一下就好了
 
-#### 3.3.4.删除repo
+#### 4.删除repo
 
 如何删除一个私有Spec Repo，只需要执行一条命令即可：
 
@@ -405,7 +405,7 @@ pod repo add demoRepo git@coding.net:wtlucky/WTSpecs.git
 
 然后在将Git的变动push到远端仓库即可。
 
-#### 3.3.5.可能遇见的问题
+#### 5.可能遇见的问题
 
 **1.spec文件无法校验通过**
 
@@ -423,7 +423,7 @@ pod repo add demoRepo git@coding.net:wtlucky/WTSpecs.git
 --sources=https://github.com/artsy/Specs,master  
 ```
 
-#### 3.3.6.开发pod项目的其他问题
+#### 6.开发pod项目的其他问题
 
 **1.怎么在开发中调试程序**
 
@@ -486,7 +486,7 @@ expect eof
 EOF
 ```
 
-10.其他知识点
+**10.其他知识点**
 
 pod 在多人协作的时候 如何保证 发布版本不会跟着开发走动  ：
 
@@ -501,9 +501,9 @@ Pre-downloading: `Category` from `git@gitlab.xxx.net:xxx_iOS/Category.git`, comm
 cocoapods是根据 podfile文件中得 配置去指向指定库 同时 也有一个pod.lock文件 这个文件用于锁定 pod拉取代码的 commit 节点。如下是Category在pod.lock文件中生成的，commit 就是指向对应commit节点。
 
 ```
-  Category:
-    :commit: 03c7a540b5c24eda6cea048048adef887cbbc77a
-    :git: git@gitlab.jfz.net:gxq_iOS/JFZReportModule.git
+Category:
+:commit: 03c7a540b5c24eda6cea048048adef887cbbc77a
+:git: git@gitlab.jfz.net:gxq_iOS/JFZReportModule.git
 ```
 
 当然  如果是已经打了tag的不存在这个问题 因为它是按tag去拉取，这里针对的时尚未打tag的库。
@@ -512,27 +512,9 @@ cocoapods是根据 podfile文件中得 配置去指向指定库 同时 也有一
 
 ## 5、CocoaPods高级应用
 
-#### 子包
-
-podspec文件
-
-subspec 中可以继续使用 subspec
-
-```
-s.subspec 'YangPageControl' do |page|
-    page.source_files = 'YangWidgets/Classes/YangPageControl/**/*'
-
-    page.subspec 'more' do |more|
-    more.source_files = 'YangWidgets/Classes/YangPageControl/more/**/*'
-    end
-end
-
-如果像上面一样 page里面包括了所有的文件，Development Pods开发的时候会出现显示没文件的问题，但是不影响正常使用，也不会影响podspec 的提交
-```
 
 
-
-### podfile文件的更多应用
+### 1、podfile文件的更多应用
 
 都是ruby语言
 
