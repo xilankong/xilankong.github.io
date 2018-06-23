@@ -4,7 +4,7 @@ category: 2016年
 title: "CocoaPods使用说明书" 
 ---
 
-------
+
 
 ## 1、什么是CocoaPods
 
@@ -16,7 +16,7 @@ CocoaPods 是开发 OS X 和 iOS 应用程序的一个第三方库的依赖管�
 
 简单查看一下[cocoapods源代码](https://github.com/CocoaPods/CocoaPods)（[ruby语言](https://xilankong.github.io/2016年/2016/07/01/Ruby使用说明书.html)），了解一下install和update过程都干了什么。 参考：[cocoapods都做了什么](https://www.jianshu.com/p/84936d9344ff)
 
-#### 1.CocoaPods/lib/cocoapods/command/install.rb
+#### CocoaPods/lib/cocoapods/command/install.rb
 
 ```
 def run
@@ -28,7 +28,7 @@ def run
  end
 ```
 
-#### 2.CocoaPods/lib/cocoapods/command/update.rb
+#### CocoaPods/lib/cocoapods/command/update.rb
 
 ```
 def run
@@ -50,7 +50,7 @@ end
 
 
 
-####  3.CocoaPods/lib/cocoapods/installer.rb
+####  CocoaPods/lib/cocoapods/installer.rb
 
 ```
 def install!
@@ -68,7 +68,7 @@ def install!
 end
 ```
 
-#### 4.总结
+### 总结
 
 Podfile的内容解析
 
@@ -102,7 +102,7 @@ $ pod setup
 
 ### 2.安装过程可能出现的错误
 
-**2.2.1.gem版本需要更新**
+#### gem版本需要更新
 
 首先确认软件源地址是正确的，然后如果你的 gem 太老，可能也会有问题，可以尝试用如下命令升级 gem。
 
@@ -126,7 +126,7 @@ $ pod repo update —verbose //更新repo
 $ rm -rf ~/.cocoapods/repos/master //然后再 pod setup。
 ```
 
-**2.2.2.pod setup 卡住在 Setting up CocoaPods master repo**
+#### pod setup 卡住在 Setting up CocoaPods master repo
 
 这步其实是 Cocoapods 在将它的信息下载到  ~/.cocoapods 目录下，如果你等太久，可以试着 cd 到那个目录，用  du -sh * 来查看下载进度。
 
@@ -144,7 +144,7 @@ gem sources -l //查看sources源 看是否已经更换
 
 ## 4、CocoaPods基础应用
 
-### 4.1.项目中的使用方法
+### 1.项目中的使用方法
 
 使用时需要新建一个名为 Podfile 的文件，以如下格式，将依赖的库名字依次列在文件中即可:
 
@@ -174,9 +174,9 @@ pod install
 
 当不知道某款第三方库的引入方法时可以直接在终端查找第三方库 或者 你如果不知道 CocoaPods 管理的库中，是否有你想要的库，那么你可以通过  pod search xxx 命令进行查找
 
-### 4.2.CocoaPods使用中的tips
+### 2.CocoaPods使用中的tips
 
-**1.关于 Podfile.lock**
+#### 1.关于 Podfile.lock
 
 当你执行 pod install 之后，除了 Podfile 外，CocoaPods 还会生成一个名为 Podfile.lock 的文件，Podfile.lock 应该加入到版本控制里面，不应该把这个文件加入到 .gitignore 中。
 
@@ -186,7 +186,7 @@ pod install
 
 > 后面的CocoaPods私人仓库创建会讲到 podspec 文件的问题
 
-**2.–-no-repo-update**
+#### 2.–-no-repo-update
 
 CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 podspec 索引,会去更新 repo。
 
@@ -196,7 +196,7 @@ CocoaPods 在执行 pod install 和 pod update 时，会默认先更新一次 po
 >
 > pod update –-no-repo-update
 
-**3.移除tag0.0.1，再重现提交新的tag0.0.1**
+#### 3.移除tag0.0.1，再重现提交新的tag0.0.1
 
 ```
 git add . 
@@ -208,7 +208,7 @@ git tag 0.0.1
 git push origin 0.0.1
 ```
 
-**4.CocoaPods原理**
+#### 4.CocoaPods原理
 
 大概研究了一下 CocoaPods 的原理，它是将所有的依赖库都放到另一个名为 Pods 项目中，然后让主项目依赖 Pods 项目，这样，源码管理工作都从主项目移到了 Pods 项目中。发现的一些技术细节有：
 
@@ -218,7 +218,7 @@ git push origin 0.0.1
 >
 > 3.CocoaPods 通过一个名为 Pods.xcconfig 的文件来在编译时设置所有的依赖和参数。
 
-### 4.3.创建私有仓库
+### 3.创建私有仓库
 
 使用pod的时候 我们会遇到需要将自己的代码封装出去 单独管理的情况，这种情况下 我们就需要一个私有的仓库来管理这些单独的部件。
 
@@ -407,7 +407,7 @@ pod repo add demoRepo git@coding.net:wtlucky/WTSpecs.git
 
 #### 5.可能遇见的问题
 
-**1.spec文件无法校验通过**
+**spec文件无法校验通过**
 
 发生原因：
 
@@ -514,9 +514,9 @@ Category:
 
 
 
-### 1、podfile文件的更多应用
+### podfile文件的更多应用
 
-都是ruby语言
+
 
 #### 1、pod引用参数
 
@@ -547,8 +547,6 @@ pod 'AFNetworking', :git => 'https://github.com/gowalla/AFNetworking.git', :comm
 pod 'JSONKit', :podspec => 'https://example.com/JSONKit.podspec'
 ```
 
-
-
 #### 2、target
 
 一个工程多个taget需要不同pod配置项的时候
@@ -576,8 +574,6 @@ or
 pod 'SSZipArchive', :inhibit_warnings => true
 ```
 
-
-
 #### 4、pre_install
 
 这个钩子允许你在Pods被下载后但是还未安装前对Pods做一些改变
@@ -587,8 +583,6 @@ pre_install do |installer|
   # Do something fancy!
 end
 ```
-
-
 
 #### 5、post_install
 
@@ -639,8 +633,6 @@ abstract_target 'Shows' do
 end
 ```
 
-
-
 #### 7、其他参数 swift_version、platform、use_frameworks、inherit
 
 ```
@@ -665,4 +657,6 @@ inherit! :search_paths
 
 [cocoapods官网](https://cocoapods.org)
 
-https://blog.dianqk.org/2017/05/01/dev-on-pod/
+[cocoapods都做了什么](https://www.jianshu.com/p/84936d9344ff)
+
+[cocoapods——dqk](https://blog.dianqk.org/2017/05/01/dev-on-pod/)
