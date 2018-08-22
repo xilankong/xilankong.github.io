@@ -651,6 +651,20 @@ inherit! :search_paths
 明确指定继承于父层的所有pod，默认就是继承的
 ```
 
+8、Jenkins 和cocoapods 和打包机的问题
+
+升级打包机cocoapods 发现没有用 ，识别到的jenkins打包环境对应的RVM版本完全不对，根本和slave不一样。为什么：：
+
+jenkins执行shell命令 记得加上
+
+```
+#!/bin/bash -l
+
+没有这一句执行到的jenkins环境很奇怪 我也不知道指向了哪里的环境
+```
+
+
+
 
 
 ## 6、参考文献
