@@ -198,8 +198,6 @@ func drawLine(line: CTLine, context: CGContext) {
 
 
 
-
-
 # 3. 图文混排
 
 CoreText本身是不提供UIImage的绘制，所以UIImage肯定只能通过Core Graphics绘制，但是绘制时双必须要知道此绘制单元的长宽，庆幸的是CoreText绘制的最小单元CTRun提供了CTRunDelegate，也就是当设置了kCTRunDelegateAttributeName过后，CTRun的绘制时所需的参考（长宽等）将可从委托中获取，我们即可通过此方法实现图片的绘制。在需要绘制图片的位置，提前预留空白占位。 
