@@ -1,0 +1,1120 @@
+---
+layout: post
+category: 2017年
+title : "Swift-tips"
+---
+
+
+
+## Swift开发的小细节
+
+
+
+1、柯里化
+
+把接受多个参数的方法进行一些变形，使其更加灵活的方法。函数式特点的重要表现。
+
+```
+举个例子，下面的函数简单地将输入的数字加 1：
+
+func addOne(num: Int) -> Int {
+    return num + 1
+}
+这个函数所表达的内容非常有限，如果我们之后还需要一个将输入数字加 2，或者加 3 的函数，可能不得不类似地去定义返回为 num + 2 或者 num + 3 的版本。有没有更通用的方法呢？我们其实可以定义一个通用的函数，它将接受需要与输入数字相加的数，并返回一个函数。返回的函数将接受输入数字本身，然后进行操作：
+
+func addTo(adder: Int) -> Int -> Int {
+    return {
+        num in
+        return num + adder
+    }
+}
+有了 addTo，我们现在就能轻易写出像是 addOne 或者 addTwo 这样的函数了：
+
+let addTwo = addTo(2)    // addTwo: Int -> Int
+let result = addTwo(6)   // result = 8
+```
+
+
+
+柯里化是一种量产相似方法的好办法，可以通过柯里化一个方法模板来避免写出很多重复代码，也方便了今后维护。
+
+
+
+2、将 PROTOCOL 的方法声明为 MUTATING
+
+```
+protocol Vehicle
+{
+    var numberOfWheels: Int {get}
+    var color: UIColor {get set}
+
+    mutating func changeColor()
+}
+万一协议使用者需要在对应方法中修改属性
+```
+
+
+
+3、sequence
+
+实现一个反向序列
+
+Swift 的 `for...in` 可以用在所有实现了 `SequenceType` 的类型上，而为了实现 `SequenceType`你首先需要实现一个 `GeneratorType`。比如一个实现了反向的 `generator` 和 `sequence` 可以这么写：
+
+```
+Swift4.0里面 GeneratorType 改成 Iterator, SequenceType 改成 Sequence
+
+class ReverseGenerator<T>: IteratorProtocol {
+    typealias Element = T
+    var array: [Element]
+    var currentIndex = 0
+    
+    init(array: [Element]) {
+        self.array = array
+        currentIndex = array.count - 1 //反向
+    }
+    
+    func next() -> Element? {
+        if currentIndex < 0 {
+            return nil
+        }
+        else {
+            let element = array[currentIndex]
+            currentIndex -= 1
+            return element
+        }
+    }
+}
+
+class ReverseSequence<T>: Sequence {
+    typealias Element = T
+    var array: [Element]
+    init(array: [Element]) {
+        self.array = array
+    }
+    typealias Iterator = ReverseGenerator<Element>
+    
+    func makeIterator() -> ReverseSequence<Element>.Iterator {
+        return ReverseGenerator(array: array)
+    }
+}
+
+let arr = [1,2,3,4,5,6]
+
+for item in ReverseSequence(array: arr) {
+    print(item)
+}
+
+```
+
+
+
+4、 ?? 的实现
+
+&& 、||的实现
+
+```
+
+infix operator ???
+
+func ???<T>(optional: T?, defaultValue: @autoclosure () -> T) -> T {
+    switch optional {
+    case .some(let value):
+        print(value)
+        return value
+    case .none:
+        return defaultValue()
+    }
+}
+let demo = Demo().demos()
+
+let result = demo ??? Demo()
+
+func &&&(leftValue: @autoclosure () -> Bool, rightValue: @autoclosure () -> Bool) -> Bool {
+//    print(leftValue)
+    if !leftValue() {
+        return false
+    } else if rightValue() {
+        return true
+    }
+    return false
+}
+let demo = Demo().demos()
+print(demo)
+let result = (demo == nil) &&& (3 > 2)
+
+print(result)
+```
+
+
+
+5、Optional Chaining
+
+```
+ ()? 就是 Void?
+ 
+ 如果遇到没有返回值的闭包如何判断执行成功与否呢
+ 
+ let playClosure = {(child: Child) -> ()? in child.pet?.toy?.play()}
+ 
+ if let result: () = playClosure(xiaoming) {
+    print("好开心~")
+} else {
+    print("没有玩具可以玩")
+}
+```
+
+
+
+6、操作符
+
+```
+重载已有操作符 ： + - 
+struct Vector2D {
+    var x = 0.0
+    var y = 2.0
+}
+func +(left: Vector2D, right: Vector2D) -> Vector2D {
+    return Vector2D(x: left.x + right.x, y: left.y + right.y)
+}
+
+let v1 = Vector2D(x: 2, y: 3)
+let v2 = Vector2D(x: 1, y: 3)
+
+let v3 = v1 + v2
+print(v3)
+
+直接重载已有操作符，不会出现编译错误，因为系统已经声明，但是自定义操作符需要声明否则编译错误(把上面的 + 换成 +* 自定义操作符就编译出错)
+
+声明定义 自定义操作符, 操作符设置在Swift3做了变更：常用于设置操作符计算优先级。
+
+https://github.com/apple/swift-evolution/blob/master/proposals/0077-operator-precedence.md
+
+precedencegroup MyPrecedence  {
+    associativity: none
+    higherThan: LogicalConjunctionPrecedence
+}
+infix operator +* : MyPrecedence
+
+
+运算的优先级，越高的话越优先进行运算。Swift 中乘法和除法的优先级是 150，加法和减法是 140，
+higerThan用于设置优先级高低，
+
+LogicalConjunctionPrecedence 常用逻辑运算优先级
+还有  lowerThan
+
+```
+
+7、Swift REPL 交互式解释环境
+
+也就是说每输入一句语句就立即执行和输出。这在很多解释型的语言中是很常见的，非常适合用来对语言的特性进行学习。
+
+https://swifter.tips/swift-cli/
+
+
+
+8、方法中嵌套方法
+
+避免一些可能极少使用到的方法因为方法体太长而拆出去展开。
+
+
+
+10、swift单例用 let是最简便有效的
+
+
+
+11、Any、AnyObject 一个针对对象 一个针对所有 包括函数
+
+
+
+12、随机数的生成
+
+arc4random_uniform
+
+```
+创建一个 Range 的随机数的方法
+
+func randomInRange(range: Range<Int>) -> Int {
+    let count = range.endIndex - range.startIndex
+    return Int(arc4random_uniform(UInt32(count)))
+}
+
+for i in 0...100 {
+    print(randomInRange(range: 0..<6))
+}
+```
+
+
+
+13、typealias 和泛型
+
+```
+protocols do not allow generic parameters; use associated types instead
+
+协议中是不可以使用泛型的，但是我们还可以在协议中约定一个typealias 要求必须实现,这样也就可以在一定范围内，对协议进行约束
+
+protocol GeneratorType {
+    associatedtype Generator
+    func doSth(demo: String) -> Generator
+}
+
+class SomeBody: GeneratorType {
+    typealias Generator = String
+    func doSth(demo: String) -> String {
+        print("do Sth")
+        return "sth"
+    }
+}
+```
+
+14、条件编译
+
+```
+- armv7｜armv7s｜arm64都是ARM处理器的指令集
+- i386｜x86_64 是Mac处理器的指令集
+
+i386是针对intel通用微处理器32位处理器 (模拟器)
+x86_64是针对x86架构的64位处理器 (模拟器)
+
+模拟器32位处理器测试需要i386架构，
+模拟器64位处理器测试需要x86_64架构，
+真机32位处理器需要armv7,或者armv7s架构，
+真机64位处理器需要arm64架构。
+
+以下判断依然可以使用，根据不同环境做判断
+#if FREE_VERSION
+print("do Sth")
+#else
+print("do Sth2")
+#endif
+
+在这里我们用 FREE_VERSION 这个编译符号来代表免费版本。为了使之有效，我们需要在项目的编译选项中进行设置，在项目的 Build Settings 中，找到 Swift Compiler - Custom Flags，并在其中的 Other Swift Flags 加上 -D FREE_VERSION 就可以了。
+```
+
+15、可变参数函数
+
+```
+可变参数函数写NSString format初始化
+oc里面：
+NSString *string = [NSString stringWithFormat:
+                @"Hello %@. Date: %@", name, date];
+                
+swift:
+
+extension NSString {
+    convenience init(format: NSString, _ args: CVarArg...) {
+        self.init()
+    }
+}
+
+NSString(format: "%@%@", "on", Demo())
+```
+
+16、reduce
+
+```
+reduce: 用于处理数组，产生一个值元素的整个序列。
+
+let numbers = [1, 2, 3, 4]
+let numberSum = numbers.reduce(0, { x, y in
+    x + y
+})
+// numberSum == 10
+
+
+func sum(num: Int...) -> Int {
+    return num.reduce(2, {$0 * $1})
+}
+
+sum(num: 3,4) // 24
+
+可以自定义基础参数，自定义组合方式
+```
+
+
+
+17、map
+
+```
+let numbers = [1, 2, 3, 4]
+
+let number_2 = numbers.map { (num) -> Int in
+    num * 2
+}
+```
+
+18、找数组最大最小
+
+```
+let array = [10,-22,753,55,137,-1,-279,1034,77]
+
+array.sorted().first
+array.sorted().last
+
+也可以用reduce计算
+
+array.reduce(Int.max,min)
+
+```
+
+
+
+19、Swift中的app入口
+
+```
+swift工程中并没有 main.m文件提供明显的入口，但是在Appdelegate
+
+在一般情况下，我们并不需要对这个标签做任何修改，但是当我们如果想要使用 UIApplication 的子类而不是它本身的话，我们就需要对这部分内容 “做点手脚” 了。
+
+刚才说到，其实 Swift 的 app 也是需要 main 函数的，只不过默认情况下是 @UIApplicationMain 帮助我们自动生成了而已。和 C 系语言的 main.c 或者 main.m 文件一样，Swift 项目也可以有一个名为 main.swift 特殊的文件。在这个文件中，我们不需要定义作用域，而可以直接书写代码。这个文件中的代码将作为 main 函数来执行。比如我们在删除 @UIApplicationMain 后，在项目中添加一个 main.swift 文件，然后加上这样的代码：
+
+UIApplicationMain(Process.argc, Process.unsafeArgv, nil,
+    NSStringFromClass(AppDelegate))
+现在编译运行，就不会再出现错误了。当然，我们还可以通过将第三个参数替换成自己的 UIApplication 子类，这样我们就可以轻易地做一些控制整个应用行为的事情了。比如将 main.swift 的内容换成：
+
+import UIKit
+
+class MyApplication: UIApplication {
+    override func sendEvent(event: UIEvent!) {
+        super.sendEvent(event)
+        print("Event sent: \(event)");
+    }
+}
+//可以替换@UIApplicationMain
+UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), NSStringFromClass(UIApplication.self), NSStringFromClass(AppDelegate.self))
+
+这样每次发送事件 (比如点击按钮) 时，我们都可以监听到这个事件了。
+```
+
+20、初始化方法的顺序
+
+```
+设置子类自己需要初始化的参数，power = 10
+调用父类的相应的初始化方法，super.init()
+```
+
+21、DESIGNATED，CONVENIENCE 和 REQUIRED
+
+```
+DESIGNATED designated 指定初始化器
+
+CONVENIENCE
+
+REQUIRED
+
+Swift 中不加修饰的 init 方法都需要在方法中保证所有非 Optional 的实例变量被赋值初始化
+
+而在子类中也强制 (显式或者隐式地) 调用 super 版本的 designated 初始化，所以无论如何走何种路径，被初始化的对象总是可以完成完整的初始化的。
+
+class ClassA {
+    let numA: Int
+    init(num: Int) {
+        numA = num
+    }
+}
+
+class ClassB: ClassA {
+    let numB: Int
+
+    override init(num: Int) {
+        numB = num + 1
+        super.init(num: num)
+    }
+}
+在上面的示例代码中，注意在 init 里我们可以对 let 的实例常量进行赋值，这是初始化方法的重要特点。在 Swift 中 let 声明的值是常量，无法被写入赋值，这对于构建线程安全的 API 十分有用。而因为 Swift 的 init 只可能被调用一次，因此在 init 中我们可以为常量进行赋值，而不会引起任何线程安全的问题。
+
+与 designated 初始化方法对应的是在 init 前加上 convenience 关键字的初始化方法。这类方法是 Swift 初始化方法中的 “二等公民”，只作为补充和提供使用上的方便。所有的 convenience 初始化方法都必须调用同一个类中的 designated 初始化完成设置，另外 convenience 的初始化方法是不能被子类重写或者是从子类中以 super 的方式被调用的。
+
+
+
+1、初始化路径必须保证对象完全初始化，这可以通过调用本类型的 designated 初始化方法来得到保证；
+
+2、子类的 designated 初始化方法必须调用父类的 designated 方法，以保证父类也完成初始化。
+
+对于某些我们希望子类中一定实现的 designated 初始化方法，我们可以通过添加 required 关键字进行限制，强制子类对这个方法重写实现。这样做的最大的好处是可以保证依赖于某个 designated 初始化方法的 convenience 一直可以被使用。一个现成的例子就是上面的 init(bigNum: Bool)：如果我们希望这个初始化方法对于子类一定可用，那么应当将 init(num: Int) 声明为必须，这样我们在子类中调用 init(bigNum: Bool) 时就始终能够找到一条完全初始化的路径了：
+
+class ClassA {
+    let numA: Int
+    required init(num: Int) {
+        numA = num
+    }
+
+    convenience init(bigNum: Bool) {
+        self.init(num: bigNum ? 10000 : 1)
+    }
+}
+
+class ClassB: ClassA {
+    let numB: Int
+
+    required init(num: Int) {
+        numB = num + 1
+        super.init(num: num)
+    }
+}
+另外需要说明的是，其实不仅仅是对 designated 初始化方法，对于 convenience 的初始化方法，我们也可以加上 required 以确保子类对其进行实现。这在要求子类不直接使用父类中的 convenience 初始化方法时会非常有帮助。
+```
+
+
+
+22、Swift初始化返回nil
+
+```
+swift默认初始化器是没有返回值的
+
+public init?(string: String)
+
+可以使用这种初始化器
+
+```
+
+23、protocol组合
+
+```
+Any 相当于 protocol<> 无类型的协议
+
+在swift 后续版本 如果我们需要定义一个协议仅仅用于整合多个其他协议
+
+protocol A { }
+
+protocol B { }
+
+protocol C: A, B {
+    
+}
+
+可以直接用 typealias D = A & B
+
+
+```
+
+24、class 和 static
+
+protocol中只能用static
+
+
+
+25、对于一个项目来说，外界框架是由 Swift 写的还是 Objective-C 写的，两者并没有太大区别
+
+
+
+26、DYNAMIC
+
+swift中的动态分发
+
+
+
+27、protocol optional 可选接口
+
+```
+@objc
+protocol C: A, B {
+    @objc optional func dosth()
+}
+
+用 @objc 修饰的 protocol 就只能被 class 实现了，也就是说，对于 struct 和 enum 类型，我们是无法令它们所实现的接口中含有可选方法或者属性的。
+```
+
+
+
+28、autoreleasepool 自动释放池
+
+```
+这是一种必要的延迟释放的方式，因为我们有时候需要确保在方法内部初始化的生成的对象在被返回后别人还能使用，而不是立即被释放掉。
+
+什么情况下需要使用到：
+
+一般情况ARC管理内存不需要我们再进行内存管理操作，但是在个别特殊情况：
+
+func loadBigData() {
+    if let path = NSBundle.mainBundle()
+        .pathForResource("big", ofType: "jpg") {
+
+        for i in 1...10000 {
+            autoreleasepool {
+                let data = NSData.dataWithContentsOfFile(
+                    path, options: nil, error: nil)
+
+                NSThread.sleepForTimeInterval(0.5)
+            }
+        }
+    }
+}
+
+短时间内的内存暴增，但是又并没有离开方法，内存并未释放，容易导致内存不足而崩溃，这个时候上面添加的 autoreleasepool 的作用就体现出来了，每次循环后都会将需要释放的内容主动放入了自动释放池，但是也不需要太频繁，可以间隔10次之类的进行。
+```
+
+
+
+29、正则表达式
+
+```
+
+//MARK: - 正则匹配
+
+struct MyRegex {
+
+    let regex: NSRegularExpression?
+    init(_ pattern: String) {
+        regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+    }
+    
+    func match(input: String) -> Bool {
+        if let matches = regex?.matches(in: input, options: [], range: NSRange(location: 0, length: input.length)) {
+            return matches.count > 0
+        }
+        
+        return false
+    }[]
+}
+
+infix operator =~
+
+func =~ (str: String, pattern: String) -> Bool {
+
+    return MyRegex(pattern).match(input: str)
+
+}
+
+//
+
+ string =~ "^[0-9]$"
+ 
+ 
+ 8个常用正则表达式
+ 
+ https://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149
+```
+
+
+
+30、Swift中的字典、数组变成值类型为什么不会带来更大的消耗
+
+```
+当这些值类型属性内容不发生变更的时候，进行赋值、传递操作只会移动指针，并不会重新分配内存地址，没有堆内存的分配和释放的问题，这样的运行效率可以说极高。只有当值发生变更的时候才会重新分配地址。复制会将存储在其中的值类型一并进行复制，而对于其中的引用类型的话，则只复制一份引用。(比如struct中的类对象)，struct复制的时候 内属性都发生地址复制，类对象这种引用类型则复制一份引用。
+
+但以上都是针对小数据量 变更发生较少的时候。
+
+在需要处理大量数据并且频繁操作 (增减) 其中元素时，选择 NSMutableArray 和 NSMutableDictionary 会更好
+```
+
+31、AnyClass
+
+```
+public typealias AnyClass = AnyObject.Type
+
+(NSClassFromString("demo2.ViewController") as! UIViewController.Type).init()
+
+
+```
+
+32、Self 到底是什么
+
+```
+我们在看一些接口的定义时，可能会注意到出现了首字母大写的 Self 出现在类型的位置上：
+
+protocol IntervalType {
+    //...
+
+    /// Return `rhs` clamped to `self`.  The bounds of the result, even
+    /// if it is empty, are always within the bounds of `self`
+    func clamp(intervalToClamp: Self) -> Self
+
+    //...
+}
+比如上面这个 IntervalType 的接口定义了一个方法，接受实现该接口的自身的类型，并返回一个同样的类型。
+
+这么定义是因为接口其实本身是没有自己的上下文类型信息的，在声明接口的时候，我们并不知道最后究竟会是什么样的类型来实现这个接口，Swift 中也不能在接口中定义泛型进行限制。而在声明接口时，我们希望在接口中使用的类型就是实现这个接口本身的类型的话，就需要使用 Self 进行指代。
+
+import Foundation
+
+protocol Copyable {
+    func mycopy() -> Self
+}
+
+class MyClass: Copyable {
+    var num = 1
+    
+    func mycopy() -> Self {
+        let result = type(of: self).init()
+        (result as! MyClass).num = 3
+        return result
+    }
+    //通过动态类型初始化对象必须有required init 方法
+    required init() {  
+    }
+}
+```
+
+33、swift中的dynamicType 被废除 替代方案为type(of:)
+
+
+
+34、属性观察
+
+```
+willSet 和 didSet。newValue oldValue
+```
+
+
+
+35、Swift中的KVO
+
+```
+Swift 中我们也是可以使用 KVO 的，但是仅限于在 NSObject 的子类中。这是可以理解的，因为 KVO 是基于 KVC (Key-Value Coding) 以及动态派发技术实现的，而这些东西都是 Objective-C 运行时的概念。另外由于 Swift 为了效率，默认禁用了动态派发，因此想用 Swift 来实现 KVO，我们还需要做额外的工作，那就是将想要观测的对象标记为 dynamic。
+
+如果遇到需要监听没有标记dynamic的属性时，只能开子类复写属性
+
+self.addObserver(self, forKeyPath: "str", options: .new, context: nil)
+
+
+override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        print(keyPath)
+    }
+```
+
+36、局部 scope 
+
+```
+让代码更清晰，模块化
+
+do {
+    //do sth
+}
+
+do {
+    //do sth
+}
+```
+
+
+
+37、判等
+
+```
+判断两个对象是否相等，内容上的相等 而不是内存地址上的相等
+
+swift在内存地址上的相等用 ===
+
+swift中用的是 == ，通过重写 == ,基本的类型都实现了对应的 == 
+
+对象实现 Equatable 协议，同时在外部重写对应的 == 方法，因为我们需要在任意地方都可以使用对应的比较
+class TodoItem {
+    let uuid: String
+    var title: String
+    
+    init(uuid: String, title: String) {
+        self.uuid = uuid
+        self.title = title
+    }
+}
+extension TodoItem: Equatable {
+}
+
+func ==(lhs: TodoItem, rhs: TodoItem) -> Bool {
+    return lhs.uuid == rhs.uuid
+}
+
+
+
+oc中用的是isEqual，通过重写isEqual的方式来进行对象的比较
+
+
+```
+
+38、判等还需要考虑的一点，hash值，比较两个对象是否内存地址也一样
+
+```
+所以在重写哈希方法时候所采用的策略，与判等的时候是类似的：对于非 NSObject 的类，我们需要遵守 Hashable 并根据 == 操作符的内容给出哈希算法；而对于 NSObject 子类，需要根据是否需要在 Objective-C 中访问而选择合适的重写方式，去实现 Hashable 的 hashValue 或者直接重写 NSObject 的 -hash 方法。
+
+也就是说，在 Objective-C 中，对于 NSObject 的子类来说，其实 NSDictionary 的安全性是通过人为来保障的。对于那些重写了判等但是没有重写对应的哈希方法的子类，编译器并不能给出实质性的帮助。而在 Swift 中，如果你使用非 NSObject 的类型和原生的 Dictionary，并试图将这个类型作为字典的 key 的话，编译器将直接抛出错误。从这方面来说，如果我们尽量使用 Swift 的话，安全性将得到大大增加。
+```
+
+
+
+39、避免多重Optional
+
+```
+// Never do this!
+func methodThrowsWhenPassingNegative1(number: Int) throws -> Int? {
+    if number < 0 {
+        throw Error.Negative
+    }
+    if number == 0 {
+        return nil
+    }
+    return number
+}
+
+if let num = try? methodThrowsWhenPassingNegative1(0) {
+    print(num.dynamicType)
+} else {
+    print("failed")
+}
+// 输出：
+// Optional<Int>
+// 其实里面包装的是一个 nil
+```
+
+
+
+40、断言
+
+```
+断言的另一个优点是它是一个开发时的特性，只有在 Debug 编译的时候有效，而在运行时是不被编译执行的，因此断言并不会消耗运行时的性能。这些特点使得断言成为面向程序员的在调试开发阶段非常合适的调试判断，而在代码发布的时候，我们也不需要刻意去将这些断言手动清理掉，非常方便。
+
+虽然默认情况下只在 Release 的情况下断言才会被禁用，但是有时候我们可能出于某些目的希望断言在调试开发时也暂时停止工作，或者是在发布版本中也继续有效。我们可以通过显式地添加编译标记达到这个目的。在对应 target 的 Build Settings 中，我们在 Swift Compiler - Custom Flags 中的 Other Swift Flags 中添加 -assert-config Debug 来强制启用断言，或者 -assert-config Release 来强制禁用断言。当然，除非有充足的理由，否则并不建议做这样的改动。如果我们需要在 Release 发布时在无法继续时将程序强行终止的话，应该选择使用 fatalError。
+```
+
+
+
+41、playground 延时执行
+
+```
+https://swifter.tips/playground-delay/
+```
+
+
+
+42、swift中的 swizzle
+
+```
+尽量还是少在swift中使用runtime
+
+initialize()
+load()
+这俩个方法都不可以在swift中使用了
+
+所以如果后续需要执行swizzle交换 需要把初始化方法在Appdelegate  didFinishLaunchingWithOptions 中手动调用
+
+
+最后 swizzle如下
+
+extension UIViewController {
+    static func initializeMethod() {
+        DispatchQueue.once(token: "initializeMethod") {
+            let originalSEL = #selector(UIViewController.viewWillAppear(_:))
+            let newSEL = #selector(UIViewController.MyViewWillAppear(_:))
+            
+            let originalMethod = class_getInstanceMethod(self, originalSEL)
+            let newMethod = class_getInstanceMethod(self, newSEL)
+            
+            let addResult = class_addMethod(self, originalSEL, method_getImplementation(newMethod!), method_getTypeEncoding(newMethod!))
+            if addResult {
+                class_replaceMethod(self, newSEL, method_getImplementation(originalMethod!), method_getTypeEncoding(originalMethod!))
+            } else {
+                method_exchangeImplementations(originalMethod!, newMethod!)
+                
+            }
+            
+        }
+    }
+    
+    @objc func MyViewWillAppear(_ animated: Bool) {
+        print("测试swizzle")
+        MyViewWillAppear(animated)
+    }
+}
+```
+
+
+
+
+
+43、swift失去了 dispatch_once
+
+```
+在swift中不再支持 dispatch_once
+给Dispatch 添加 once的扩展
+
+extension DispatchQueue {
+    private static var _tokens = [String]()
+    public class func once(token: String, completion: () -> ()) {
+        objc_sync_enter(self)
+        defer {
+            objc_sync_exit(self)
+        }
+        if _tokens.contains(token) {
+            return
+        } else {
+            _tokens.append(token)
+            completion()
+        }
+        
+    }
+}
+```
+
+44、lazy 和map filtter等方法合用
+
+```
+let data = 1...3
+lazy var result = data.lazy.map { $0 + 1 }
+```
+
+45、swift中的math
+
+
+
+46、swift调用 C 动态库
+
+暂时只能通过OC来调用，bridge文件桥接
+
+
+
+47、Mirror swift中的反射
+
+```
+尽量减少生产环境对Mirror的使用，毕竟本身他在Apple的实现里不是很丰富，也可能会被后期swift改版给改动
+```
+
+
+
+48、输出格式化
+
+```
+String(format: "%.2f", 1.2222)  输出：1.22
+
+```
+
+
+
+49、swift中的options
+
+```
+oc中的多个option直接用 | 符号链接：
+UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
+为空则 nil
+swift中options为数组
+[.CurveEaseIn, .AllowUserInteraction]，为空的时候即 [] 空数组
+
+```
+
+50、判断数据类型
+
+```
+比如我们存储一些数据后希望可以精确还原对应的数据类型，可以通过下面方式获取数据类型
+
+print(String(cString: NSNumber(value: 1.22).objCType))
+
+存储时使用 objCType 获取类型，然后将数字本身和类型的字符串一起存储。在读取时就可以通过匹配类型字符串和类型的编码，确定数字本来所属的类型，从而直接得到像 Int 或者 Double 这样的类型明确的量
+
+
+OC中有@encode
+```
+
+
+
+51、
+
+```
+在 Swift 中，编译器为我们准备了几个很有用的编译符号，用来处理类似这样的需求，它们分别是：
+
+符号	类型	描述
+#file	String	包含这个符号的文件的路径
+#line	Int	符号出现处的行号
+#column	Int	符号出现处的列
+#function	String	包含这个符号的方法名字
+
+printLog(message: "测试")
+        
+func printLog<T>(message: T, file: String = #file, method: String = #function, line: Int = #line) {
+    print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
+}
+```
+
+52、将C函数映射为Swift函数
+
+```
+@_silgen_name("test") func test_swift(a: Int32) {
+    print("")
+}
+ 
+```
+
+53、swift中的sizeOf
+
+```
+print(MemoryLayout.size(ofValue: data))
+
+
+```
+
+54、swift中的合理便捷安全的资源管理方式
+
+```
+例如图片的管理，当图片变更或者发生图片名称替换的时候，全局去找对应的图片 很是恶心
+
+把图片资源的字符串名称通过 有rawvalue的enum管理起来  
+
+三方库 R.swift
+
+```
+
+55、playground 如何与项目协作
+
+
+
+56、swift中的锁
+
+```
+func myMethod(anObj: AnyObject!) {
+    objc_sync_enter(anObj)
+
+    // 在 enter 和 exit 之间 anObj 不会被其他线程改变
+
+    objc_sync_exit(anObj)
+}
+
+```
+
+
+
+57、
+
+Apple 为了 iOS 平台的安全性考虑，是不允许动态链接非系统的框架的。
+
+```
+虽然和 Apple 的框架的后缀名一样是 .framework，使用方式也类似，但是这些第三方框架都是实实在在的静态库，每个 app 需要在编译的时候进行独立地链接。
+
+生成framework
+https://swifter.tips/code-framework/
+```
+
+
+
+58、枚举写链表，嵌套枚举
+
+```
+ indirect enum LinkedList<Element: Comparable> {
+        case Empty
+        case Node(Element, LinkedList<Element>)
+        
+        func value() {
+            switch self {
+            case .Node(let element, let node):
+                print(element)
+                print("-")
+                print(node.value())
+            case .Empty:
+                print("end")
+
+            default:
+                print("-")
+            }
+        }
+    }
+        
+print(LinkedList.Node(1, LinkedList.Node(2, LinkedList.Node(3, LinkedList.Empty))).value())
+```
+
+59、运行时关联属性
+
+```
+    var music: String? {
+        get {
+            return objc_getAssociatedObject(self, &key) as? String
+        }
+        set {
+            objc_setAssociatedObject(self, &key, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+```
+
+60、尾递归 经过实验好像并没有用 依然栈溢出
+
+```
+普通递归：
+
+func sum(n: UInt) -> UInt {
+    if n == 0 {
+        return 0
+    }
+    return n + sum(n: n - 1)
+}
+
+print(sum(n: 1000000))
+
+运行崩溃，原因是栈溢出
+
+这是因为每次对于 sum 的递归调用都需要在调用栈上保存当前状态，否则我们就无法计算最后的 n + sum(n - 1)。当 n 足够大，调用栈足够深的时候，栈空间将被耗尽而导致错误，也就是我们常说的栈溢出了。
+
+尾递归就是让函数里的最后一个动作是一个函数调用的形式，这个调用的返回值将直接被当前函数返回，从而避免在栈上保存状态。这样一来程序就可以更新最后的栈帧，而不是新建一个，来避免栈溢出的发生。在 Swift 2.0 中，编译器现在支持嵌套方法的递归调用了 (Swift 1.x 中如果你尝试递归调用一个嵌套函数的话会出现编译错误)，因此 sum 函数的尾递归版本可以写为：
+
+func tailSum(n: UInt) -> UInt {
+    func sumInternal(n: UInt, current: UInt) -> UInt {
+        if n == 0 {
+            return current
+        } else {
+            return sumInternal(n - 1, current: current + n)
+        }
+    }
+
+    return sumInternal(n, current: 0)
+}
+
+tailSum(1000000)
+
+但是如果你在项目中直接尝试运行这段代码的话还是会报错，因为在 Debug 模式下 Swift 编译器并不会对尾递归进行优化。我们可以在 scheme 设置中将 Run 的配置从 Debug 改为 Release，这段代码就能正确运行了。
+```
+
+61、枚举遍历
+
+```
+枚举实现 CaseIterable  协议
+
+print(Test.allCases)
+```
+
+
+
+62、Swift判断安全区域（用于适配所有的无Home键屏幕）
+
+```
+static func safeAreaTop() -> CGFloat {
+    if #available(iOS 11.0, *) {
+        //iOS 12.0以后的非刘海手机top为 20.0
+        if (UIApplication.shared.delegate as? AppDelegate)?.window?.safeAreaInsets.bottom == 0 {
+            return 20.0
+        }
+        return (UIApplication.shared.delegate as? AppDelegate)?.window?.safeAreaInsets.top ?? 20.0
+    }
+    return 20.0
+}
+
+static func safeAreaBottom() -> CGFloat {
+    if #available(iOS 11.0, *) {
+        return (UIApplication.shared.delegate as? AppDelegate)?.window?.safeAreaInsets.bottom ?? 0
+    }
+    return 0
+}
+
+static func hasSafeArea() -> Bool {
+    if #available(iOS 11.0, *) {
+        return (UIApplication.shared.delegate as? AppDelegate)?.window?.safeAreaInsets.bottom ?? CGFloat(0) > CGFloat(0)
+    } else { return false }
+}
+
+static func toolBarHeight() -> CGFloat {
+    return 49 + safeAreaBottom()
+}
+
+static func navigationHeight() -> CGFloat {
+    return 44 + safeAreaTop()
+}
+```
+
+
+
+
+
+## 参考
+
+[Swift Tips](https://swifter.tips)
+
+[Swift 博客](https://developer.apple.com/swift/blog/)
+
+[Swift - evolution](https://github.com/apple/swift-evolution/tree/master/proposals)
+
+http://swift.gg/archives/
+
