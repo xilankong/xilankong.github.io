@@ -10,7 +10,7 @@ title : "Swift-tips"
 
 
 
-1、柯里化
+#### 1、柯里化
 
 把接受多个参数的方法进行一些变形，使其更加灵活的方法。函数式特点的重要表现。
 
@@ -40,7 +40,7 @@ let result = addTwo(6)   // result = 8
 
 
 
-2、将 PROTOCOL 的方法声明为 MUTATING
+#### 2、将 PROTOCOL 的方法声明为 MUTATING
 
 ```
 protocol Vehicle
@@ -55,7 +55,7 @@ protocol Vehicle
 
 
 
-3、sequence
+#### 3、sequence
 
 实现一个反向序列
 
@@ -109,11 +109,10 @@ for item in ReverseSequence(array: arr) {
 
 
 
-4、 ?? 的实现
-
-&& 、||的实现
+#### 4、 ?? 的实现、&& 、||的实现
 
 ```
+/// ？？ 的实现逻辑
 
 infix operator ???
 
@@ -126,9 +125,11 @@ func ???<T>(optional: T?, defaultValue: @autoclosure () -> T) -> T {
         return defaultValue()
     }
 }
-let demo = Demo().demos()
+var demo: Demo?
 
 let result = demo ??? Demo()
+
+/// || 和 && 的实现逻辑
 
 func &&&(leftValue: @autoclosure () -> Bool, rightValue: @autoclosure () -> Bool) -> Bool {
 //    print(leftValue)
@@ -139,16 +140,13 @@ func &&&(leftValue: @autoclosure () -> Bool, rightValue: @autoclosure () -> Bool
     }
     return false
 }
-let demo = Demo().demos()
-print(demo)
+var demo: Demo?
 let result = (demo == nil) &&& (3 > 2)
-
-print(result)
 ```
 
 
 
-5、Optional Chaining
+#### 5、Optional Chaining , 可选链
 
 ```
  ()? 就是 Void?
@@ -166,7 +164,7 @@ print(result)
 
 
 
-6、操作符
+#### 6、重载操作符、自定义操作符
 
 ```
 重载已有操作符 ： + - 
@@ -205,7 +203,7 @@ LogicalConjunctionPrecedence 常用逻辑运算优先级
 
 ```
 
-7、Swift REPL 交互式解释环境
+#### 7、Swift REPL 交互式解释环境
 
 也就是说每输入一句语句就立即执行和输出。这在很多解释型的语言中是很常见的，非常适合用来对语言的特性进行学习。
 
@@ -213,21 +211,23 @@ https://swifter.tips/swift-cli/
 
 
 
-8、方法中嵌套方法
+#### 8、方法中嵌套方法
 
 避免一些可能极少使用到的方法因为方法体太长而拆出去展开。
 
 
 
-10、swift单例用 let是最简便有效的
+#### 10、swift单例用 let是最简便有效的
 
 
 
-11、Any、AnyObject 一个针对对象 一个针对所有 包括函数
+#### 11、Any、AnyObject 
+
+一个针对对象 一个针对所有 包括函数
 
 
 
-12、随机数的生成
+#### 12、随机数的生成
 
 arc4random_uniform
 
@@ -236,7 +236,7 @@ arc4random_uniform
 
 func randomInRange(range: Range<Int>) -> Int {
     let count = range.endIndex - range.startIndex
-    return Int(arc4random_uniform(UInt32(count)))
+    return Int(arc4random_uniform(UInt32(count)) + UInt32(range.startIndex))
 }
 
 for i in 0...100 {
@@ -246,7 +246,7 @@ for i in 0...100 {
 
 
 
-13、typealias 和泛型
+#### 13、typealias 和泛型
 
 ```
 protocols do not allow generic parameters; use associated types instead
@@ -267,7 +267,7 @@ class SomeBody: GeneratorType {
 }
 ```
 
-14、条件编译
+#### 14、条件编译
 
 ```
 - armv7｜armv7s｜arm64都是ARM处理器的指令集
@@ -291,7 +291,7 @@ print("do Sth2")
 在这里我们用 FREE_VERSION 这个编译符号来代表免费版本。为了使之有效，我们需要在项目的编译选项中进行设置，在项目的 Build Settings 中，找到 Swift Compiler - Custom Flags，并在其中的 Other Swift Flags 加上 -D FREE_VERSION 就可以了。
 ```
 
-15、可变参数函数
+#### 15、可变参数函数
 
 ```
 可变参数函数写NSString format初始化
@@ -310,10 +310,10 @@ extension NSString {
 NSString(format: "%@%@", "on", Demo())
 ```
 
-16、reduce
+#### 16、reduce
 
 ```
-reduce: 用于处理数组，产生一个值元素的整个序列。
+reduce: 缩减操作，参数 一个变化的初始值 A、一个闭包函数，array中的对象每一个都会与变化的初始值 A一起执行一遍闭包方法，每次的闭包返回值作为变化后的 A ，进入下一个array对象的遍历，直到全部完成遍历
 
 let numbers = [1, 2, 3, 4]
 let numberSum = numbers.reduce(0, { x, y in
@@ -328,22 +328,97 @@ func sum(num: Int...) -> Int {
 
 sum(num: 3,4) // 24
 
-可以自定义基础参数，自定义组合方式
+
+func combinator(accumulator: Int, current: Int) -> Int {
+   return accumulator + current
+}
+[1, 2, 3].reduce(0, combine: combinator)
+// 执行步骤如下
+combinator(0, 1) { return 0 + 1 } = 1
+combinator(1, 2) { return 1 + 2 } = 3
+combinator(3, 3) { return 3 + 3 } = 6
+= 6
 ```
 
 
 
-17、map
+#### 17、map
 
 ```
+map 方法接受一个闭包作为参数， 然后它会遍历整个 numbers 数组，并对数组中每一个元素执行闭包中定义的操作。 相当于对数组中的所有元素做了一个映射。
+
+不同类型都分别实现了对应的map方法，下面是Optional中的实现
+
+public func map<U>(_ transform: (Wrapped) throws -> U) rethrows -> U?
+
+
 let numbers = [1, 2, 3, 4]
 
 let number_2 = numbers.map { (num) -> Int in
     num * 2
 }
+
+
+
 ```
 
-18、找数组最大最小
+#### flatMap
+
+```
+
+相对于map,会自动过滤nil
+
+对于二维数组，flatMap 依然会遍历数组的元素，并对这些元素执行闭包中定义的操作。 但唯一不同的是，它对最终的结果进行了所谓的 “降维” 操作。 本来原始数组是一个二维的， 但经过 flatMap 之后，它变成一维的了。
+
+public func flatMap<U>(_ transform: (Wrapped) throws -> U?) rethrows -> U?
+public func flatMap(transform: (Self.Generator.Element) -> S) -> [S.Generator.Element]
+
+let numbersCompound = [[1,2,3],[4,5,6]];
+var res = numbersCompound.map { $0.map{ $0 + 2 } }
+// [[3, 4, 5], [6, 7, 8]]
+var flatRes = numbersCompound.flatMap { $0.map{ $0 + 2 } }
+// [3, 4, 5, 6, 7, 8]
+
+
+源码
+extension Sequence {
+//...
+public func flatMap(
+@noescape transform: (${GElement}) throws -> S
+) rethrows -> [S.${GElement}] {
+var result: [S.${GElement}] = []
+for element in self {
+result.append(contentsOf: try transform(element))
+}
+return result
+}
+//...
+}
+flatMap 首先会遍历这个数组的两个元素 [1,2,3] 和 [4,5,6]， 因为这两个元素依然是数组， 所以我们可以对他们再进行 map 操作： $0.map{ $0 + 2 }。
+
+这样， 内部的 $0.map{ $0 + 2 } 调用返回值类型还是数组， 它会返回 [3,4,5] 和 [6,7,8]。
+
+然后， flatMap 接收到内部闭包的这两个返回结果， 进而调用 result.append(contentsOf:) 将它们的数组中的内容添加到结果集中，而不是数组本身。
+
+那么我们最终的调用结果理所当然就应该是 [3, 4, 5, 6, 7, 8] 了。
+
+```
+
+#### filter
+
+```
+public func filter(_ isIncluded: (Substring.Element) throws -> Bool) rethrows -> String
+
+
+过滤
+
+```
+
+
+
+
+
+#### 18、找数组最大最小
 
 ```
 let array = [10,-22,753,55,137,-1,-279,1034,77]
@@ -359,17 +434,17 @@ array.reduce(Int.max,min)
 
 
 
-19、Swift中的app入口
+#### 19、Swift中的app入口
 
 ```
-swift工程中并没有 main.m文件提供明显的入口，但是在Appdelegate
+swift工程中并没有 main.m文件提供明显的入口，但是在Appdelegate 有  @UIApplicationMain
 
 在一般情况下，我们并不需要对这个标签做任何修改，但是当我们如果想要使用 UIApplication 的子类而不是它本身的话，我们就需要对这部分内容 “做点手脚” 了。
 
 刚才说到，其实 Swift 的 app 也是需要 main 函数的，只不过默认情况下是 @UIApplicationMain 帮助我们自动生成了而已。和 C 系语言的 main.c 或者 main.m 文件一样，Swift 项目也可以有一个名为 main.swift 特殊的文件。在这个文件中，我们不需要定义作用域，而可以直接书写代码。这个文件中的代码将作为 main 函数来执行。比如我们在删除 @UIApplicationMain 后，在项目中添加一个 main.swift 文件，然后加上这样的代码：
 
-UIApplicationMain(Process.argc, Process.unsafeArgv, nil,
-    NSStringFromClass(AppDelegate))
+UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), NSStringFromClass(UIApplication.self), NSStringFromClass(AppDelegate.self))
+
 现在编译运行，就不会再出现错误了。当然，我们还可以通过将第三个参数替换成自己的 UIApplication 子类，这样我们就可以轻易地做一些控制整个应用行为的事情了。比如将 main.swift 的内容换成：
 
 import UIKit
@@ -386,14 +461,9 @@ UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeAr
 这样每次发送事件 (比如点击按钮) 时，我们都可以监听到这个事件了。
 ```
 
-20、初始化方法的顺序
 
-```
-设置子类自己需要初始化的参数，power = 10
-调用父类的相应的初始化方法，super.init()
-```
 
-21、DESIGNATED，CONVENIENCE 和 REQUIRED
+#### 21、DESIGNATED，CONVENIENCE 和 REQUIRED
 
 ```
 DESIGNATED designated 指定初始化器
@@ -457,7 +527,7 @@ class ClassB: ClassA {
 
 
 
-22、Swift初始化返回nil
+#### 22、Swift初始化返回nil
 
 ```
 swift默认初始化器是没有返回值的
@@ -468,7 +538,7 @@ public init?(string: String)
 
 ```
 
-23、protocol组合
+#### 23、protocol组合
 
 ```
 Any 相当于 protocol<> 无类型的协议
@@ -485,26 +555,21 @@ protocol C: A, B {
 
 可以直接用 typealias D = A & B
 
-
 ```
 
-24、class 和 static
-
-protocol中只能用static
 
 
-
-25、对于一个项目来说，外界框架是由 Swift 写的还是 Objective-C 写的，两者并没有太大区别
+#### 25、对于一个项目来说，外界框架是由 Swift 写的还是 Objective-C 写的，两者并没有太大区别
 
 
 
-26、DYNAMIC
+#### 26、DYNAMIC
 
 swift中的动态分发
 
 
 
-27、protocol optional 可选接口
+#### 27、protocol optional 可选接口
 
 ```
 @objc
@@ -517,7 +582,7 @@ protocol C: A, B {
 
 
 
-28、autoreleasepool 自动释放池
+#### 28、autoreleasepool 自动释放池
 
 ```
 这是一种必要的延迟释放的方式，因为我们有时候需要确保在方法内部初始化的生成的对象在被返回后别人还能使用，而不是立即被释放掉。
@@ -546,7 +611,7 @@ func loadBigData() {
 
 
 
-29、正则表达式
+#### 29、正则表达式
 
 ```
 
@@ -1102,6 +1167,14 @@ static func toolBarHeight() -> CGFloat {
 static func navigationHeight() -> CGFloat {
     return 44 + safeAreaTop()
 }
+```
+
+
+
+63、单元测试 target 的访问级别
+
+```
+当你的应用程序包含单元测试 target 时，为了测试，测试模块需要访问应用程序模块中的代码。默认情况下只有 open 或 public 级别的实体才可以被其他模块访问。然而，如果在导入应用程序模块的语句前使用 @testable特性，然后在允许测试的编译设置（Build Options -> Enable Testability）下编译这个应用程序模块，单元测试目标就可以访问应用程序模块中所有内部级别的实体。
 ```
 
 
