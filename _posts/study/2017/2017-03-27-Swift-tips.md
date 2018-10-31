@@ -649,11 +649,23 @@ func =~ (str: String, pattern: String) -> Bool {
  8个常用正则表达式
  
  https://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149
+ 
+ /^[a-z0-9_-]{3,16}$/  用户名
+ 
+ /^[a-z0-9_-]{6,18}$/ 密码
+ 
+ /^#?([a-f0-9]{6}|[a-f0-9]{3})$/  十六进制 比如色号
+ 
+ /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/  邮箱
+ 
+ /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/ url
+ 
+ 
 ```
 
 
 
-30、Swift中的字典、数组变成值类型为什么不会带来更大的消耗
+#### 30、Swift中的字典、数组变成值类型为什么不会带来更大的消耗
 
 ```
 当这些值类型属性内容不发生变更的时候，进行赋值、传递操作只会移动指针，并不会重新分配内存地址，没有堆内存的分配和释放的问题，这样的运行效率可以说极高。只有当值发生变更的时候才会重新分配地址。复制会将存储在其中的值类型一并进行复制，而对于其中的引用类型的话，则只复制一份引用。(比如struct中的类对象)，struct复制的时候 内属性都发生地址复制，类对象这种引用类型则复制一份引用。
@@ -663,17 +675,16 @@ func =~ (str: String, pattern: String) -> Bool {
 在需要处理大量数据并且频繁操作 (增减) 其中元素时，选择 NSMutableArray 和 NSMutableDictionary 会更好
 ```
 
-31、AnyClass
+#### 31、AnyClass
 
 ```
 public typealias AnyClass = AnyObject.Type
 
 (NSClassFromString("demo2.ViewController") as! UIViewController.Type).init()
 
-
 ```
 
-32、Self 到底是什么
+#### 32、Self 到底是什么
 
 ```
 我们在看一些接口的定义时，可能会注意到出现了首字母大写的 Self 出现在类型的位置上：
@@ -711,11 +722,11 @@ class MyClass: Copyable {
 }
 ```
 
-33、swift中的dynamicType 被废除 替代方案为type(of:)
+#### 33、swift中的dynamicType 被废除 替代方案为type(of:)
 
 
 
-34、属性观察
+#### 34、属性观察
 
 ```
 willSet 和 didSet。newValue oldValue
@@ -723,7 +734,7 @@ willSet 和 didSet。newValue oldValue
 
 
 
-35、Swift中的KVO
+#### 35、Swift中的KVO
 
 ```
 Swift 中我们也是可以使用 KVO 的，但是仅限于在 NSObject 的子类中。这是可以理解的，因为 KVO 是基于 KVC (Key-Value Coding) 以及动态派发技术实现的，而这些东西都是 Objective-C 运行时的概念。另外由于 Swift 为了效率，默认禁用了动态派发，因此想用 Swift 来实现 KVO，我们还需要做额外的工作，那就是将想要观测的对象标记为 dynamic。
@@ -738,7 +749,7 @@ override func observeValue(forKeyPath keyPath: String?, of object: Any?, change:
     }
 ```
 
-36、局部 scope 
+#### 36、局部 scope 
 
 ```
 让代码更清晰，模块化
@@ -754,7 +765,7 @@ do {
 
 
 
-37、判等
+#### 37、判等
 
 ```
 判断两个对象是否相等，内容上的相等 而不是内存地址上的相等
@@ -787,7 +798,7 @@ oc中用的是isEqual，通过重写isEqual的方式来进行对象的比较
 
 ```
 
-38、判等还需要考虑的一点，hash值，比较两个对象是否内存地址也一样
+#### 38、判等还需要考虑的一点，hash值，比较两个对象是否内存地址也一样
 
 ```
 所以在重写哈希方法时候所采用的策略，与判等的时候是类似的：对于非 NSObject 的类，我们需要遵守 Hashable 并根据 == 操作符的内容给出哈希算法；而对于 NSObject 子类，需要根据是否需要在 Objective-C 中访问而选择合适的重写方式，去实现 Hashable 的 hashValue 或者直接重写 NSObject 的 -hash 方法。
@@ -797,7 +808,7 @@ oc中用的是isEqual，通过重写isEqual的方式来进行对象的比较
 
 
 
-39、避免多重Optional
+#### 39、避免多重Optional
 
 ```
 // Never do this!
@@ -812,7 +823,7 @@ func methodThrowsWhenPassingNegative1(number: Int) throws -> Int? {
 }
 
 if let num = try? methodThrowsWhenPassingNegative1(0) {
-    print(num.dynamicType)
+    print(type(of:num))
 } else {
     print("failed")
 }
@@ -823,7 +834,7 @@ if let num = try? methodThrowsWhenPassingNegative1(0) {
 
 
 
-40、断言
+#### 40、断言
 
 ```
 断言的另一个优点是它是一个开发时的特性，只有在 Debug 编译的时候有效，而在运行时是不被编译执行的，因此断言并不会消耗运行时的性能。这些特点使得断言成为面向程序员的在调试开发阶段非常合适的调试判断，而在代码发布的时候，我们也不需要刻意去将这些断言手动清理掉，非常方便。
@@ -833,7 +844,7 @@ if let num = try? methodThrowsWhenPassingNegative1(0) {
 
 
 
-41、playground 延时执行
+#### 41、playground 延时执行
 
 ```
 https://swifter.tips/playground-delay/
@@ -841,7 +852,7 @@ https://swifter.tips/playground-delay/
 
 
 
-42、swift中的 swizzle
+#### 42、swift中的 swizzle
 
 ```
 尽量还是少在swift中使用runtime
@@ -886,7 +897,7 @@ extension UIViewController {
 
 
 
-43、swift失去了 dispatch_once
+#### 43、Swift失去了 dispatch_once
 
 ```
 在swift中不再支持 dispatch_once
@@ -910,24 +921,28 @@ extension DispatchQueue {
 }
 ```
 
-44、lazy 和map filtter等方法合用
+#### 44、lazy 和map filtter等方法合用
 
 ```
 let data = 1...3
 lazy var result = data.lazy.map { $0 + 1 }
 ```
 
-45、swift中的math
+#### 45、swift中的math
+
+```
+
+```
 
 
 
-46、swift调用 C 动态库
+#### 46、swift调用 C 动态库
 
 暂时只能通过OC来调用，bridge文件桥接
 
 
 
-47、Mirror swift中的反射
+#### 47、Mirror swift中的反射
 
 ```
 尽量减少生产环境对Mirror的使用，毕竟本身他在Apple的实现里不是很丰富，也可能会被后期swift改版给改动
@@ -935,16 +950,15 @@ lazy var result = data.lazy.map { $0 + 1 }
 
 
 
-48、输出格式化
+#### 48、输出格式化
 
 ```
 String(format: "%.2f", 1.2222)  输出：1.22
-
 ```
 
 
 
-49、swift中的options
+#### 49、swift中的options
 
 ```
 oc中的多个option直接用 | 符号链接：
@@ -955,7 +969,7 @@ swift中options为数组
 
 ```
 
-50、判断数据类型
+#### 50、判断数据类型
 
 ```
 比如我们存储一些数据后希望可以精确还原对应的数据类型，可以通过下面方式获取数据类型
@@ -970,7 +984,7 @@ OC中有@encode
 
 
 
-51、
+#### 51、特殊编译符号
 
 ```
 在 Swift 中，编译器为我们准备了几个很有用的编译符号，用来处理类似这样的需求，它们分别是：
@@ -988,7 +1002,7 @@ func printLog<T>(message: T, file: String = #file, method: String = #function, l
 }
 ```
 
-52、将C函数映射为Swift函数
+#### 52、将C函数映射为Swift函数
 
 ```
 @_silgen_name("test") func test_swift(a: Int32) {
@@ -997,15 +1011,13 @@ func printLog<T>(message: T, file: String = #file, method: String = #function, l
  
 ```
 
-53、swift中的sizeOf
+#### 53、swift中的sizeOf
 
 ```
 print(MemoryLayout.size(ofValue: data))
-
-
 ```
 
-54、swift中的合理便捷安全的资源管理方式
+#### 54、swift中的合理便捷安全的资源管理方式
 
 ```
 例如图片的管理，当图片变更或者发生图片名称替换的时候，全局去找对应的图片 很是恶心
@@ -1020,7 +1032,7 @@ print(MemoryLayout.size(ofValue: data))
 
 
 
-56、swift中的锁
+#### 56、swift中的锁
 
 ```
 func myMethod(anObj: AnyObject!) {
@@ -1035,9 +1047,7 @@ func myMethod(anObj: AnyObject!) {
 
 
 
-57、
-
-Apple 为了 iOS 平台的安全性考虑，是不允许动态链接非系统的框架的。
+#### 57、Apple 为了 iOS 平台的安全性考虑，是不允许动态链接非系统的框架的。
 
 ```
 虽然和 Apple 的框架的后缀名一样是 .framework，使用方式也类似，但是这些第三方框架都是实实在在的静态库，每个 app 需要在编译的时候进行独立地链接。
@@ -1048,7 +1058,7 @@ https://swifter.tips/code-framework/
 
 
 
-58、枚举写链表，嵌套枚举
+#### 58、枚举写链表，嵌套枚举
 
 ```
  indirect enum LinkedList<Element: Comparable> {
@@ -1073,7 +1083,7 @@ https://swifter.tips/code-framework/
 print(LinkedList.Node(1, LinkedList.Node(2, LinkedList.Node(3, LinkedList.Empty))).value())
 ```
 
-59、运行时关联属性
+#### 59、运行时关联属性
 
 ```
     var music: String? {
@@ -1123,7 +1133,7 @@ tailSum(1000000)
 但是如果你在项目中直接尝试运行这段代码的话还是会报错，因为在 Debug 模式下 Swift 编译器并不会对尾递归进行优化。我们可以在 scheme 设置中将 Run 的配置从 Debug 改为 Release，这段代码就能正确运行了。
 ```
 
-61、枚举遍历
+#### 61、枚举遍历
 
 ```
 枚举实现 CaseIterable  协议
@@ -1133,7 +1143,7 @@ print(Test.allCases)
 
 
 
-62、Swift判断安全区域（用于适配所有的无Home键屏幕）
+#### 62、Swift判断安全区域（用于适配所有的无Home键屏幕）
 
 ```
 static func safeAreaTop() -> CGFloat {
@@ -1171,7 +1181,7 @@ static func navigationHeight() -> CGFloat {
 
 
 
-63、单元测试 target 的访问级别
+#### 63、单元测试 target 的访问级别
 
 ```
 当你的应用程序包含单元测试 target 时，为了测试，测试模块需要访问应用程序模块中的代码。默认情况下只有 open 或 public 级别的实体才可以被其他模块访问。然而，如果在导入应用程序模块的语句前使用 @testable特性，然后在允许测试的编译设置（Build Options -> Enable Testability）下编译这个应用程序模块，单元测试目标就可以访问应用程序模块中所有内部级别的实体。
