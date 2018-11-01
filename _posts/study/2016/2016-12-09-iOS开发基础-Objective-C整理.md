@@ -1,7 +1,7 @@
 ---
 layout: post
 category: 2016年
-title : "iOS开发基础知识(Objective-C)"
+title : "iOS开发基础-Objective-C整理"
 ---
 
 ## 运行时runtime
