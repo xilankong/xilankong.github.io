@@ -1,5 +1,5 @@
 /* 代码块样式 */
-.highlight:not(pre){
+/*.highlight:not(pre){
       background: #f8f8f8;
       border: 1px solid #DDDDDD;
       padding:15px;
@@ -10,7 +10,7 @@
       line-height:25px;
       word-wrap: break-word;
       white-space: pre-wrap;
-}
+}*/
 
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
