@@ -1,24 +1,13 @@
 /* 代码块样式 */
-/*.highlight:not(pre){
+.highlight:not(pre){
       background: #f8f8f8;
       border: 1px solid #DDDDDD;
       padding:15px;
-      /*color:#666666;*/
+      color:#666666;
 	  font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 	  font-weight:300;
       font-size: 15px;
       line-height:25px;
       word-wrap: break-word;
       white-space: pre-wrap;
-}*/
-
-.highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
-.highlight .c { color: #8f5902; font-style: italic } /* Comment */
-.highlight .err { color: #a40000; border: 1px solid #ef2929 } /* Error */
-.highlight .g { color: #000000 } /* Generic */
-.highlight .k { color: #204a87; font-weight: bold } /* Keyword */
-.highlight .l { color: #000000 } /* Literal */
-.highlight .n { color: #000000 } /* Name */
-.highlight .o { color: #ce5c00; font-weight: bold } /* Operator */
-.highlight .x { color: #000000 } /* Other */
+}
