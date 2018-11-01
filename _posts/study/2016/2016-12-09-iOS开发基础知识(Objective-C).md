@@ -1,14 +1,14 @@
 ---
 layout: post
-category: 2017年
-title : "iOS、OC基础知识"
+category: 2016年
+title : "iOS开发基础知识(Objective-C)"
 ---
 
 ## 运行时runtime
 
 OC语言最大的特色，OC是C的升级、OC必须转为C然后再转为汇编。
 
-
+OC是一门动态语言，类型的判断、类的成员变量、方法的内存地址都是在程序的运行阶段才最终确定，并且还能动态的添加成员变量和方法。也就意味着你调用一个不存在的方法时，编译也能通过，甚至一个对象它是什么类型并不是表面我们所看到的那样，只有运行之后才能决定其真正的类型
 
 ## 实例 (instance)
 
@@ -129,6 +129,8 @@ struct objc_protocol_list * _Nullable protocols 			  协议列表
 
 #### 2、方法列表
 
+这个列表其实是一个字典，key是selector，value是IMP（imp是一个指针类型，指向方法的实现），并且selector和IMP之间的关系是在运行时才决定的，而不是编译时。如此们就可以做出一些特别事情来。
+
 #### 3、缓存
 
 每个类对象都有一份独立的缓存，同时包括继承的方法和在该类中定义的方法。
@@ -155,6 +157,17 @@ static Method look_up_method(Class cls, SEL sel, BOOL withCache, BOOL withResolv
     if (!meth  &&  withResolver) meth = _class_resolveMethod(cls, sel);
 		return meth;
   }
+  
+1，首先去该类的方法 cache 中查找，通过SEL查找对应函数method（cache中method列表是以SEL为key通过hash表来存储的，这样能提高函数查找速度）如果找到了就返回它;
+
+2，如果没有找到，就去该类的方法列表中查找。如果在该类的方法列表中找到了，则将 IMP 返回，并将 它加入 cache中缓存起来。根据最近使用原则，这个方法再次调用的可能性很大，缓存起来可以节省下次 调用再次查找的开销。
+
+3，如果在该类的方法列表中没找到对应的 IMP，在通过该类结构中的 super_class指针在其父类结构的方法列表中去查找，直到在某个父类的方法列表中找到对应的 IMP，返回它，并加入 cache 中;
+
+4，如果在自身以及所有父类的方法列表中都没有找到对应的 IMP，则看是不是可以进行动态方法解析
+
+5，如果动态方法解析没能解决问题，进入下面要讲的消息转发流程。
+
 ```
 
 #### 4、实例方法查找路线
@@ -322,6 +335,66 @@ forwardInvocation 方法并不会直接进，必须要 methodSignatureForSelecto
 }
 ```
 
+methodSignatureForSelector用于描述被转发的消息，系统会调用methodSignatureForSelector:方法，尝试获得一个方法签名。如果获取不到，则直接调用doesNotRecognizeSelector抛出异常。如果能获取，则返回非nil：创建一个 NSlnvocation 并传给forwardInvocation:。 描述的格式要遵循以下规则[点击打开链接](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100-SW1).
+
+#### 签名参数具体怎么编写？
+
+首先，先要了解的是,每个方法都有self和_cmd两个默认的隐藏参数，self即接收消息的对象本身，_cmd即是selector选择器，所以，描述的大概格式是：返回值@:参数。@即为self,:对应_cmd(selector).返回值和参数根据不同函数定义做具体调整。
+
+比如下面这个函数
+
+```objc
+-(void)testMethod;
+```
+
+返回值为void,没有参数，按照上面的表格中的符号说明，再结合上面提到的概念，这个函数的描述即为   v@:
+
+v代表void,@代表self(self就是个对象，所以用@),:代表_cmd(selector)
+再练一个
+
+```html
+-(NSString *)testMethod2:(NSString *)str;
+```
+
+描述为 @@:@
+
+第一个@代表返回值NSString*,对象;第二个@代表self;:代表_cmd(selector);第三个@代表参数str,NSString对象类型。如果实在拿不准，不会写，还可以简单写段代码，借助method_getTypeEncoding方法去查看某个函数的描述,比如
+
+```
+Method method = class_getInstanceMethod(self.class, @selector(testMethod2));
+const char *des = method_getTypeEncoding(method);
+NSString *desStr = [NSString stringWithCString:des encoding:NSUTF8StringEncoding];
+NSLog(@"%@",desStr);
+return @"";
+```
+
+整体操作：
+
+```
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    if ([someOtherObject respondsToSelector:
+            [anInvocation selector]])
+        [anInvocation invokeWithTarget:someOtherObject];
+    else
+        [super forwardInvocation:anInvocation];
+}
+
+
+-(NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    if (aSelector == @selector(doSth)) {
+        return [NSMethodSignature signatureWithObjCTypes:"v@:"];
+    }
+    return nil;
+}
+```
+
+https://blog.csdn.net/wangweijjj/article/details/51888750
+
+
+
+
+
 ## 动态属性
 
 允许获取属性列表、动态添加属性，特别是在一些系统库或者三方库的基础上需要扩展一个属性，这个时候动态添加一个属性就很有意义。
@@ -434,23 +507,88 @@ OC中的 + load方法，用来做Method Swizzling最合适。
 
 ```
 
+#### iOS  + initialize 与 +load 方法
+
+```
+
+1.load方法的调用时机，main函数之前，先调用类中的，再调用类别中的（类别中如果有重写），依赖库类优先调用。
+
+应用场景：runtime交换方法实现
+
+2.initialize方法的调用时机，当向该类发送第一个消息（一般是类消息首先调用，常见的是alloc）的时候，先调用类中的，再调用类别中的（类别中如果有重写）；如果该类只是引用，没有调用，则不会执行initialize方法。
+
+应用场景：初始化常用静态变量
+```
+
+#### performSelector 执行原理
+
+```
+
+```
 
 
-动态绑定
+
+#### 动态判断、动态检查
+
+```
+isKindOfClass
+
+isMemberOfClass
+
+isSubclassOfClass
+
+instancesRespondToSelector
+
+respondsToSelector
+```
 
 
 
-动态链接
+#### 动态加载：根据需求加载所需要的资源
+
+```
+
+```
 
 
 
-动态检查
+## 题外话-
+
+#### iOS程序启动过程
+
+iOS开发中，main函数是我们熟知的程序启动入口，但实际上并非真正意义上的入口，因为在我们运行程序，再到main方法被调用之间，程序已经做了许许多多的事情，比如我们熟知的runtime的初始化就发生在main函数调用前，还有程序动态库的加载链接也发生在这阶段。
+
+1、系统先读取App的可执行文件（Mach-O文件），获取到dyld的路径，并加载dyld
+
+2、dyld去初始化运行环境、开启缓存策略、加载依赖库、我们的可执行文件、链接依赖库，并调用每个依赖库的初始化方法
+
+3、在上一步runtime被初始化，当所有的依赖库初始化后，程序可执行文件进行初始化，这个时候runtime回对项目中的所有类进行类结构初始化，然后调用所有类的+load方法
+
+```
+1、runtime初始化方法 _objc_init 中最后注册了两个通知：
+map_images 主要是在镜像加载进内容后对其二进制内容进行解析，初始化里面的类结构等
+load_images主要是调用call_load_methods 按照继承层次依次调用Class的 +load方法 然后是Category的+ load方法。(call_load_methods 调用load 是通过方法地址直接调用的load方法，并不是通过消息机制，这就是为什么分类中的load方法并不会覆盖主类以及其他同主类的分类里的load 方法实现了。)
+
+2、runtime 调用项目中所有的load方法时，所有的类的结构已经初始化了,此时在load方法中可以使用任何类创建实例并给他们发送消息。
+```
+
+4、最后dyld返回main函数地址，main函数被调用
+
+
+
+5、通过了解程序在启动前做了什么，我们可以尝试去优化App的启动速度
+
+
+
+main函数之前都发生了什么
+
+
+
+## runloop
 
 
 
 
-
-runloop
 
 
 
@@ -475,6 +613,10 @@ core graphics
 
 
 app生命周期
+
+
+
+
 
 
 
@@ -540,7 +682,51 @@ bug检查排除
 
 
 
+## 6、理解UIApplication
 
+UIApplication对象是应用程序的象征。
+
+每一个应用程序都有自己的UIApplication对象，而且是单例。
+
+一个iOS程序启动后创建的第一个对象就是UIApplication对象。
+
+通过 UIApplication *app = [UIApplication sharedApplication]; 可以获得这个单例对象。
+
+利用UIApplication对象能进行一些应用级别的操作。
+
+常用的UIApplication相关 
+
+Event Loop
+
+1、applicationIconBadgeNumber  程序图标小红点
+
+2、networkActivityIndicatorVisible 联网指示器可见性
+
+3、状态栏管理
+
+4、openURL
+
+5、判断程序运行状态
+
+6、阻止屏幕变暗进入休眠状态
+
+
+
+## 7、理解UIWindow
+
+
+
+https://www.jianshu.com/p/cda083e44abd
+
+
+
+ios 底层实现
+
+
+
+
+
+https://www.jianshu.com/p/d2e0dc7bf57f
 
 
 
@@ -602,4 +788,20 @@ NSObject *obj = [[NSObject alloc] init];
     缺点：需要程序员手动释放，容易造成内存泄漏。
 
 
+
+
+
+
+
+#### 4、获取类中所有的成员变量和属性
+
+一些没有提供API的类，有些属性我们拿不到又需要用怎么办？
+
+例如：UITextField的placeholder的颜色，API并没有这个属性
+
+```
+运行时获取UITextField的所有成员变量，会发现有一个_placeholderLabel成员变量，通过这个可以设置颜色
+
+[self.textField setValue:[UIColor blueColor] forKeyPath:@"_placeholderLabel.textColor"];
+```
 
