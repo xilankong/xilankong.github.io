@@ -1,7 +1,7 @@
 ---
 layout: post
-category: 2017年
-title : "iOS开发进阶-UIView、CALayer使用说明书"
+category: iOS开发基础
+title : "UIView、CALayer使用说明书"
 ---
 
 ## 前言
