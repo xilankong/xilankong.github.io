@@ -47,11 +47,10 @@ bounds中位置的修改不会影响自身在父视图中的位置，但是会�
  _redView.transform = CGAffineTransformMakeTranslation(200, 0);
  
  缩放：
- // 平移
-//每次移动都是相对于上次位置
- _redView.transform = CGAffineTransformTranslate(_redView.transform, 100, 0);
-//每次移动都是相对于最开始的位置
- _redView.transform = CGAffineTransformMakeTranslation(200, 0);
+//每次缩放都是相对于上次
+ _redView.transform = CGAffineTransformScale(_redView.transform, 10, 10)
+//每次缩放都是相对于最开始
+ _redView.transform = CGAffineTransformMakeScale(10, 10);
  
  旋转：
  // 每次旋转都是相对于最初的角度
