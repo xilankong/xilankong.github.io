@@ -1,7 +1,5 @@
 ---
-layout: post
-category: iOS开发基础
-title : "iOS开发基础整理(Objective-C)"
+
 ---
 
 ## 运行时runtime
