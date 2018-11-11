@@ -14,11 +14,43 @@ title : "iOS开源项目-AFNetworking"
 
 
 
-### 1、AFNetworking的类结构图
+### AFNetworking的类结构图
 
 
 
 ![img](https://xilankong.github.io/resource/afnetworking.png)
+
+
+
+从需求开始逐个分析结构图中的类
+
+
+
+### 实现一个GET请求
+
+
+
+
+
+
+
+
+
+NSURLSession
+
+
+
+AFURLSessionManager
+
+
+
+AFHTTPSessionManager
+
+
+
+
+
+
 
 
 
