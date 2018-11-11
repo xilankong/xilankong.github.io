@@ -19,9 +19,5 @@ AFNetworking主要是对NSURLSession和NSURLConnection(iOS9.0废弃)的封装,�
 制数据.对服务器返回的数据不做任何处理.
 9). AFXMLParserResponseSerializer; XML解析器;
 
-作者：yahoouchen
-链接：https://www.jianshu.com/p/2e1b3f54b4f3
-來源：简书
-简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
 ```
 
