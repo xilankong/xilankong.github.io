@@ -636,25 +636,33 @@ Task 任务层次的授权、证书问题
 
 
 
+### 3、序列化
 
+AFURLRequestSerialization
 
-1、继承自NSObject，以组合的方式包装NSURLSession
-
-2、多线程采用NSOperationQueue，使用起来更方便，而且可以方便的实现顺序以来、取消等功能
-
-3、提供工厂，但是不是单例
-
-4、提供数据、上传、下载三种业务
-
-3、序列化
-
-4、额外的功能
-
-#### 5、Category扩展部分
+AFURLResponseSerialization
 
 
 
-### 实现一个GET请求
+AFJSONResponseSerializer
+
+
+
+AFHTTPResponseSerializer
+
+AFXMLParserResponseSerializer
+
+
+
+
+
+### 4、额外的功能
+
+AFSecurityPolicy
+
+AFNetworkReachabilityManager
+
+### 5、Category扩展部分
 
 
 
