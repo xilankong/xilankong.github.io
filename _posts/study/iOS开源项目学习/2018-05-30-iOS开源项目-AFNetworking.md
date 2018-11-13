@@ -26,6 +26,21 @@ NSURLConnection.sendAsynchronousRequest(URLRequest(url: URL(string: "http://rap2
 ### NSURLSession 和  NSURLConnection 的区别
 
 ```
+1、下载方式
+NSURLConnection下载文件时，先是将整个文件下载到内存，然后再写入到沙盒，如果文件比较大，就会出现内存暴涨的情况。
+
+而使用NSURLSessionDownloadTask下载文件，会默认下载到沙盒中的tem文件中，不会出现内存暴涨的情况，但是在下载完成后会把tem中的临时文件删除，需要在初始化任务方法时，在completionHandler回调中增加保存文件的代码。
+
+2、控制方法
+NSURLConnection实例化对象，实例化开始，默认请求就发送(同步发送),不需要调用start方法。而cancel可以停止请求的发送，停止后不能继续访问，需要创建新的请求。
+
+NSURLSession有三个控制方法，取消(cancel)、暂停(suspend)、继续(resume)，暂停以后可以通过继续恢复当前的请求任务。
+
+3、配置
+
+NSURLSession的构造方法（sessionWithConfiguration:delegate:delegateQueue）中有一个NSURLSessionConfiguration类的参数可以设置配置信息，其决定了cookie，安全和高速缓存策略，最大主机连接数，资源管理，网络超时等配置。
+
+NSURLConnection不能进行这个配置，NSURLConnection依赖与一个全局的配置对象
 
 ```
 
@@ -713,6 +728,24 @@ Task 任务层次的授权、证书问题
 
 ### 3、序列化
 
+
+
+AFNetworking的多数类都支持序列化，但实现的是NSSecureCoding的接口，而不是NSCoding，区别在于解数据时要指定Class，用-decodeObjectOfClass:forKey:方法代替了-decodeObjectForKey:。这样做更安全，因为序列化后的数据有可能被篡改，若不指定Class，-decode出来的对象可能不是原来的对象，有潜在风险。
+
+
+
+1、请求序列化
+
+
+
+
+
+
+
+NSSecureCoding
+
+
+
 AFURLRequestSerialization
 
 AFURLResponseSerialization
@@ -729,11 +762,7 @@ AFXMLParserResponseSerializer
 
 
 
-session、 task和configuration、Serializer对象都支持copy操作 和 NSCoding归档解档的操作 :
 
-- session/task copy : 返回session对象本身
-- configuration copy : 返回一个无法修改(immutable)的对象.
-- Serializer : 返回一个无法修改(immutable)的对象.
 
 
 
@@ -841,11 +870,55 @@ AFSSLPinningModeCertificate
 
 
 
-
-
-
-
 #### AFNetworkReachabilityManager
+
+**网络检测**
+
+```
+// 如果要检测网络状态的变化,必须用检测管理器的单例的startMonitoring
+[[AFNetworkReachabilityManager sharedManager] startMonitoring];
+// 检测网络连接的单例,网络变化时的回调方法
+[[AFNetworkReachabilityManager sharedManager]setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+    NSLog(@"%ld",(long)status);
+    switch (status) {
+
+        case AFNetworkReachabilityStatusUnknown:
+            NSLog(@"网络错误");
+            break;
+
+        case AFNetworkReachabilityStatusNotReachable:
+            NSLog(@"没有连接网络");
+            break;
+
+        case AFNetworkReachabilityStatusReachableViaWWAN:
+            NSLog(@"蜂窝网络");
+            break;
+
+        case AFNetworkReachabilityStatusReachableViaWiFi:
+            NSLog(@"wifi");
+            break;
+
+    }
+}];
+/*     
+ AFNetworkReachabilityStatusUnknown          = -1, //未知、网络错误
+ AFNetworkReachabilityStatusNotReachable     = 0,  //未连接网络
+ AFNetworkReachabilityStatusReachableViaWWAN = 1,  //蜂窝网络
+ AFNetworkReachabilityStatusReachableViaWiFi = 2,  //wifi
+ */
+```
+
+**其他**
+
+```
+通知
+
+网络状态变化
+
+AFNetworkingReachabilityDidChangeNotification
+```
+
+
 
 
 
@@ -859,22 +932,6 @@ AFSSLPinningModeCertificate
 
 
 
-NSURLSession
-
-
-
-AFURLSessionManager
-
-
-
-AFHTTPSessionManager
-
-
-
-
-
-
-
-网络缓存
+## 参考
 
 http://ios.jobbole.com/93098/
