@@ -10,9 +10,9 @@ title : "iOS开源项目-原生网络请求和AFNetworking3.1学习"
 
 
 
+## 1、NSURLConnection 了解
 
-
-## 1、NSURLConnection进行网络请求
+发起一个网络请求
 
 ```
 NSURLConnection.sendAsynchronousRequest(URLRequest(url: URL(string: "http://rap2api.taobao.org/app/mock/117041/mock")!), queue: OperationQueue.main) { (resp, data, error) in
@@ -32,7 +32,7 @@ NSURLConnection.sendAsynchronousRequest(URLRequest(url: URL(string: "http://rap2
 
 
 
-## 1、NSURLSession 了解
+## 2、NSURLSession 了解
 
 ### 相关类关系图
 
@@ -42,13 +42,20 @@ NSURLConnection.sendAsynchronousRequest(URLRequest(url: URL(string: "http://rap2
 
 
 
-#### 
-
 #### NSURLSession
 
 ```
-全局共享单例session : NSURLSession sharedSession, 有一定的局限性
+1、sharedSession
+
+全局共享单例session
+
+2、+ sessionWithConfiguration:delegate:delegateQueue:
 自定义session : 自定义配置文件, 设置代理, 大部分时间我们都是用这个
+
+3、NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"xxx"];
+
+_backgroundSession = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+
 后台session : 也是自定义session的一种, 只是他专门用于做后台上传/下载任务
 
 session为哪一种类型完全由其内部的Configuration而定。
@@ -59,9 +66,17 @@ session为哪一种类型完全由其内部的Configuration而定。
 #### NSURLSessionConfiguration
 
 ```
-defaultSessionConfiguration : 系统默认
-ephemeralSessionConfiguration : 仅内存缓存, 不做磁盘缓存的配置
-backgroundSessionConfiguration : 这里需要指定一个identifier, identifier用来后台重连session对象. (做后台上传/下载就是这个config)
+1、defaultSessionConfiguration 
+
+系统默认
+
+2、ephemeralSessionConfiguration 
+
+仅内存缓存, 不做磁盘缓存的配置
+
+3、backgroundSessionConfiguration
+
+这里需要指定一个identifier, identifier用来后台重连session对象 (做后台上传/下载就是这个config)
 
 我们还可以给Configuration对象再自定义一些属性, 例如每端口的最大并发HTTP请求数目, 以及是否允许蜂窝网络, 请求缓存策略, 请求超时, cookies/证书存储策略等等
 ```
@@ -110,19 +125,17 @@ NSURLSessionStreamTask : 用于建立一个TCP/IP连接
 
 #### NSURLSessionTaskMetrics 和 NSURLSessionTaskTransactionMetrics
 
-对发送请求/DNS查询/TLS握手/请求响应等各种环节时间上的统计. 更易于我们检测, 分析我们App的请求缓慢到底是发生在哪个环节, 并对此进行优化提升我们APP的性能.
+对发送请求/DNS查询/TLS握手/请求响应等各种环节时间上的指标统计。 更易于我们检测, 分析我们App的请求缓慢到底是发生在哪个环节， 并对此进行优化提升我们APP的性能。
 
 NSURLSessionTaskMetrics对象与NSURLSessionTask对象一一对应. 每个NSURLSessionTaskMetrics对象内有3个属性 :
 
-```
 - taskInterval : task从开始到结束总共用的时间
-
 - redirectCount : task重定向的次数
+- transactionMetrics : 一个task从发出请求到收到数据过程中派生出的每个子请求, 它是一个装着许多NSURLSessionTaskTransactionMetrics对象的数组，每个对象都代表下图的一个子过程。
 
-- transactionMetrics : 一个task从发出请求到收到数据过程中派生出的每个子请求, 它是一个装着许多NSURLSessionTaskTransactionMetrics对象的数组
+![img](https://xilankong.github.io/resource/transactionmetrics.png)
 
-API很简单, 就一个方法 : - (void)URLSession: task: didFinishCollectingMetrics:, 当收集完成的时候就会调用该方法.
-```
+API很简单, 就一个方法 : - (void)URLSession:task:didFinishCollectingMetrics:, 当收集完成的时候就会调用该方法。
 
 
 
@@ -166,62 +179,87 @@ API很简单, 就一个方法 : - (void)URLSession: task: didFinishCollectingMet
 #### NSURLSession 发起一个网络请求
 
 ```
-let url = URL(string: "http://rap2api.taobao.org/app/mock/117041/mock")!
-
-let request = URLRequest(url: url)
-let session = URLSession.shared
-
-let dataTask = session.dataTask(with: request) { (data, resp, error) in
-    print(data)
-}
-
-dataTask.resume()
-
-request本身可以设置不同的请求方法、请求主体
+// 设置配置
+NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+/** 设置其他配置属性 **/
+ 
+// 代理队列
+NSOperationQueue *queue = [NSOperationQueue mainQueue];
+ 
+// 创建session
+NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:queue];
+ 
+// 利用session创建n个task
+NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
+// 开始
+[task resume];
 ```
 
 #### 身份验证或者 TLS握手
 
-这是所有task都必须经历的一个过程. 当一个服务器请求身份验证或TLS握手期间需要提供证书的话, URLSession会调用他的代理方法`URLSession:didReceiveChallenge:completionHandler:`去处理., 另外, 如果连接途中收到服务器返回需要身份认证的response, 也会调用该代理方法。
+```
+这是所有task都必须经历的一个过程. 当一个服务器请求身份验证或TLS握手期间需要提供证书的话, URLSession会调用他的代理方法URLSession:didReceiveChallenge:completionHandler:去处理., 另外, 如果连接途中收到服务器返回需要身份认证的response, 也会调用该代理方法。
+```
 
 #### 重定位response
 
-这也是所有task都有可能经历的一个过程, 如果response是HTTP重定位, session会调用代理的`URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:`方法. 这里需要调用completionHandler 告诉 session 是否允许重定位, 或者重定位到另一个URL，或者传nil表示重定位的响应body有效并返回. 如果代理没有实现该方法, 则允许重定位直到达到最大重定位次数。
+```
+这也是所有task都有可能经历的一个过程, 如果response是HTTP重定位, session会调用代理的
+
+URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:方法
+
+这里需要调用completionHandler 告诉 session 是否允许重定位, 或者重定位到另一个URL，或者传nil表示重定位的响应body有效并返回
+
+如果代理没有实现该方法, 则允许重定位直到达到最大重定位次数。
+```
 
 #### DataTask
 
-1. 对于一个data task来说, session会调用代理的`URLSession:dataTask:didReceiveResponse:completionHandler:`方法, 决定是否将一个data dask转换成download task, 然后调用completion回调继续接收data或下载data。如果你的app选择转换成download task， session会调用代理的`URLSession:dataTask:didBecomeDownloadTask:`方法并把新的download task对象以方法参数的形式传给你. 之后代理不会再收到data task的回调而是转为收到download task的回调。
-2. 在服务器传输数据给客户端期间, 代理会周期性地收到`URLSession:dataTask:didReceiveData:`回调，如果数据需要使用，可以通过代码存储
-3. session会调用`URLSession:dataTask:willCacheResponse:completionHandler:`询问你的app是否允许缓存. 如果代理不实现这个方法的话, 默认使用session绑定的Configuration的缓存策略.
+```
+1. 对于一个data task来说, session会调用代理的URLSession:dataTask:didReceiveResponse:completionHandler:方法, 决定是否将一个data dask转换成download task, 然后调用completion回调继续接收data或下载data。
+
+如果你的app选择转换成download task， session会调用代理的URLSession:dataTask:didBecomeDownloadTask:方法并把新的download task对象以方法参数的形式传给你。之后代理不会再收到data task的回调而是转为收到download task的回调。
+
+2. 在服务器传输数据给客户端期间, 代理会周期性地收到URLSession:dataTask:didReceiveData:回调，如果数据需要使用，可以通过代码存储。
+
+3. session会调用URLSession:dataTask:willCacheResponse:completionHandler:询问你的app是否允许缓存. 如果代理不实现这个方法的话, 默认使用session绑定的Configuration的缓存策略。
+```
 
 #### DownloadTask
 
-1. 对于一个通过`downloadTaskWithResumeData:`创建的下载任务, session会调用代理的`URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:`方法。
+```
+1. 对于一个通过downloadTaskWithResumeData:创建的下载任务, session会调用代理的URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:方法。
 
-2. 在服务器传输数据给客户端期间, 调用`URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:`
+2. 在服务器传输数据给客户端期间, 调用URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite: 给用户传数据
 
-   给用户传数据
-
-   ```
-   - 当用户暂停下载时, 调用cancelByProducingResumeData:给用户传已下好的数据.
-   - 如果用户想要恢复下载, 把刚刚的resumeData以参数的形式传给downloadTaskWithResumeData:方法创建新的task继续下载.
-   ```
-
-3. 如果download task成功完成了, 调用`URLSession:downloadTask:didFinishDownloadingToURL:`把临时文件的URL路径给你. 此时你应该在该代理方法返回以前读取他的数据或者把文件持久化.
+- 当用户暂停下载时, 调用cancelByProducingResumeData:给用户传已下好的数据。
+       
+- 如果用户想要恢复下载, 把刚刚的resumeData以参数的形式传给downloadTaskWithResumeData:方法创建新的task继续下载。
+       
+3. 如果download task成功完成了, 调用URLSession:downloadTask:didFinishDownloadingToURL:把临时文件的URL路径给你. 此时你应该在该代理方法返回以前读取他的数据或者把文件持久化。
+```
 
 #### UploadTask
 
-上传数据去服务器期间, 代理会周期性收到`URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`回调并获得上传进度的报告。
+```
+上传数据去服务器期间, 代理会周期性收到
+
+URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:
+
+回调并获得上传进度的报告。
+```
 
 #### StreamTask
 
-如果任务的数据是由一个stream发出的, session就会调用代理的`URLSession:task:needNewBodyStream:`方法去获取一个NSInputStream对象并提供一个新请求的body data。
+```
+如果任务的数据是由一个stream发出的, session就会调用代理的URLSession:task:needNewBodyStream:方法去获取一个NSInputStream对象并提供一个新请求的body data。
+```
 
-#### task completion
-
-任何task完成的时候, 都会调用`URLSession:task:didCompleteWithError:`方法, error有可能为nil(请求成功), 不为nil(请求失败)
+#### Task completion
 
 ```
+任何task完成的时候, 都会调用URLSession:task:didCompleteWithError:方法, error有可能为nil(请求成功), 不为nil(请求失败)
+
 - 请求失败, 但是该任务是可恢复下载的, 那么error对象的userInfo字典里有一个NSURLSessionDownloadTaskResumeData对应的value, 你应该把这个值传给downloadTaskWithResumeData:方法重新恢复下载
 
 - 请求失败, 但是任务无法恢复下载, 那么应该重新创建一个下载任务并从头开始下载
@@ -231,11 +269,13 @@ request本身可以设置不同的请求方法、请求主体
 注意：NSURLSession不会收到服务器传来的错误, 代理只会收到客户端出现的错误, 例如无法解析主机名或无法连接上主机等等。 客户端错误定义在URL Loading System Error Codes。 服务端错误通过HTTP状态法进行传输, 详情请看NSHTTPURLResponse和NSURLResponse类
 ```
 
-
-
 #### 销毁session
 
-如果你不再需要一个session了， 一定要调用它的`invalidateAndCancel`或`finishTasksAndInvalidate`方法。 (前者是取消所有未完成的任务然后使session失效，后者是等待正在执行的任务完成之后再使session失效)。 否则的话, 有可能造成内存泄漏。另外，session失效后会调用`URLSession:didBecomeInvalidWithError:`方法，之后session释放对代理的强引用。
+```
+如果你不再需要一个session了， 一定要调用它的invalidateAndCancel或finishTasksAndInvalidate方法。 (前者是取消所有未完成的任务然后使session失效，后者是等待正在执行的任务完成之后再使session失效)。 否则的话, 有可能造成内存泄漏。
+
+另外，session失效后会调用URLSession:didBecomeInvalidWithError:方法，之后session释放对代理的强引用。
+```
 
 
 
@@ -248,7 +288,7 @@ request本身可以设置不同的请求方法、请求主体
 - 只支持上传/下载任务, data任务不支持.
 - 后台任务有数量限制
 - 当任务数量到达系统指定的临界值的时候, 一些后台任务就会被取消. 也就是说, 一个需要长时间上传/下载的任务很可能会被系统取消然后有可能过一会再重新开始, 所以支持断点续传很重要.
-- 如果一个后台传输任务是在app在后台的时候开启的, 那么这个任务很可能会出于对性能的考虑随时被系统取消掉. . (相当于session的Configuration对象的discretionary属性为true.)
+- 如果一个后台传输任务是在app在后台的时候开启的, 那么这个任务很可能会出于对性能的考虑随时被系统取消掉(相当于session的Configuration对象的discretionary属性为true.)
 
 后台session限制确实很多, 所以尽可能使用前台session做事情.
 
@@ -271,7 +311,7 @@ request本身可以设置不同的请求方法、请求主体
 - 创建一个后台session
 
   ```
-  NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.Jerry4me.backgroundSessionIdentifier"];
+  NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"xxxx"];//identifier用来后台重连session对象 (做后台上传/下载就是这个config)
   _backgroundSession = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
   ```
 
@@ -282,8 +322,9 @@ request本身可以设置不同的请求方法、请求主体
   NSURLRequest *request = [NSURLRequest requestWithURL:URL];
   
   self.task = [self.session downloadTaskWithRequest:request];
-  /**注意 : 后台任务不能使用带有completionHandler的方法创建 **/
-  /**注意 : 如果任务只想在app进入后台后才处理, 那么可不调用[task resume]主动执行, 待程序进入后台后会自动执行 **/
+  
+  注意 : 后台任务不能使用带有completionHandler的方法创建 
+  注意 : 如果任务只想在app进入后台后才处理, 那么可不调用[task resume]主动执行, 待程序进入后台后会自动执行 
   ```
 
 - 我们等下载到一半后进入后台, 打开App Switcher过一会可以发现, 图片下载完之后就会显示在应用程序上. 方法调用顺序为 : 下面四个方法全部都是app在后台时调用的
@@ -322,17 +363,36 @@ request本身可以设置不同的请求方法、请求主体
 URLSession 的API全部都是线程安全的. 你可以在任何线程上创建session和tasks, task会自动调度到合适的代理队列中运行。
 
 ```
-后台传输的代理方法URLSessionDidFinishEventsForBackgroundURLSession:可能会在其他线程中被调用. 在该方法中你应该回到主线程然后调用completion handler去触发AppDelegate中的application:handleEventsForBackgroundURLSession:completionHandler:方法。
+后台传输的代理方法URLSessionDidFinishEventsForBackgroundURLSession:可能会在其他线程中被调用
+
+在该方法中你应该回到主线程然后调用completion handler去触发AppDelegate中的application:handleEventsForBackgroundURLSession:completionHandler:方法。
 ```
 
 #### 2、NSCopying Behavior
 
+```
 session, task和configuration对象都支持copy操作 :
 
-- session/task copy : 返回session对象本身
+- session/task copy : 返回对象本身
 - configuration copy : 返回一个无法修改(immutable)的对象.
 
+```
 
+#### 3、completionHandler
+
+```
+如果你实现了URLSession:didReceiveChallenge:completionHandler:这种带有completionHandler的方法又没有在该方法调用completionHandler, 请求就会遭到阻塞
+```
+
+#### 4、断点续传
+
+```
+下载失败/暂停/被取消, 可以通过task的- cancelByProducingResumeData:方法保存已下载的数据, 然后调用session的downloadTaskWithResumeData:方法, 触发代理的URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:方法
+```
+
+
+
+此部分知识来源网络。[源站](http://ios.jobbole.com/93098/)，[Demo下载](https://github.com/Jerry4me/JRBgSessionDemo)
 
 
 
@@ -340,15 +400,13 @@ session, task和configuration对象都支持copy操作 :
 
 > 从需求开始逐个分析AFNetworking v3.1.0
 
+
+
 ### AFNetworking的类结构图
 
 
 
 ![img](https://xilankong.github.io/resource/afnetworking.png)
-
-
-
-### 
 
 ### 1、基本使用与实现原理
 
@@ -363,8 +421,7 @@ session, task和configuration对象都支持copy操作 :
 
 4、默认JSON类型响应序列化
 
-4、提供数据、上传、下载三种业务
-
+5、提供数据、上传、下载三种业务
 ```
 
 #### AFHTTPSessionManager
@@ -444,13 +501,30 @@ url_session_manager_completion_group：单例 队列组
 6、锁 NSLock
 ```
 
-**2、NSMutableURLRequest构建（如果是通过AFHTTPSessionManager 构建请求）**
+**2、AFHTTPSessionManager的构建**
+
+```
+继承自AFURLSessionManager
+
+直接根据url初始化 AFHTTPSessionManager，提供工厂，但是不是单例
+
+初始化
+
+initWithBaseURL:sessionConfiguration:
+
+初始化 requestSerializer 为 AFHTTPRequestSerializer 用来构建 NSMutableURLRequest
+ 
+初始化 responseSerializer 为 AFJSONResponseSerializer
+
+```
+
+**3、NSMutableURLRequest构建（如果是通过AFHTTPSessionManager 构建请求）**
 
 ```
 URL拼接，参数配置，请求头配置等操作
 ```
 
-**3、NSURLSessionDataTask的构建**
+**4、NSURLSessionDataTask的构建**
 
 ```
 1、构建task的时候会使用  url_session_manager_create_task_safely 来保证安全构建任务
@@ -469,7 +543,7 @@ NSProgress fractionCompleted(某个任务已完成单元量占总单元量的比
 
 ```
 
-**4、NSURLSessionTask执行**
+**5、NSURLSessionTask执行**
 
 ```
 AFURLSessionManagerTaskDelegate 处理网络请求回调
@@ -481,7 +555,7 @@ SessionManager定义的回调block也在这处理
 AFURLSessionManagerTaskDelegate 的对响应结果部分的处理也通过 SessionManager 进行代理转发
 ```
 
-**5、AFURLSessionManager清理NSURLSessionDataTask**
+**6、AFURLSessionManager清理NSURLSessionDataTask**
 
 ```
 请求结束后进行清理，清理操作都有加锁 removeDelegateForTask
@@ -654,13 +728,125 @@ AFXMLParserResponseSerializer
 
 
 
+session、 task和configuration、Serializer对象都支持copy操作 和 NSCoding归档解档的操作 :
+
+- session/task copy : 返回session对象本身
+- configuration copy : 返回一个无法修改(immutable)的对象.
+- Serializer : 返回一个无法修改(immutable)的对象.
+
 
 
 ### 4、额外的功能
 
-AFSecurityPolicy
 
-AFNetworkReachabilityManager
+
+#### AFSecurityPolicy
+
+HTTPS连接建立过程大致是，客户端和服务端建立一个连接，服务端返回一个证书，客户端里存有各个受信任的证书机构根证书（CA根证书），用这些根证书对服务端返回的证书进行验证，经验证如果证书是可信任的，就生成一个pre-master secret，用这个证书的公钥加密后发送给服务端，服务端用私钥解密后得到pre-master secret，再根据某种算法生成master secret，客户端也同样根据这种算法从pre-master secret 生成 master secret，随后双方的通信都用这个 master secret 对传输数据进行加密解密。
+
+**1、证书是怎样验证的？怎样保证中间人不能伪造证书？**
+
+```
+建立https连接时，服务端返回证书A给客户端，客户端的系统里的CA机构根证书有这个CA机构的公钥，用这个公钥对证书A的加密内容F1解密得到F2，跟证书A里内容F对比，若相等就通过验证。
+
+整个流程大致是：F->CA私钥加密->F1->客户端CA公钥解密->F。因为中间人不会有CA机构的私钥，客户端无法通过CA公钥解密，所以伪造的证书肯定无法通过验证。
+```
+
+**2、什么是 SSL Pinning**
+
+可以理解为证书绑定，用来验证服务器就是我要的服务器。
+
+```
+是指客户端直接保存服务端的证书，建立https连接时直接对比服务端返回的和客户端保存的两个证书是否一样，一样就表明证书是真的，不再去系统的信任证书机构里寻找验证。这适用于非浏览器应用，因为浏览器跟很多未知服务端打交道，无法把每个服务端的证书都保存到本地，但CS架构的像手机APP事先已经知道要进行通信的服务端，可以直接在客户端保存这个服务端的证书用于校验。
+
+为什么直接对比就能保证证书没问题？如果中间人从客户端取出证书，再伪装成服务端跟其他客户端通信，它发送给客户端的这个证书不就能通过验证吗？确实可以通过验证，但后续的流程走不下去，因为下一步客户端会用证书里的公钥加密，中间人没有这个证书的私钥就解不出内容，也就截获不到数据，这个证书的私钥只有真正的服务端有，中间人伪造证书主要伪造的是公钥。
+
+为什么要用SSL Pinning？正常的验证方式不够吗？如果服务端的证书是从受信任的的CA机构颁发的，验证是没问题的，但CA机构颁发证书比较昂贵，小企业或个人用户可能会选择自己颁发证书，这样就无法通过系统受信任的CA机构列表验证这个证书的真伪了，所以需要SSL Pinning这样的方式去验证。
+
+```
+
+**AFSecurityPolicy分三种验证模式**
+
+```
+AFSSLPinningModeNone
+这个模式表示不做SSL pinning，只跟浏览器一样在系统的信任机构列表里验证服务端返回的证书。若证书是信任机构签发的就会通过，若是自己服务器生成的证书，这里是不会通过的。
+
+AFSSLPinningModePublicKey
+这个模式同样是用证书绑定方式验证，客户端要有服务端的证书拷贝，只是验证时只验证证书里的公钥，不验证证书的有效期等信息。只要公钥是正确的，就能保证通信不会被窃听，因为中间人没有私钥，无法解开通过公钥加密的数据。
+
+AFSSLPinningModeCertificate
+这个模式表示用证书绑定方式验证证书，需要客户端保存有服务端的证书拷贝，这里验证分两步，第一步验证证书的域名/有效期等信息，第二步是对比服务端返回的证书跟客户端返回的是否一致。
+除了公钥外，其他能容也要一致才能通过验证。
+```
+
+**AFSecurityPolicy属性分析**
+
+```
+1、pinnedCertificates
+
+这个属性保存着所有的可用做校验的证书的集合。AFNetworking 默认会搜索工程中所有 .cer的证书文件。如果想制定某些证书，可使用certificatesInBundle在目标路径下加载证书，然后调用policyWithPinningMode:withPinnedCertificates创建一个本类对象。
+
+注意： 只要在证书集合中任何一个校验通过，evaluateServerTrust:forDomain: 就会返回true，即通过校验。
+
+
+2、allowInvalidCertificates
+
+使用允许无效或过期的证书，默认是不允许。
+
+3、validatesDomainName
+
+是否验证证书中的域名domain
+
+```
+
+**AFSecurityPolicy方法分析**
+
+```
+1、默认的实例对象，默认的认证设置为：
+
+不允许无效或过期的证书
+验证domain名称
+不对证书和公钥进行验证
+
+
+2、certificatesInBundle:(NSBundle *)bundle
+
+返回指定bundle中的证书。如果使用AFNetworking的证书验证 ，就必须实现此方法，并且使用policyWithPinningMode:withPinnedCertificates 方法来创建实例对象。
+
+
+3、evaluateServerTrust:forDomain:
+
+评估服务器是否需要证书验证
+
+
+在二进制的文件中获取公钥的过程是这样
+
+① NSData *certificate -> CFDataRef -> (SecCertificateCreateWithData) -> SecCertificateRef allowedCertificate
+
+②判断SecCertificateRef allowedCertificate 是不是空，如果为空，直接跳转到后边的代码
+
+③allowedCertificate 保存在allowedCertificates数组中
+
+④allowedCertificates -> (CFArrayCreate) -> SecCertificateRef allowedCertificates[1]
+
+⑤根据函数SecPolicyCreateBasicX509() -> SecPolicyRef policy
+
+⑥SecTrustCreateWithCertificates(tempCertificates, policy, &allowedTrust) -> 生成SecTrustRef allowedTrust
+
+⑦SecTrustEvaluate(allowedTrust, &result) 校验证书
+
+⑧(__bridge_transfer id)SecTrustCopyPublicKey(allowedTrust) -> 得到公钥id allowedPublicKey
+```
+
+
+
+
+
+
+
+#### AFNetworkReachabilityManager
+
+
 
 ### 5、Category扩展部分
 
@@ -688,38 +874,6 @@ AFHTTPSessionManager
 
 
 
-
-
-AFNetworking主要是对NSURLSession和NSURLConnection(iOS9.0废弃)的封装,其中主要有以下类:
-
-1). AFHTTPRequestOperationManager：内部封装的是 NSURLConnection, 负责发送网络请求, 使用最多的一个类。(3.0废弃)
-
-2). AFHTTPSessionManager：内部封装是 NSURLSession, 负责发送网络请求,使用最多的一个类。
-
-3). AFNetworkReachabilityManager：实时监测网络状态的工具类。当前的网络环境发生改变之后,这个工具类就可以检测到。
-
-4). AFSecurityPolicy：网络安全的工具类, 主要是针对 HTTPS 服务。
-
-5). AFURLRequestSerialization：序列化工具类,基类。上传的数据转换成JSON格式    (AFJSONRequestSerializer).使用不多。
-
-6). AFURLResponseSerialization：反序列化工具类;基类.使用比较多:
-
-7). AFJSONResponseSerializer; JSON解析器,默认的解析器.
-
-8). AFHTTPResponseSerializer; 万能解析器; JSON和XML之外的数据类型,直接返回二进
-
-制数据.对服务器返回的数据不做任何处理.
-
-9). AFXMLParserResponseSerializer; XML解析器;
-
-
-
-
-
 网络缓存
-
-
-
-
 
 http://ios.jobbole.com/93098/
