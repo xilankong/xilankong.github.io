@@ -1,6 +1,7 @@
 ---
 layout: post
-category: 2018年
+category: iOS开源项目
+
 title : "iOS开源项目-原生网络请求和AFNetworking3.1学习"
 ---
 
