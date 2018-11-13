@@ -726,17 +726,27 @@ Task 任务层次的授权、证书问题
 
 
 
-### 3、序列化
+### 3、请求参数的序列化
+
+#### 相关类
+
+- AFURLRequestSerialization 协议
+- AFHTTPRequestSerializer  继承自NSObject 实现 AFURLRequestSerialization 协议
+- AFJSONRequestSerializer   继承自 AFHTTPRequestSerializer
+- AFPropertyListRequestSerializer   继承自 AFHTTPRequestSerializer
+- AFMultipartFormData 协议
 
 
-
-AFNetworking的多数类都支持序列化，但实现的是NSSecureCoding的接口，而不是NSCoding，区别在于解数据时要指定Class，用-decodeObjectOfClass:forKey:方法代替了-decodeObjectForKey:。这样做更安全，因为序列化后的数据有可能被篡改，若不指定Class，-decode出来的对象可能不是原来的对象，有潜在风险。
 
 
 
 1、请求序列化
 
 
+
+
+
+### 4、响应数据的解析
 
 
 
@@ -762,11 +772,11 @@ AFXMLParserResponseSerializer
 
 
 
+AFNetworking的多数类都支持序列化，但实现的是NSSecureCoding的接口，而不是NSCoding，区别在于解数据时要指定Class，用-decodeObjectOfClass:forKey:方法代替了-decodeObjectForKey:。这样做更安全，因为序列化后的数据有可能被篡改，若不指定Class，-decode出来的对象可能不是原来的对象，有潜在风险。
 
 
 
-
-### 4、额外的功能
+### 5、额外的功能
 
 
 
@@ -922,7 +932,7 @@ AFNetworkingReachabilityDidChangeNotification
 
 
 
-### 5、Category扩展部分
+### 6、Category扩展部分
 
 
 
