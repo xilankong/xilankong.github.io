@@ -737,12 +737,23 @@ Task 任务层次的授权、证书问题
 - AFMultipartFormData 协议
 
 ```
-AFHTTPRequestSerializer \ AFJSONRequestSerializer \ AFPropertyListRequestSerializer 都实现了序列化请求的方法：
+AFHTTPRequestSerializer \ AFJSONRequestSerializer \ AFPropertyListRequestSerializer 都实现了 AFURLRequestSerialization 都实现了序列化请求的方法：
 
 - (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
                                withParameters:(id)parameters
                                         error:(NSError *__autoreleasing *)error
                                         
+                                        
+方法主要做了：
+
+1、从自己的head里去遍历，如果有值则设置给request的head
+
+2、把各种类型的参数，array dic set转化成字符串，给request
+
+3、最后判断该request中是否包含了GET、HEAD、DELETE，都包含在HTTPMethodsEncodingParametersInURI）。
+因为这几个method的quey是拼接到url后面的。 而POST、PUT是把query拼接到http body中的。
+
+      
 实现该方法 请求序列化器可以将参数编码为查询字符串，HTTP主体，根据需要设置适当的HTTP头字段。
 
 例如，JSON请求序列化器可以将请求的HTTP主体设置为JSON表示，并将Content-TypeHTTP标头字段值设置为application / json。
@@ -750,7 +761,7 @@ AFHTTPRequestSerializer \ AFJSONRequestSerializer \ AFPropertyListRequestSeriali
 
 #### 特殊属性
 
-AFHTTPRequestSerializer
+**AFHTTPRequestSerializer**
 
 ```
 1、mutableObservedChangedKeyPaths
@@ -764,6 +775,47 @@ AFHTTPRequestSerializer
 3、requestHeaderModificationQueue 
 
 dispatch_queue_create("requestHeaderModificationQueue", DISPATCH_QUEUE_CONCURRENT); 并发操作队列，用于请求变更的操作
+
+
+4、- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
+                                 URLString:(NSString *)URLString
+                                parameters:(id)parameters
+                                     error:(NSError *__autoreleasing *)error
+                                        
+方法做了几个事情：
+1、设置request的请求类型，GET、POST等
+
+2、往request里添加一些默认参数设置
+
+3、把需要传递的参数进行编码，并且设置到request中去，主要就是调用 AFURLRequestSerialization 协议中的
+requestBySerializingRequest 方法
+                                  
+```
+
+
+
+**AFJSONRequestSerializer**
+
+```
+NSJSONWritingOptions writingOptions
+```
+
+
+
+**AFPropertyListRequestSerializer**
+
+```
+NSPropertyListFormat format
+
+NSPropertyListWriteOptions writeOptions
+```
+
+
+
+**AFMultipartFormData**
+
+```
+
 ```
 
 
@@ -772,27 +824,28 @@ dispatch_queue_create("requestHeaderModificationQueue", DISPATCH_QUEUE_CONCURREN
 
 ### 4、响应数据的解析
 
+#### 相关类
+
+```
+@protocol AFURLResponseSerialization <NSObject, NSSecureCoding, NSCopying>
+
+@interface AFHTTPResponseSerializer : NSObject <AFURLResponseSerialization>
+
+@interface AFJSONResponseSerializer : AFHTTPResponseSerializer
+
+@interface AFXMLParserResponseSerializer : AFHTTPResponseSerializer
+
+@interface AFXMLDocumentResponseSerializer : AFHTTPResponseSerializer
+
+@interface AFPropertyListResponseSerializer : AFHTTPResponseSerializer
+
+@interface AFImageResponseSerializer : AFHTTPResponseSerializer
+
+@interface AFCompoundResponseSerializer : AFHTTPResponseSerializer
 
 
-
-
-NSSecureCoding
-
-
-
-AFURLRequestSerialization
-
-AFURLResponseSerialization
-
-
-
-AFJSONResponseSerializer
-
-
-
-AFHTTPResponseSerializer
-
-AFXMLParserResponseSerializer
+不同类型的解析器
+```
 
 
 
