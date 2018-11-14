@@ -522,19 +522,13 @@ layer绘制的时候默认不会处理scale的问题
 
 
 
+#### 
 
-
-
-
-## 前言
+## UIView 和 CALayer的联系
 
 前文整理了UIView和CALayer的使用方法，下面我们通过举例测试来比较、分析UIView和CALayer之间的联系和差异。
 
-> 所有测试基于iOS 11.0、Xcode9.0。
 
-
-
-## UIView 和 CALayer的联系
 
 #### UIView和CALayer在构建方面的联系
 
