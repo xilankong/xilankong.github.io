@@ -16,12 +16,12 @@ UIView表示屏幕上的一块矩形区域，负责渲染区域的内容，并�
 
 ### 几何类别(UIViewGeometry)
 
-#### 属性：
 
-**frame、bounds、center**
+
+#### frame、bounds、center
 
 ```
-frame 复合属性 由bounds表示大小、center表示位置 后续介绍UIView和CALayer的区别文章中会具体解释
+frame 复合属性 由bounds表示大小、center表示位置 后续会具体解释
 
 bounds 视图在其自己的坐标系中的位置与尺寸，但是无法确定自己在父视图中的位置
 
@@ -34,7 +34,9 @@ bounds属性与center属性是完全独立的，前者规定尺寸，后者定�
 bounds中位置的修改不会影响自身在父视图中的位置，但是会影响自己的subView的位置
 ```
 
-**transform**
+
+
+#### transform
 
 ```
 用于给UIView做一些形变(平移、缩放、旋转)
@@ -59,11 +61,11 @@ _redView.transform = CGAffineTransformMakeRotation(M_PI_4);
 _redView.transform = CGAffineTransformRotate(_redView.transform, M_PI_4);
 ```
 
-**contentScaleFactor**
 
-```
+
+#### contentScaleFactor
+
 这个属性代表了从逻辑坐标系转化成当前的设备坐标系的转化比例，在[UIScreen mainScreen]中有个属性叫做scale 和这个是一样的
-```
 
 逻辑坐标系即我们数学上经常用的坐标体系,是对现实事物的一种抽象。
 
@@ -95,7 +97,7 @@ scale属性反映了从逻辑坐标到设备屏幕坐标的转换。在非视网
 
 
 
-**exclusiveTouch**
+#### exclusiveTouch
 
 ```
 ExclusiveTouch的作用是：可以达到同一界面上多个控件接受事件时的排他性,从而避免bug。
@@ -103,7 +105,9 @@ ExclusiveTouch的作用是：可以达到同一界面上多个控件接受事件
 当这个UIView成为第一响应者时，在手指离开屏幕前其他view不会响应任何touch事件。
 ```
 
-**autoresizesSubviews、autoresizingMask**
+
+
+#### autoresizesSubviews、autoresizingMask
 
 ```
 自动尺寸调整行为
@@ -132,9 +136,9 @@ UIViewAutoresizingFlexibleTopMargin
 自动尺寸调整行为可以适合一些布局的要求，但是如果您希望更多地控制视图的布局，可以在适当的视图类中重载layoutSubviews方法。
 ```
 
-#### 方法：
 
-**sizeToFit、sizeThatFits:(CGSize)size**
+
+#### - sizeToFit、- sizeThatFits:(CGSize)size
 
 ```
 - (CGSize)sizeThatFits:(CGSize)size;     // return 'best' size to fit given size. does not actually resize view. Default is return existing view size
@@ -145,20 +149,29 @@ sizeToFit不应该在子类中被重写，应该重写sizeThatFits
 sizeThatFits传入的参数是receiver当前的size，返回一个适合的size
 ```
 
-UIView继承自UIResponder, 事件响应部分见：[iOS事件响应链](https://xilankong.github.io/2017年/2016/06/23/iOS事件响应链.html)
+UIView继承自UIResponder, 事件响应部分见：[iOS事件响应链](https://xilankong.github.io/ios开发基础/2016/06/23/事件响应链学习整理.html)
 
 
 
 ### 层次类别(UIViewHierarchy)
 
-插入指定层次、变更View层次等
+
+
+#### 插入指定层次、变更View层次等
 
 ```
 - (void)insertSubview:(UIView *)view atIndex:(NSInteger)index
 - (void)exchangeSubviewAtIndex:(NSInteger)index1 withSubviewAtIndex:(NSInteger)index2
+
+- (void)bringSubviewToFront:(UIView *)view;
+- (void)sendSubviewToBack:(UIView *)view;
+
+[self.view sendSubviewToBack:self.oneview]; //把 self.view 中的 self.oneview 放到其他subView下面
 ```
 
-UIView添加subView的生命周期
+
+
+#### UIView添加subView的生命周期
 
 ```
 - (void)didAddSubview:(UIView *)subview;
@@ -169,7 +182,9 @@ UIView添加subView的生命周期
 - (void)didMoveToWindow;
 ```
 
-UI更新
+
+
+#### UI更新
 
 ```
 
@@ -181,11 +196,13 @@ UI更新
 - (void)layoutSubviews; //重新布局会进的方法、这个方法，默认没有做任何事情，需要子类进行重写
 ```
 
-更详细的UIView的更新机制、以上方法的更多使用细节见：[UIView的更新机制](https://xilankong.github.io/2016年/2016/06/22/iOS自动布局使用说明书.html)
+更详细的UIView的更新机制、以上方法的更多使用细节见：[UIView的更新机制](https://xilankong.github.io/ios开发基础/2016/06/22/自动布局学习整理.html)
 
 
 
 ### 渲染类别(UIViewRendering)
+
+
 
 #### 属性：
 
@@ -224,46 +241,54 @@ maskView：view上的遮罩层，不存在和view的层级关系
 ### 动画类别(UIViewAnimation)
 
 ```
-+ (void)beginAnimations:(nullable NSString *)animationID context:(nullable void *)context;  // additional context info passed to will start/did stop selectors. begin/commit can be nested
-+ (void)commitAnimations;         
++ (void)beginAnimations:(nullable NSString *)animationID context:(nullable void *)context;  
+
++ (void)commitAnimations;      
+
+注意点：这两个是成对出现的
+[UIView beginAnimations:nil context:nil];
+ // 开始动画// Code...
+[UIView commitAnimations]; // 提交动画
 ```
 
 
 
-### 手势类别(UIViewAnimation)
+### 手势类别(UIViewGestureRecognizers)
 
 ```
-- (void)addGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer NS_AVAILABLE_IOS(3_2);
-- (void)removeGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer NS_AVAILABLE_IOS(3_2);
+- (void)addGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer;
 
-// called when the recognizer attempts to transition out of UIGestureRecognizerStatePossible if a touch hit-tested to this view will be cancelled as a result of gesture recognition
-// returns YES by default. return NO to cause the gesture recognizer to transition to UIGestureRecognizerStateFailed
-// subclasses may override to prevent recognition of particular gestures. for example, UISlider prevents swipes parallel to the slider that start in the thumb
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer NS_AVAILABLE_IOS(6_0);
+- (void)removeGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer;
 
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
+
+UIView 可以响应该区域内发生事件，手势类别为UIView添加手势的方法扩展
 ```
-
-
 
 
 
 ## 2、CALayer
 
-**presentationLayer、modelLayer**
+
+
+#### presentationLayer、modelLayer
 
 ```
-CALayer中存在三个tree，他们分别是：Model Tree
+CALayer中存在三个tree，他们分别是：
+
+Model Tree
 Presentation Tree
 Render Tree
+
 Model Tree代表CALayer的真实属性，Presentation Tree对应动画过程中的属性。无论动画进行中还是已经结束，Model Tree都不会发生变化，变化的是Presentation Tree。而动画结束后，Presentation Tree就被重置回到了初始状态。为了让其保持旋转状态，需要在加两句代码：
 
-ba.fillMode=kCAFillModeForwards;
-ba.removedOnCompletion=NO;
+layer.fillMode=kCAFillModeForwards;
+layer.removedOnCompletion=NO;
 ```
 
 
 
-**zPosition** 
+#### zPosition
 
 决定层级，zPosition的数值相当于层在垂直屏幕的Z轴 上的位移值。在没有经过任何Transform的2D环境下，zPosition仅仅会决定谁覆盖谁，具体差值是没有意义的，但是经过3D Transform，他们之间的差值，也就是距离，会显现出来。
 
@@ -274,7 +299,7 @@ CGRect frame = CGRectInset(self.view.bounds, 50, 50);
 CALayer *layer = [CALayer layer];
 layer.frame = frame;
 [self.view.layer addSublayer:layer];
-//第一个椭圆
+//第一个椭圆 蓝色
 CAShapeLayer *shapeLayer = [CAShapeLayer layer];
 shapeLayer.contentsScale = [UIScreen mainScreen].scale;
 CGMutablePathRef path = CGPathCreateMutable();
@@ -284,7 +309,7 @@ shapeLayer.fillColor = [UIColor blueColor].CGColor;
 shapeLayer.zPosition = 40;
 [layer addSublayer:shapeLayer];
 
-//第二个椭圆
+//第二个椭圆 绿色
 CAShapeLayer *shapeLayer2 = [CAShapeLayer layer];
 shapeLayer2.contentsScale = [UIScreen mainScreen].scale;
 CGMutablePathRef path2 = CGPathCreateMutable();
@@ -314,15 +339,13 @@ transform = CATransform3DRotate(transform, M_PI / 3, 0, 1, 0);
 layer.sublayerTransform = transform;
 ```
 
-
-
 上面代码分别做三次测试：
 
-1、如上代码，结果如下图左
+1、如上代码，结果如下图 左
 
-2、注释掉 `transform.m34` 这行代码，结果如下图中
+2、注释掉 `transform.m34` 这行代码，结果如下图 中
 
-3、取消 transform 的设置，结果如下图右
+3、取消 transform 的设置，结果如下图 右
 
 ![](https://xilankong.github.io/resource/transform.png)
 
@@ -336,7 +359,7 @@ layer.sublayerTransform = transform;
 
 
 
-**anchorPoint** ： 
+#### anchorPoint
 
 是一个CGPoint值，x，y取值范围（0~1），默认为（0.5，0.5） 对于图层本身而言，顾名思义，锚点就用来定位图层的点。
 
@@ -350,7 +373,7 @@ layer.sublayerTransform = transform;
 
 
 
-**transform ：CATransform3D**
+#### transform ：CATransform3D
 
 CATransform3D 的数据结构定义了一个同质的三维变换（4x4 CGFloat值的矩阵），用于图层的旋转，缩放，偏移，歪斜和应用的透视。
 
@@ -367,7 +390,7 @@ CATransform3DIdentity 是单位矩阵，该矩阵没有缩放，旋转，歪斜�
 
 分析一下CATransform3D的结构：[iOS CATransform3D](http://www.jianshu.com/p/e8d1985dccec)
 
-**CATransform3D 函数：**
+**CATransform3D 函数**
 
 ```
 //-----平移
@@ -403,26 +426,53 @@ m34负责z轴方向的translation（移动），m34= -1/D,  默认值是0，也�
 
 
 
-**masksToBounds：**是否遮盖越界部分Layer，比如常用于边角等
+#### masksToBounds、mask
 
-**mask** ：类似于UIView中的 maskView
+masksToBounds：是否遮盖越界部分Layer，比如常用于边角等
 
-**contents、contentsRect、contentsGravity、contentsScale、contentsCenter**
+mask：类似于UIView中的 maskView
+
+
+
+#### contents、contentsRect、contentsGravity、contentsScale
 
 ```
-1> CALayer 有一个属性叫做contents，这个属性的类型被定义为id，意味着它可以是任何类型的对象。在这种情况下，你可以给contents属性赋任何值，你的app仍然能够编译通过。但是，在实践中，如果你给contents赋的不是CGImage，那么你得到的图层将是空白的。 
-2> 事实上，你真正要赋值的类型应该是CGImageRef，它是一个指向CGImage结构的指针。UIImage有一个CGImage属性，它返回一个”CGImageRef”,如果你想把这个值直接赋值给CALayer的contents，那你将会得到一个编译错误。因为CGImageRef并不是一个真正的Cocoa对象，而是一个Core Foundation类型。 
+1、 CALayer 有一个属性叫做contents，这个属性的类型被定义为id，意味着它可以是任何类型的对象。在这种情况下，你可以给contents属性赋任何值，你的app仍然能够编译通过。但是，在实践中，如果你给contents赋的不是CGImage，那么你得到的图层将是空白的。 
+
+2、 事实上，你真正要赋值的类型应该是CGImageRef，它是一个指向CGImage结构的指针。UIImage有一个CGImage属性，它返回一个”CGImageRef”,如果你想把这个值直接赋值给CALayer的contents，那你将会得到一个编译错误。因为CGImageRef并不是一个真正的Cocoa对象，而是一个Core Foundation类型。 
+
 尽管Core Foundation类型跟Cocoa对象在运行时貌似很像（被称作toll-free bridging），他们并不是类型兼容的，不过你可以通过bridged关键字转换。 
 所以要为CALayer图层设置寄宿图片属性的最终代码： 
 layer.contents = (__bridge id)image.CGImage; 
 
 
 contentsGravity：类似于UIView的contentMode
+
+contentsScale： 类似于UIView的sacle
+
 ```
 
 
 
-**shadowColor、shadowOpacity、shadowOffset、shadowRadius**
+#### contentsCenter
+
+![](https://xilankong.github.io/resource/slicing.png)
+
+```
+图片拉伸
+
+用过xcode应该都知道 图片的slicing功能
+
+
+因此我们要设置好拉伸的部位，下图中黑色框中位置就是 contentsCenter 的(x, y) 值的占比，绿色部分的长宽就是要拉伸的部分。拉伸的宽高为占比。
+
+
+一定要设置 view.layer.contentsScale = image.scale，否则图片在Retina 设备会显示不正确
+```
+
+
+
+#### shadowColor、shadowOpacity、shadowOffset、shadowRadius
 
 ```
 self.startButton.layer.borderWidth = 1；／／按钮边缘宽度
@@ -434,9 +484,19 @@ self.startButton.layer.shadowOpacity = 1; // 阴影的透明度，默认是0   �
 
 
 
-\- (void)setNeedsDisplay;
+#### -  (void)setNeedsDisplay;
 
-\- (void)setNeedsDisplayInRect:(CGRect)r;
+```
+
+```
+
+
+
+#### -  (void)setNeedsDisplayInRect:(CGRect)rect;
+
+```
+
+```
 
 
 
