@@ -500,29 +500,26 @@ self.startButton.layer.shadowOpacity = 1; // 阴影的透明度，默认是0   �
 
 
 
-CAAction
+#### 问题
+
+1、UIView 自动布局的时候，frame的变化过程，
 
 
 
+2、layer绘制的时候默认不会处理scale的问题
 
-
-UIView 自动布局的时候，frame的变化过程，
-
-
-
-layer绘制的时候默认不会处理scale的问题
-
-在CALayer中绘制图形会出现锯齿和模糊，同样绘图在UIView中就没有问题。经查资料发现**不自动处理两倍像素的情况**。
+```
+在CALayer中绘制图形会出现锯齿和模糊，同样绘图在UIView中就没有问题。经查资料发现不自动处理两倍像素的情况。
 
 解决方案为：设置layer的contentsScale属性为[[UIScreen mainScreen] scale];
 
-
-
 或者复写drawRect方法也有效
 
+```
 
 
-#### 
+
+
 
 ## UIView 和 CALayer的联系
 
@@ -534,7 +531,7 @@ layer绘制的时候默认不会处理scale的问题
 
 我们新增两个类：DemoView：UIView 和 DemoLayer：CALayer
 
-1、重新设置DemoView的rootLayer de的layerClass为DemoLayer（rootLayer：view的默认layer）
+1、重新设置DemoView的rootLayer 的layerClass为DemoLayer（rootLayer：view的默认layer）
 
 ```
 DemoView中
@@ -616,8 +613,6 @@ frame属于派生属性，依赖于 bounds、 anchorPoint、transform 和 positi
 2、DemoView中的frame、bounds和center  的 getter方法，UIView并没有做什么工作，只是简单的各自调用它底层的CALayer的frame，bounds和position方法。
 
 **注意：**
-
-
 
 bounds 和 frame的区别: bounds原点默认 （0，0）基于view本身的坐标系统，frame原点基于父视图中的位置
 
@@ -730,9 +725,7 @@ UIApplication、UIViewController、UIView、和所有从UIView派生出来的UIK
 
 #### UIView 和 CALayer 在基础属性上的区别
 
-这一部分可以看之前的[UIView和CALayer的使用介绍](https://xilankong.github.io/学习之路/2017/11/13/UIView-CALayer使用说明书.html)
-
-
+前面基础介绍有描述
 
 #### UIView 和 CALayer在动画中的区别
 
@@ -838,7 +831,7 @@ self.otherLayer.position = CGPointMake(120, 120);
 
 3、UIView的frame、bounds、center基础属性都获取于view.layer的基础属性，setter方法也会调用view.layer的setter方法
 
-4、CALayer 和 UIView中都可以根据上下文进行绘制，UIView的drawRect依赖CALayer传递过来的上下文才能执行、CALayer绘制并不依赖UIView，依赖UIView进行展示
+4、CALayer 和 UIView中都可以根据上下文进行绘制，UIView的drawRect依赖CALayer传递过来的上下文才能执行、CALayer绘制并不依赖UIView，只依赖UIView进行展示
 
 5、在做 iOS 动画的时候，修改非 RootLayer的属性，会默认产生隐式动画，而修改UIView则不会。
 
