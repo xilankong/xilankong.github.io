@@ -736,11 +736,35 @@ Task 任务层次的授权、证书问题
 - AFPropertyListRequestSerializer   继承自 AFHTTPRequestSerializer
 - AFMultipartFormData 协议
 
+```
+AFHTTPRequestSerializer \ AFJSONRequestSerializer \ AFPropertyListRequestSerializer 都实现了序列化请求的方法：
 
+- (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
+                               withParameters:(id)parameters
+                                        error:(NSError *__autoreleasing *)error
+                                        
+实现该方法 请求序列化器可以将参数编码为查询字符串，HTTP主体，根据需要设置适当的HTTP头字段。
 
+例如，JSON请求序列化器可以将请求的HTTP主体设置为JSON表示，并将Content-TypeHTTP标头字段值设置为application / json。
+```
 
+#### 特殊属性
 
-1、请求序列化
+AFHTTPRequestSerializer
+
+```
+1、mutableObservedChangedKeyPaths
+
+来源自 AFHTTPRequestSerializerObservedKeyPaths()，存了一些系统定义的请求头部键值对信息
+
+2、mutableHTTPRequestHeaders
+
+自定义的部分请求头部键值对信息
+
+3、requestHeaderModificationQueue 
+
+dispatch_queue_create("requestHeaderModificationQueue", DISPATCH_QUEUE_CONCURRENT); 并发操作队列，用于请求变更的操作
+```
 
 
 
