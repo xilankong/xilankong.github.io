@@ -271,6 +271,29 @@ UIView 可以响应该区域内发生事件，手势类别为UIView添加手势�
 
 
 
+#### - init()
+
+```
+（1）默认为无色，不会显示。要想让绘制的图形显示出来，还需要设置图形的颜色。注意不能直接使用UI框架中的类
+
+（2）在自定义layer中的 -(void)drawInContext:方法不会自己调用，只能自己通过setNeedDisplay方法调用，在view中画东西DrawRect:方法在view第一次显示的时候会自动调用。
+```
+
+
+
+#### - init(layer: Any)
+
+```
+这个初始值设定项CoreAnimation用来创建阴影的副本层,
+
+如用作表示层。子类可以重写这个方法来将自己的实例变量复制到演示层(子类应该调用超类之后)。
+
+调用这个方法在其他任何情况下将导致未定义的行为。
+
+```
+
+
+
 #### presentationLayer、modelLayer
 
 ```
@@ -484,18 +507,10 @@ self.startButton.layer.shadowOpacity = 1; // 阴影的透明度，默认是0   �
 
 
 
-#### -  (void)setNeedsDisplay;
+#### -  (void)setNeedsDisplay; -  (void)setNeedsDisplayInRect:(CGRect)rect;
 
 ```
-
-```
-
-
-
-#### -  (void)setNeedsDisplayInRect:(CGRect)rect;
-
-```
-
+设置需要渲染，当运行循环开始就会去更新已标记的layer
 ```
 
 
@@ -642,9 +657,11 @@ DemoView中：
     CGContextAddLineToPoint(ctx, 200, 120); //画线
     CGContextStrokePath(ctx);
 }
+
 -(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
     [super drawLayer:layer inContext:ctx];
 }
+
 DemoLayer中：
 -(void)drawInContext:(CGContextRef)ctx {
     [super drawInContext:ctx];
@@ -654,8 +671,9 @@ DemoLayer中：
 
 结果：
 1、正常绘制出一条线，执行顺序是 
-DemoView - drawRect
-DemoLayer - drawInContext
+DemoView - drawRect:
+DemoView - drawLayer:inContext:
+DemoLayer - drawInContext:
 
 同时打印成功执行测试的执行堆栈：
 0 - DemoView drawRect:
@@ -667,12 +685,15 @@ DemoLayer - drawInContext
 
 结果: 不能正常绘制，执行顺序是 
 DemoLayer - drawInContext
+//并不会执行到DemoView
 
 注释掉 drawLayer:inContext: 中的super调用 再做一次测试：
 
 结果是: 不能正常绘制，执行顺序是 
 DemoLayer - drawInContext
 DemoView - drawLayer:inContext:
+
+//不会执行到 DemoView - drawRect:
 ```
 
 **分析以上结果：**
@@ -704,9 +725,15 @@ DemoView中：
 
 **分析以上结果：**
 
-1、CALayer 和 UIView中都可以根据上下文进行绘制，UIView的drawRect依赖CALayer传递过来的上下文才能执行
+1、CALayer 和 UIView 中都可以根据上下文进行绘制，UIView的drawRect依赖 CALayer 传递过来的上下文才能执行
 
-2、CALayer绘制并不依赖UIView
+2、CALayer 绘制并不依赖UIView，所以如果 drawRect 中没有调用super 并不会影响layer中的绘制
+
+3、如果layer中的 drawInContext 中 没有 super调用，view中的drawRect也无法绘制
+
+4、如果view中的 drawLayer:inContext: 中没有super调用，view中的drawRect也无法绘制
+
+
 
 
 
