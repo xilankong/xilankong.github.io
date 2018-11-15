@@ -212,3 +212,4 @@ myLayer.endPoint = CGPoint(x: 1.0, y: 0)
 透明图层
 ```
 
+https://blog.csdn.net/rhljiayou/article/details/10144993
