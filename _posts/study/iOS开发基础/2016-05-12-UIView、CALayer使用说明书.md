@@ -6,35 +6,50 @@ title : "UIView、CALayer使用说明书"
 
 ## 前言
 
-​	iOS开发中 UI是很重要也是最直观可见的一部分，而所有的控件都是继承自UIView的，UIView既可以实现显示的功能，又可以实现响应用户操作的功能。我们还知道每个UIView中都存在一个东西叫CALayer，实现了内容绘制等功能。本文总结整理UIView和CALayer的常用属性、方法、开发中容易遇到的问题等
+​	iOS开发中 UI是很重要也是最直观可见的一部分，而所有的控件都是继承自UIView的，UIView既可以实现显示的功能，又可以实现响应用户操作的功能。我们还知道每个UIView中都存在一个东西叫CALayer，实现了内容绘制等功能。本文总结整理UIView和CALayer的一些基本使用。
 
 
 
-## 1、UIView
+## UIView
 
 UIView表示屏幕上的一块矩形区域，负责渲染区域的内容，并且响应该区域内发生事件。
 
-### 几何类别(UIViewGeometry)
+UIView继承自UIResponder, 事件响应部分见：[iOS事件响应链](https://xilankong.github.io/ios开发基础/2016/06/23/事件响应链学习整理.html)
+
+UIView动画方面扩展见: [iOS动画原理与实现](https://xilankong.github.io/ios开发基础/2016/06/12/常用动画的原理与实现.html)
+
+### 1、基础类别
+
+```
+1、继承自UIResponder
+
+2、layerClass 设置rootLayer 为自定义layer
+
+3、userInteractionEnabled
+
+4、tag 用于标记view，可以通过viewWithTag 查找对应view
+
+5、layer  获取rootLayer
+
+6、canBecomeFocused  是否能成为焦点
+```
 
 
+
+### 2、几何类别
 
 #### frame、bounds、center
 
 ```
 frame 复合属性 由bounds表示大小、center表示位置 后续会具体解释
-
 bounds 视图在其自己的坐标系中的位置与尺寸，但是无法确定自己在父视图中的位置
-
 center 定义了当前视图在父视图中的位置
 
 注意：
 
 bounds属性与center属性是完全独立的，前者规定尺寸，后者定义位置
-
 bounds中位置的修改不会影响自身在父视图中的位置，但是会影响自己的subView的位置
 ```
-
-
 
 #### transform
 
@@ -60,8 +75,6 @@ _redView.transform = CGAffineTransformMakeRotation(M_PI_4);
 //每次旋转都是相对于现在的角度
 _redView.transform = CGAffineTransformRotate(_redView.transform, M_PI_4);
 ```
-
-
 
 #### contentScaleFactor
 
@@ -95,14 +108,39 @@ scale属性反映了从逻辑坐标到设备屏幕坐标的转换。在非视网
 
 在视网膜屏幕中,如果想要画出宽度为一个像素的线，不仅需要先0.5point的线宽,还要进行0.25point的偏移，才能绘出一个像素点宽度的线。    
 
-
-
 #### exclusiveTouch
 
 ```
 ExclusiveTouch的作用是：可以达到同一界面上多个控件接受事件时的排他性,从而避免bug。
 也就是说避免在一个界面上同时点击多个UIButton导致同时响应多个方法。
 当这个UIView成为第一响应者时，在手指离开屏幕前其他view不会响应任何touch事件。
+
+如果你不想让2个button同时点击，只需要把它们的exclusiveTouch都设定为YES
+```
+
+#### multipleTouchEnabled
+
+```
+是否支持多点触控
+```
+
+
+
+#### convertPoint:toView:、convertRect:toView、convertPoint:fromView:、convertRect:fromView:
+
+```
+坐标转换
+
+1、convertPoint:toView:
+
+[self.view addSubview:myView];
+[myView convertPoint:CGPointMake(10, 10) toView:self.view];
+
+把子view中的坐标点转换到父容器坐标系中。
+
+[myView convertPoint:CGPointMake(10, 10) fromView:self.view];
+
+把父坐标系中的坐标点 转换到子容器坐标系中
 ```
 
 
@@ -136,44 +174,50 @@ UIViewAutoresizingFlexibleTopMargin
 自动尺寸调整行为可以适合一些布局的要求，但是如果您希望更多地控制视图的布局，可以在适当的视图类中重载layoutSubviews方法。
 ```
 
-
-
-#### - sizeToFit、- sizeThatFits:(CGSize)size
+#### sizeToFit、sizeThatFits:(CGSize)size
 
 ```
 - (CGSize)sizeThatFits:(CGSize)size;     // return 'best' size to fit given size. does not actually resize view. Default is return existing view size
 - (void)sizeToFit;                       // calls sizeThatFits: with current view bounds and changes bounds size
 
-根据文档解释，我们可以知道 sizeThatFits 会返回一个最合适的size，但是并不更新View的size，sizeToFit 调用 sizeThatFits： 并更新size
+根据文档解释，我们可以知道 sizeThatFits 会返回一个最合适的size，但是并不更新View的size，sizeToFit 调用 sizeThatFits： 并更新size， 自动调用drawRect:方法
+
 sizeToFit不应该在子类中被重写，应该重写sizeThatFits
 sizeThatFits传入的参数是receiver当前的size，返回一个适合的size
 ```
 
-UIView继承自UIResponder, 事件响应部分见：[iOS事件响应链](https://xilankong.github.io/ios开发基础/2016/06/23/事件响应链学习整理.html)
 
 
 
-### 层次类别(UIViewHierarchy)
 
+### 3、层次类别
 
-
-#### 插入指定层次、变更View层次等
+#### 方法
 
 ```
+//从父容器移除自己
+- (void)removeFromSuperview;
+
+//添加一个view
+- (void)addSubview:(UIView *)view;
+
+//插入指定位置
 - (void)insertSubview:(UIView *)view atIndex:(NSInteger)index
+
+//调整A\B两个View的位置
 - (void)exchangeSubviewAtIndex:(NSInteger)index1 withSubviewAtIndex:(NSInteger)index2
 
+//把view提到其他subViews的上面
 - (void)bringSubviewToFront:(UIView *)view;
+
+//把view放到其他subViews的下面
 - (void)sendSubviewToBack:(UIView *)view;
 
-[self.view sendSubviewToBack:self.oneview]; //把 self.view 中的 self.oneview 放到其他subView下面
-```
+//根据tag查找对应的view
+- (nullable __kindof UIView *)viewWithTag:(NSInteger)tag;
 
+//UIView添加subView的生命周期
 
-
-#### UIView添加subView的生命周期
-
-```
 - (void)didAddSubview:(UIView *)subview;
 - (void)willRemoveSubview:(UIView *)subview;
 - (void)willMoveToSuperview:(nullable UIView *)newSuperview;
@@ -184,44 +228,25 @@ UIView继承自UIResponder, 事件响应部分见：[iOS事件响应链](https:/
 
 
 
-#### UI更新
-
-```
-
-//标记为需要重新布局，异步调用layoutIfNeeded刷新布局，不立即刷新，但layoutSubviews一定会被调用
-- (void)setNeedsLayout; 
-//如果有需要刷新的标记，立即调用layoutSubviews进行布局（如果没有标记，不会调用layoutSubviews）
-//在视图第一次显示之前，标记总是“需要刷新”的，可以直接调用[view layoutIfNeeded]
-- (void)layoutIfNeeded; 
-- (void)layoutSubviews; //重新布局会进的方法、这个方法，默认没有做任何事情，需要子类进行重写
-```
-
-更详细的UIView的更新机制、以上方法的更多使用细节见：[UIView的更新机制](https://xilankong.github.io/ios开发基础/2016/06/22/自动布局学习整理.html)
-
-
-
-### 渲染类别(UIViewRendering)
-
-
+### 4、渲染类别
 
 #### 属性：
 
+```
 clipsToBounds：是否遮盖越界部分subView的显示，默认NO
 
 opaque : view的不透明度  默认YES
 
 clearsContextBeforeDrawing
-
-```
 重绘的时候清除原有内容
 当view没有设置背景色的时候，或者说opaque为透明的时候不生效。
-```
 
 contentMode： 填充模式
 
 contentStretch：内容拉伸
 
 maskView：view上的遮罩层，不存在和view的层级关系
+```
 
 
 
@@ -230,42 +255,97 @@ maskView：view上的遮罩层，不存在和view的层级关系
 ```
 //重写此方法，执行重绘任务
 - (void)drawRect:(CGRect)rect;
+
 //标记为需要重绘，异步调用drawRect,标上一个需要被重新绘图的标记，在下一个draw周期自动重绘，iphone device的刷新频率是60hz，也就是1/60秒后重绘 
 - (void)setNeedsDisplay;
+
 //标记为需要局部重绘
 - (void)setNeedsDisplayInRect:(CGRect)rect;
 ```
 
 
 
-### 动画类别(UIViewAnimation)
+### UI更新、渲染机制
+
+#### 1、layoutSubviews方法
+
+在UIView里面有一个方法layoutSubviews，这个方法具体作用是什么呢？
+
+layoutSubviews是对subviews重新布局。比如，我们想更新子视图的位置的时候，可以通过调用layoutSubviews方法，既可以实现对子视图重新布局。layoutSubviews默认是不做任何事情的，用到的时候，需要在子类进行重写。
+
+苹果官方文档建议不要直接调用此方法。如果你想强制更新布局，你可以调用setNeedsLayout方法；如果你想立即数显你的views，你需要调用layoutIfNeeded方法。
+
+**layoutSubviews以下情况会被调用**
+
+以下几种情况layoutSubviews会被调用:
 
 ```
-+ (void)beginAnimations:(nullable NSString *)animationID context:(nullable void *)context;  
+1、init初始化不会触发layoutSubviews。
 
-+ (void)commitAnimations;      
+2、addSubview会触发layoutSubviews。 注意：当view的fram的值为0的时候，`addSubview`也不会调用`layoutSubviews`的。
 
-注意点：这两个是成对出现的
-[UIView beginAnimations:nil context:nil];
- // 开始动画// Code...
-[UIView commitAnimations]; // 提交动画
+3、设置view的Frame会触发layoutSubviews，当然前提是frame的值设置前后发生了变化。
+
+4、滚动一个UIScrollView会触发layoutSubviews。
+
+5、旋转Screen会触发父UIView上的layoutSubviews事件。
+
+6、改变一个UIView大小的时候也会触发父UIView上的layoutSubviews事件。
+
+7、直接调用setLayoutSubviews。
 ```
 
 
 
-### 手势类别(UIViewGestureRecognizers)
+#### 2、 setNeedsDisplay 、 setNeedsLayout 和  drawRect
+
+首先 setNeedsDisplay 、 setNeedsLayout两个方法都是异步执行的。而 setNeedsDisplay 会调用自动调用drawRect方法，这样可以拿到  UIGraphicsGetCurrentContext，就可以画画了。而setNeedsLayout会默认调用 layoutSubViews，就可以处理子视图中的一些数据。
+
+综上所诉，setNeedsDisplay方便绘图，而setNeedsLayout方便处理布局。
+
+**drawRect方法以下情况会被调用**
 
 ```
-- (void)addGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer;
+ 1、如果在UIView初始化时没有设置rect大小，将直接导致drawRect不被自动调用。drawRect调用是在Controller->loadView, Controller->viewDidLoad 两方法之后掉用的.所以不用担心在控制器中,这些View的drawRect就开始画了.这样可以在控制器中设置一些值给View(如果这些View draw的时候需要用到某些变量值).
+ 
+2、该方法在调用sizeToFit后被调用，所以可以先调用sizeToFit计算出size。然后系统自动调用drawRect:方法。
 
-- (void)removeGestureRecognizer:(UIGestureRecognizer*)gestureRecognizer;
+3、通过设置contentMode属性值为UIViewContentModeRedraw。那么将在每次设置或更改frame的时候自动调用drawRect:。
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
+4、直接调用setNeedsDisplay，或者setNeedsDisplayInRect:触发drawRect:，但是有个前提条件是rect不能为0。
 
-UIView 可以响应该区域内发生事件，手势类别为UIView添加手势的方法扩展
+以上1,2推荐；而3,4不提倡
 ```
 
+**drawRect方法使用注意点**
 
+```
+1、若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或者 setNeedsDisplayInRect，让系统自动调该方法。
+
+2、若使用calayer绘图，只能在drawInContext: 中（类似于drawRect）绘制，或者在delegate中的相应方法绘制。同样也是调用setNeedDisplay等间接调用以上方法
+
+3、若要实时画图，不能使用gestureRecognizer，只能使用touchbegan等方法来掉用setNeedsDisplay实时刷新屏幕
+```
+
+#### 3、其他更新方法
+
+setNeedsLayout：告知页面需要更新，但是不会立刻开始更新，做标记等待运行循环。执行后会立刻调用layoutSubviews。
+
+layoutIfNeeded：告知页面布局立刻更新。所以一般都会和setNeedsLayout一起使用。如果希望立刻生成新的frame需要调用此方法，利用这点一般布局动画可以在更新布局后直接使用这个方法让动画生效。
+
+layoutSubviews：可以重写布局，默认没有做任何事情，需要子类进行重写
+
+setNeedsUpdateConstraints：告知需要更新约束，但是不会立刻开始
+
+updateConstraintsIfNeeded：告知立刻更新约束
+
+updateConstraints：系统更新约束
+
+
+
+
+
+### 
 
 ## 2、CALayer
 
@@ -279,8 +359,6 @@ UIView 可以响应该区域内发生事件，手势类别为UIView添加手势�
 （2）在自定义layer中的 -(void)drawInContext:方法不会自己调用，只能自己通过setNeedDisplay方法调用，在view中画东西DrawRect:方法在view第一次显示的时候会自动调用。
 ```
 
-
-
 #### - init(layer: Any)
 
 ```
@@ -291,8 +369,6 @@ UIView 可以响应该区域内发生事件，手势类别为UIView添加手势�
 调用这个方法在其他任何情况下将导致未定义的行为。
 
 ```
-
-
 
 #### presentationLayer、modelLayer
 
@@ -308,8 +384,6 @@ Model Tree代表CALayer的真实属性，Presentation Tree对应动画过程中�
 layer.fillMode=kCAFillModeForwards;
 layer.removedOnCompletion=NO;
 ```
-
-
 
 #### zPosition
 
@@ -380,8 +454,6 @@ layer.sublayerTransform = transform;
 
 2、zPosition的体现, 数值越大层级越高。
 
-
-
 #### anchorPoint
 
 是一个CGPoint值，x，y取值范围（0~1），默认为（0.5，0.5） 对于图层本身而言，顾名思义，锚点就用来定位图层的点。
@@ -393,8 +465,6 @@ layer.sublayerTransform = transform;
 2）作为图层旋转、平移、缩放的中心。
 
 锚点 默认为(0.5,0.5)，即边界矩形的中心。
-
-
 
 #### transform ：CATransform3D
 
@@ -447,15 +517,11 @@ CATransform3D CATransform3DRotate (CATransform3D t, CGFloat angle, CGFloat x, CG
 m34负责z轴方向的translation（移动），m34= -1/D,  默认值是0，也就是说D无穷大。D越小透视效果越明显。 所谓的D，是eye（观察者）到投射面的距离。
 ```
 
-
-
 #### masksToBounds、mask
 
 masksToBounds：是否遮盖越界部分Layer，比如常用于边角等
 
 mask：类似于UIView中的 maskView
-
-
 
 #### contents、contentsRect、contentsGravity、contentsScale
 
@@ -475,8 +541,6 @@ contentsScale： 类似于UIView的sacle
 
 ```
 
-
-
 #### contentsCenter
 
 ![](https://xilankong.github.io/resource/slicing.png)
@@ -493,8 +557,6 @@ contentsScale： 类似于UIView的sacle
 一定要设置 view.layer.contentsScale = image.scale，否则图片在Retina 设备会显示不正确
 ```
 
-
-
 #### shadowColor、shadowOpacity、shadowOffset、shadowRadius
 
 ```
@@ -504,8 +566,6 @@ self.startButton.layer.shadowColor = [UIColor blackColor].CGColor; //按钮阴�
 self.startButton.layer.shadowOffset = CGSizeMake(3,3); //按钮阴影偏移量 正负值确认偏移方向
 self.startButton.layer.shadowOpacity = 1; // 阴影的透明度，默认是0   范围 0-1 越大越不透明
 ```
-
-
 
 #### -  (void)setNeedsDisplay; -  (void)setNeedsDisplayInRect:(CGRect)rect;
 
@@ -529,7 +589,6 @@ self.startButton.layer.shadowOpacity = 1; // 阴影的透明度，默认是0   �
 解决方案为：设置layer的contentsScale属性为[[UIScreen mainScreen] scale];
 
 或者复写drawRect方法也有效
-
 ```
 
 
