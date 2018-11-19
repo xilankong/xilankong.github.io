@@ -6,7 +6,7 @@ title : "UIView、CALayer使用说明书"
 
 ## 前言
 
-​	iOS开发中 UI是很重要也是最直观可见的一部分，而所有的控件都是继承自UIView的，UIView既可以实现显示的功能，又可以实现响应用户操作的功能。我们还知道每个UIView中都存在一个东西叫CALayer，实现了内容绘制等功能。本文总结整理UIView和CALayer的一些基本使用。
+​	iOS开发中 UI是很重要也是最直观可见的一部分，而所有的控件都是继承自UIView的，UIView既可以实现显示的功能，又可以实现响应用户操作的功能。我们还知道每个UIView中都存在一个东西叫CALayer，实现了内容绘制等功能。本文总结整理UIView和CALayer的一些基础知识和使用。
 
 
 
@@ -23,15 +23,15 @@ UIView动画方面扩展见: [iOS动画原理与实现](https://xilankong.github
 ```
 1、继承自UIResponder
 
-2、layerClass 设置rootLayer 为自定义layer
+2、layerClass： 可以设置rootLayer 为自定义layer
 
-3、userInteractionEnabled
+3、userInteractionEnabled： 设置响应用户事件能力
 
-4、tag 用于标记view，可以通过viewWithTag 查找对应view
+4、tag： 用于标记view，可以通过viewWithTag 查找对应view
 
-5、layer  获取rootLayer
+5、layer：  获取rootLayer
 
-6、canBecomeFocused  是否能成为焦点
+6、canBecomeFocused：  是否能成为焦点
 ```
 
 
@@ -76,9 +76,9 @@ _redView.transform = CGAffineTransformMakeRotation(M_PI_4);
 _redView.transform = CGAffineTransformRotate(_redView.transform, M_PI_4);
 ```
 
-#### contentScaleFactor
+#### contentScaleFactor (scale的理解)
 
-这个属性代表了从逻辑坐标系转化成当前的设备坐标系的转化比例，在[UIScreen mainScreen]中有个属性叫做scale 和这个是一样的
+这个属性代表了从逻辑坐标系转化成当前的设备坐标系的转化比例，在[UIScreen mainScreen]中有个属性叫做scale 和这个是一样的。
 
 逻辑坐标系即我们数学上经常用的坐标体系,是对现实事物的一种抽象。
 
@@ -167,11 +167,6 @@ UIViewAutoresizingFlexibleBottomMargin
 UIViewAutoresizingFlexibleTopMargin
 这个常量如果被设置，视图的上边界将随着父视图高度的变化而按比例进行调整。否则，视图和其父视图的上边界的相对位置将保持不变。
 
-
-如 果您通过Interface Builder配置视图，则可以用Size查看器的Autosizing控制来设置每个视图的自动尺寸调整行为。上图中的灵活宽度及高度常量和 Interface Builder中位于同样位置的弹簧具有同样的行为，但是空白常量的行为则是正好相反。换句话说，如果要将灵活右空白的自动尺寸调整行为应用到 Interface Builder的某个视图，必须使相应方向空间的Autosizing控制为空，而不是放置一个支柱。幸运的是，Interface Builder通过动画显示了您的修改对视图自动尺寸调整行为的影响。
-如果视图的autoresizesSubviews属性被设置为 NO，则该视图的直接子视图的所有自动尺寸调整行为将被忽略。类似地，如果一个子视图的自动尺寸调整掩码被设置为 UIViewAutoresizingNone，则该子视图的尺寸将不会被调整，因而其直接子视图的尺寸也不会被调整。
-请注意：为了使自动尺寸调整的行为正确，视图的transform属性必须设置为恒等变换；其它变换下的尺寸自动调整行为是未定义的。
-自动尺寸调整行为可以适合一些布局的要求，但是如果您希望更多地控制视图的布局，可以在适当的视图类中重载layoutSubviews方法。
 ```
 
 #### sizeToFit、sizeThatFits:(CGSize)size
@@ -277,8 +272,6 @@ layoutSubviews是对subviews重新布局。比如，我们想更新子视图的�
 
 **layoutSubviews以下情况会被调用**
 
-以下几种情况layoutSubviews会被调用:
-
 ```
 1、init初始化不会触发layoutSubviews。
 
@@ -341,10 +334,6 @@ updateConstraintsIfNeeded：告知立刻更新约束
 
 updateConstraints：系统更新约束
 
-
-
-
-
 ### 
 
 ## 2、CALayer
@@ -362,12 +351,11 @@ updateConstraints：系统更新约束
 #### - init(layer: Any)
 
 ```
-这个初始值设定项CoreAnimation用来创建阴影的副本层,
+这个初始值设定项CoreAnimation用来创建阴影的副本层
 
 如用作表示层。子类可以重写这个方法来将自己的实例变量复制到演示层(子类应该调用超类之后)。
 
-调用这个方法在其他任何情况下将导致未定义的行为。
-
+调用这个方法在其他任何情况下将导致未定义的行为错误。
 ```
 
 #### presentationLayer、modelLayer
@@ -379,7 +367,7 @@ Model Tree
 Presentation Tree
 Render Tree
 
-Model Tree代表CALayer的真实属性，Presentation Tree对应动画过程中的属性。无论动画进行中还是已经结束，Model Tree都不会发生变化，变化的是Presentation Tree。而动画结束后，Presentation Tree就被重置回到了初始状态。为了让其保持旋转状态，需要在加两句代码：
+Model Tree代表CALayer的真实属性，Presentation Tree对应动画过程中的属性。无论动画进行中还是已经结束，Model Tree都不会发生变化，变化的是Presentation Tree。而动画结束后，Presentation Tree就被重置回到了初始状态。为了让其保持动画结束状态，需要在加两句代码：
 
 layer.fillMode=kCAFillModeForwards;
 layer.removedOnCompletion=NO;
@@ -478,7 +466,6 @@ transform ： 是结合 anchorPoint（锚点）的位置来对图层和图层上
 sublayerTransform：是结合anchorPoint（锚点）的位置来对图层的子图层进行变化，不包括本身。
 
 CATransform3DIdentity 是单位矩阵，该矩阵没有缩放，旋转，歪斜，透视。该矩阵应用到图层上，就是设置默认值。
-
 ```
 
 分析一下CATransform3D的结构：[iOS CATransform3D](http://www.jianshu.com/p/e8d1985dccec)
@@ -509,11 +496,12 @@ CATransform3D CATransform3DRotate (CATransform3D t, CGFloat angle, CGFloat x, CG
 
 接着上面的zPosition的测试我们继续分析：
 
+```
 1、CALayer的 transform和sublayerTransform 属性都是CATransform3D 类型，允许实现3D变换
 
 2、从第一次测试和第二次测试可以看到，关于3D旋转变化，如果不设置上面的m34属性，整个变化结束后不会有那种透视效果（近大远小）
 
-```
+
 m34负责z轴方向的translation（移动），m34= -1/D,  默认值是0，也就是说D无穷大。D越小透视效果越明显。 所谓的D，是eye（观察者）到投射面的距离。
 ```
 
