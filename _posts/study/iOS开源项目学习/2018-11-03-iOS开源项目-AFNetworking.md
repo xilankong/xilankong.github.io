@@ -115,6 +115,12 @@ NSURLSessionDataDelegate : task-level面向data和upload的代理方法
 NSURLSessionDownloadDelegate : task-level的面向download的代理方法
 
 NSURLSessionStreamDelegate : task-level的面向stream的代理方法
+
+一旦指定了 session 的代理，session会对代理进行强引用，如果不主动取消 session，会造成内存泄漏！
+
+强引用的原因：
+
+下载任务，网络任务是异步操作
 ```
 
 
