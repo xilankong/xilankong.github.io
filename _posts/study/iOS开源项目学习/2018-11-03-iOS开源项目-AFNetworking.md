@@ -220,7 +220,7 @@ NSURLSessionDownloadTask *task = [session downloadTaskWithURL:[NSURL URLWithStri
 #### 身份验证或者 TLS握手
 
 ```
-这是所有task都必须经历的一个过程. 当一个服务器请求身份验证或TLS握手期间需要提供证书的话, URLSession会调用他的代理方法URLSession:didReceiveChallenge:completionHandler:去处理., 另外, 如果连接途中收到服务器返回需要身份认证的response, 也会调用该代理方法。
+这是所有task都必须经历的一个过程. 当一个服务器请求身份验证或TLS握手期间需要提供证书的话, URLSession会调用他的代理方法URLSession:didReceiveChallenge:completionHandler:去处理, 另外, 如果连接途中收到服务器返回需要身份认证的response, 也会调用该代理方法。
 ```
 
 #### 重定位response
@@ -762,7 +762,7 @@ AFHTTPRequestSerializer \ AFJSONRequestSerializer \ AFPropertyListRequestSeriali
       
 实现该方法 请求序列化器可以将参数编码为查询字符串，HTTP主体，根据需要设置适当的HTTP头字段。
 
-例如，JSON请求序列化器可以将请求的HTTP主体设置为JSON表示，并将Content-TypeHTTP标头字段值设置为application / json。
+例如，JSON请求序列化器可以将请求的HTTP主体设置为JSON表示，并将Content-Type HTTP标头字段值设置为application / json。
 ```
 
 #### 特殊属性
@@ -780,7 +780,7 @@ AFHTTPRequestSerializer \ AFJSONRequestSerializer \ AFPropertyListRequestSeriali
 
 3、requestHeaderModificationQueue 
 
-dispatch_queue_create("requestHeaderModificationQueue", DISPATCH_QUEUE_CONCURRENT); 并发操作队列，用于请求变更的操作
+dispatch_queue_create("requestHeaderModificationQueue", DISPATCH_QUEUE_CONCURRENT); 并发操作队列，用于请求变更的操作，mutableHTTPRequestHeaders的修改
 
 
 4、- (NSMutableURLRequest *)requestWithMethod:(NSString *)method

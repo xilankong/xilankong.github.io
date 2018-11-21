@@ -1,7 +1,7 @@
 ---
 layout: post
 category: iOS开发进阶
-title : "函数式编程"
+title : "React Native"
 ---
 
 
