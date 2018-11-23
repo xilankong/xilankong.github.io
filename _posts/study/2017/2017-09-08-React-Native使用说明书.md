@@ -1,12 +1,12 @@
 ---
-
+layout: post
+category: 2017年
+title : "React-Native使用说明书"
 ---
 
 http://reactnative.cn/docs/0.48/getting-started.html
 
-layout: post
-category: 2017年
-title : "React-Native使用说明书"
+
 
 ## 模块
 
