@@ -376,7 +376,7 @@ URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:
 4. Applecation里的completionHandler必须存储起来, 等你处理完所有事情之后再调用告诉系统可以进行Snapshot和挂起app了
 5. 后台下载最好支持断点续传, 因为任务有可能会被系统主动取消(例如系统性能下降了, 资源不够用的情况下)
 
-
+  6.后台任务可以通过 通知唤醒，VoIP唤醒
 
 ### 其他重要知识
 
@@ -803,7 +803,11 @@ requestBySerializingRequest 方法
 **AFJSONRequestSerializer**
 
 ```
-NSJSONWritingOptions writingOptions
+主要是 
+
+[mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+content-Type的不同
 ```
 
 
@@ -811,9 +815,7 @@ NSJSONWritingOptions writingOptions
 **AFPropertyListRequestSerializer**
 
 ```
-NSPropertyListFormat format
-
-NSPropertyListWriteOptions writeOptions
+ [mutableRequest setValue:@"application/x-plist" forHTTPHeaderField:@"Content-Type"];
 ```
 
 
@@ -821,7 +823,7 @@ NSPropertyListWriteOptions writeOptions
 **AFMultipartFormData**
 
 ```
-
+AFMultipartFormData是一份协议，用于拼装 formdata
 ```
 
 
@@ -1014,17 +1016,3 @@ AFNetworkingReachabilityDidChangeNotification
 
 
 
-
-### 6、Category扩展部分
-
-
-
-
-
-
-
-
-
-## 参考
-
-http://ios.jobbole.com/93098/
