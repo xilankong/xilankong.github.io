@@ -1,8 +1,12 @@
 ---
+
+---
+
 layout: post
 category: iOS开源项目
 title : "iOS开源项目-SDWebImage"
----
+
+
 
 1.入口 setImageWithURL:placeholderImage:options:
 会先把 placeholderImage 显示，然后 SDWebImageManager 根据 URL 开始处理图片。
