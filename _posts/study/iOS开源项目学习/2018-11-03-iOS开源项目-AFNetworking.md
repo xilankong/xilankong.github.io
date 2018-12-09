@@ -371,12 +371,30 @@ URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:
 #### 总结后台传输
 
 1. 尽量用真机进行调试, 模拟器会跳过某一两个方法
+
 2. 只能进行upload/download task, 不能进行data task
+
 3. 不能使用带completionHandler的方法创建task, 否则程序直接挂掉
+
 4. Applecation里的completionHandler必须存储起来, 等你处理完所有事情之后再调用告诉系统可以进行Snapshot和挂起app了
+
 5. 后台下载最好支持断点续传, 因为任务有可能会被系统主动取消(例如系统性能下降了, 资源不够用的情况下)
 
-  6.后台任务可以通过 通知唤醒，VoIP唤醒
+6. 后台任务可以通过 通知唤醒，VoIP唤醒
+
+  ```
+  推送唤醒
+  
+  1：在UIBackgroundModes添加remote-notification
+  
+  2：更改推送的payload：需要在payload中添加content-available，并设置为1
+  
+  3：实现推送唤醒代码
+  
+  -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{}
+  代码实现与上一种方式一致，任务实现完需要调用回调方法通知系统
+  ```
+
 
 ### 其他重要知识
 
