@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 2016年
+category: iOS开发工具
 title: "CocoaPods使用说明书" 
 ---
 

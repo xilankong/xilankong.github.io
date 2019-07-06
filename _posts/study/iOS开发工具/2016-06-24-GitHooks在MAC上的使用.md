@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 2016年
+category: iOS开发工具
 title:  "GitHooks在IOS开发上的使用" 
 ---
 
