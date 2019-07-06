@@ -363,9 +363,7 @@ updateConstraints：系统更新约束
 ```
 CALayer中存在三个tree，他们分别是：
 
-Model Tree
-Presentation Tree
-Render Tree
+presentLayer Tree(动画树)，modeLayer Tree(模型树), Render Tree(渲染树)
 
 Model Tree代表CALayer的真实属性，Presentation Tree对应动画过程中的属性。无论动画进行中还是已经结束，Model Tree都不会发生变化，变化的是Presentation Tree。而动画结束后，Presentation Tree就被重置回到了初始状态。为了让其保持动画结束状态，需要在加两句代码：
 
