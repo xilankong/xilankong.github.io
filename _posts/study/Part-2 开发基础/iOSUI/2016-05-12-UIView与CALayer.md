@@ -1,12 +1,13 @@
 ---
 layout: post
 category: iOS开发基础
-title : "UIView、CALayer使用说明书"
+title : "UIView与CALayer"
+comments: true
 ---
 
 ## 前言
 
-​	iOS开发中 UI是很重要也是最直观可见的一部分，而所有的控件都是继承自UIView的，UIView既可以实现显示的功能，又可以实现响应用户操作的功能。我们还知道每个UIView中都存在一个东西叫CALayer，实现了内容绘制等功能。本文总结整理UIView和CALayer的一些基础知识和使用。
+iOS开发中 UI是很重要也是最直观可见的一部分，而所有的控件都是继承自UIView的，UIView既可以实现显示的功能，又可以实现响应用户操作的功能。我们还知道每个UIView中都存在一个东西叫CALayer，实现了内容绘制等功能。本文总结整理UIView和CALayer的一些基础知识和使用。
 
 
 
@@ -180,8 +181,6 @@ UIViewAutoresizingFlexibleTopMargin
 sizeToFit不应该在子类中被重写，应该重写sizeThatFits
 sizeThatFits传入的参数是receiver当前的size，返回一个适合的size
 ```
-
-
 
 
 
