@@ -1,6 +1,6 @@
 ---
 layout: post
-category: iOS其他知识
+category: 其他知识
 title : "React-Native使用说明书"
 ---
 
