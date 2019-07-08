@@ -26,6 +26,8 @@ share:
   fb_appid: 1749788565247320
 
 urls:
+    - text: 首页
+      url: /
     - text: 学习进步
       url: /category/
     - text: 不务正业
