@@ -16,9 +16,9 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-send
+    - icon: fa-comments
       link: "mailto:xilankong@126.com"
-    - icon: fa-github-alt
+    - icon: fa-github-square
       link: "https://github.com/xilankong"
 
 share:
