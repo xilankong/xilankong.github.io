@@ -8,21 +8,18 @@
 	},{
 		"name": "宅",
 		"image": "three.jpg",
-		"url": "#",
 		"date": "Jue 2019",
 		"tags": ["手绘"]
 	},
 	{
 		"name": "年年有余",
 		"image": "one.jpg",
-		"url": "#",
 		"date": "Dec 2018",
 		"tags": ["手绘","年画"]
 	},
 	{
 		"name": "新年快乐",
 		"image": "two.jpg",
-		"url": "#",
 		"date": "Dec 2018",
 		"tags": ["手绘","年画"]
 	}
