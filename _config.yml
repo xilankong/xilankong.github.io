@@ -16,7 +16,7 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-comments
+    - icon: fa-envelope-square
       link: "mailto:xilankong@126.com"
     - icon: fa-github-square
       link: "https://github.com/xilankong"
@@ -29,6 +29,8 @@ urls:
     - text: 首页
       url: /
     - text: 学习进步
+      url: /category/
+    - text: 日常生活
       url: /category/
     - text: 不务正业
       url: /projects/
