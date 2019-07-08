@@ -1,224 +1,73 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <title>yang的博客 | {{ page.title }}</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:url" content="{{ site.github.url }}{{ page.url }}">
-  <meta property="og:title" content="{{ page.title }}">
-  <meta property="og:image" content="{{ site.github.url }}/img/portrait.JPG">
-  <meta property="og:site_name" content="yang">
-  <link rel="stylesheet" href="{{ site.github.url }}/css/post.css">
-  <link rel="stylesheet" href="{{ site.github.url }}/css/pygments.css">
-<script type="text/javascript">
+---
+layout: default
+---
+<header class="post-header">
+  <h1 class="post-title">{{ page.title }}</h1>
+</header>
 
-var BlogDirectory = {
-    /*
-        获取元素位置，距浏览器左边界的距离（left）和距浏览器上边界的距离（top）
-    */
-    getElementPosition:function (ele) {        
-        var topPosition = 0;
-        var leftPosition = 0;
-        while (ele){              
-            topPosition += ele.offsetTop;
-            leftPosition += ele.offsetLeft;        
-            ele = ele.offsetParent;     
-        }  
-        return {top:topPosition, left:leftPosition}; 
-    },
+<span class="time">{{ page.date | date_to_string }}</span>
+{% if page.categories %}
+  <span class="categories">
+    &raquo; {% for category in page.categories %}<a href="/category/{{ category }}">{{ category }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %}
+  </span>
+{% endif %}
 
-    /*
-    获取滚动条当前位置
-    */
-    getScrollBarPosition:function () {
-        var scrollBarPosition = document.body.scrollTop || document.documentElement.scrollTop;
-        return  scrollBarPosition;
-    },
-    
-    /*
-    移动滚动条，finalPos 为目的位置，internal 为移动速度
-    */
-    moveScrollBar:function(finalpos, interval) {
+<div class="content">
+  <div class="post">{{ content }}</div>
+  {% include share-page.html %}
+</div>
 
-        //若不支持此方法，则退出
-        if(!window.scrollTo) {
-            return false;
-        }
-
-        //窗体滚动时，禁用鼠标滚轮
-        window.onmousewheel = function(){
-            return false;
-        };
-          
-        //清除计时
-        if (document.body.movement) { 
-            clearTimeout(document.body.movement); 
-        } 
-
-        var currentpos =BlogDirectory.getScrollBarPosition();//获取滚动条当前位置
-
-        var dist = 0; 
-        if (currentpos == finalpos) {//到达预定位置，则解禁鼠标滚轮，并退出
-            window.onmousewheel = function(){
-                return true;
-            }
-            return true; 
-        } 
-        if (currentpos < finalpos) {//未到达，则计算下一步所要移动的距离
-            dist = Math.ceil((finalpos - currentpos)/10); 
-            currentpos += dist; 
-        } 
-        if (currentpos > finalpos) { 
-            dist = Math.ceil((currentpos - finalpos)/10); 
-            currentpos -= dist; 
-        }
-        
-        var scrTop = BlogDirectory.getScrollBarPosition();//获取滚动条当前位置
-        window.scrollTo(0, currentpos);//移动窗口
-        if(BlogDirectory.getScrollBarPosition() == scrTop)//若已到底部，则解禁鼠标滚轮，并退出
-        {
-            window.onmousewheel = function(){
-                return true;
-            }
-            return true;
-        }
-        
-        //进行下一步移动
-        var repeat = "BlogDirectory.moveScrollBar(" + finalpos + "," + interval + ")"; 
-        document.body.movement = setTimeout(repeat, interval); 
-    },
-    
-    htmlDecode:function (text){
-        var temp = document.createElement("div");
-        temp.innerHTML = text;
-        var output = temp.innerText || temp.textContent;
-        temp = null;
-        return output;
-    },
-
-    /*
-    创建博客目录，
-    id表示包含博文正文的 div 容器的 id，
-    mt 和 st 分别表示主标题和次级标题的标签名称（如 H2、H3，大写或小写都可以！），
-    interval 表示移动的速度
-    */
-    createBlogDirectory:function (id, mt, st, interval){
-         //获取博文正文div容器
-        var elem = document.getElementById(id);
-        if(!elem) return false;
-        //获取div中所有元素结点
-        var nodes = elem.getElementsByTagName("*");
-        //创建博客目录的div容器
-        var divSideBar = document.getElementById("toc");
-        var divSideBarContents = document.createElement('DIV');
-        divSideBarContents.style.display = 'block';
-        divSideBarContents.setAttribute('id', 'sideBarContents');
-        divSideBar.appendChild(divSideBarContents);
-        //创建自定义列表
-        var dlist = document.createElement("dl");
-        divSideBarContents.appendChild(dlist);
-        var num = 0;//统计找到的mt和st
-        mt = mt.toUpperCase();//转化成大写
-        st = st.toUpperCase();//转化成大写
-        //遍历所有元素结点
-        for(var i=0; i<nodes.length; i++)
-        {
-            if(nodes[i].nodeName == mt|| nodes[i].nodeName == st)    
-            {
-                //获取标题文本
-                var nodetext = nodes[i].innerHTML.replace(/<\/?[^>]+>/g,"");//innerHTML里面的内容可能有HTML标签，所以用正则表达式去除HTML的标签
-                nodetext = nodetext.replace(/&nbsp;/ig, "");//替换掉所有的&nbsp;
-                nodetext = BlogDirectory.htmlDecode(nodetext);
-                //插入锚        
-                nodes[i].setAttribute("id", "blogTitle" + num);
-                var item;
-                switch(nodes[i].nodeName)
-                {
-                    case mt:    //若为主标题 
-                        item = document.createElement("dt");
-                        break;
-                    case st:    //若为子标题
-                        item = document.createElement("dd");
-                        break;
-                }
-                
-                //创建锚链接
-                var itemtext = document.createTextNode(nodetext);
-                item.appendChild(itemtext);
-                item.setAttribute("name", num);
-                item.onclick = function(){        //添加鼠标点击触发函数
-                    var pos = BlogDirectory.getElementPosition(document.getElementById("blogTitle" + this.getAttribute("name")));
-                    if(!BlogDirectory.moveScrollBar(pos.top-15, interval)) return false;
-                };            
-                //将自定义表项加入自定义列表中
-                dlist.appendChild(item);
-                num++;
-            }
-        }
-        if (num < 2) {
-            document.getElementById("sideBar").style.display = "none";
-        };
-        if(num == 0) {
-            return false; 
-        }
-    }
-    
-};
-(function () {
-  var ie = !!(window.attachEvent && !window.opera);
-  var wk = /webkit\/(\d+)/i.test(navigator.userAgent) && (RegExp.$1 < 525);
-  var fn = [];
-  var run = function () { for (var i = 0; i < fn.length; i++) fn[i](); };
-  var d = document;
-  d.ready = function (f) {
-    if (!ie && !wk && d.addEventListener)
-      return d.addEventListener('DOMContentLoaded', f, false);
-    if (fn.push(f) > 1) return;
-    if (ie)
-      (function () {
-        try { d.documentElement.doScroll('left'); run(); }
-        catch (err) { setTimeout(arguments.callee, 0); }
-      })();
-    else if (wk)
-      var t = setInterval(function () {
-        if (/^(loaded|complete)$/.test(d.readyState))
-          clearInterval(t), run();
-      }, 0);
-  };
-})();
-document.ready(function(){
-   BlogDirectory.createBlogDirectory("articleBody","h2","h3",20);
-});
-function pageScroll(){
-    BlogDirectory.moveScrollBar(0, 20);
-}
-  </script>
-</head>
-<body>
-  <div class="mianBody" id="mianBody">
-    <div class="content">
-      <article>
-        <h1 property="name">{{ page.title }}</h1>
-        <time property="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d"  }}  /   
-            {% if page.category == "生活收获"  %}
-            <a href="https://xilankong.github.io/life.html"> {{page.category}}</a> / <a href="https://xilankong.github.io"> 主页</a>
-            {% else %}
-            <a href="https://xilankong.github.io/study.html"> {{page.category}}</a> / <a href="https://xilankong.github.io"> 主页</a> 
+{% assign hasSimilar = '' %}
+  {% for post in site.posts  %}
+    {% assign postHasSimilar = false %}
+      {% for tag in post.categories %}
+        {% for thisTag in page.categories %}
+          {% if postHasSimilar == false and hasSimilar.size < 6 and post != page and tag == thisTag %}
+            {% if hasSimilar.size == 0 %}
+            <div class="panel-body">
+              <h4>Related Posts</h4>
+              <ul>
             {% endif %}
-        </time>
-        <div class="body" property="articleBody" id="articleBody">
-          {{ content }}
-        </div>
-      </article>
-    </div>
-    <div id="sideBar" class = "sideBar">
-      <section id="portrait">
-        <h1>传送标签</h1>
-      </section>
-      <section id="toc">
-      </section>
+                <li class="relatedPost">
+                  <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+                  {% if post.categories %}
+                    (Categories: {% for category in post.categories %}<a href="/category/{{ category }}">{{ category }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %})
+                  {% endif %}
+                </li>
+          {% capture hasSimilar %}{{ hasSimilar }}*{% endcapture %}
+          {% assign postHasSimilar = true %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+  {% if hasSimilar.size > 0 %}
+  </ul>
+</div>
+{% endif %}
 
-    </div>
-  </div>
-</body>
-</html>
+<div class="PageNavigation">
+  {% if page.previous.url %}
+    <a class="prev" href="{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
+  {% endif %}
+  {% if page.next.url %}
+    <a class="next" href="{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
+  {% endif %}
+</div>
+
+<div class="disqus-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var disqus_shortname = "{{ site.disqus_shortname }}";
+    var disqus_identifier = "{{ site.url }}_{{ page.title }}";
+    var disqus_title = "{{ page.title }}";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    /* ]]> */
+  </script>
+</div>
