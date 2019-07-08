@@ -7,6 +7,7 @@ layout: default
 
 <div class="post-content">
   <hr />
+  {{ page.categories }}
   {% for category in site.categories %}
     {% capture category_slug %}{{ category | first }}{% endcapture %}
     {% for c_slug in category_slug %}
