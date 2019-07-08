@@ -18,7 +18,7 @@ collections:
 social:
     - icon: fa-send
       link: "mailto:xilankong@126.com"
-    - icon: fa-github
+    - icon: fa-github-alt
       link: "https://github.com/xilankong"
 
 share:
@@ -27,7 +27,7 @@ share:
 
 urls:
     - text: 学习进步
-      url: /categorys/
+      url: /category/
     - text: 不务正业
       url: /projects/
     - text: 关于我
