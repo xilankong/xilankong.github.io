@@ -16,14 +16,8 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-facebook
-      link: "#"
-    - icon: fa-twitter
-      link: "#"
-    - icon: fa-linkedin
-      link: "#"
-    - icon: fa-stack-exchange
-      link: "#"
+    - icon: fa-send
+      link: "mailto:xilankong@126.com"
     - icon: fa-github
       link: "https://github.com/xilankong"
 
@@ -32,10 +26,12 @@ share:
   fb_appid: 1749788565247320
 
 urls:
-    - text: 关于我
-      url: /about/
+    - text: 学习进步
+      url: /categorys/
     - text: 不务正业
       url: /projects/
+    - text: 关于我
+      url: /about/
 
 url: "https://xilankong.github.io/"
 baseurl: ""
