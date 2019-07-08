@@ -1,9 +1,9 @@
-title: Stack Problems
-description: My Personal Stack Problems
-author: Agus Makmun
-github: https://github.com/agusmakmun
-about: I'm Programmer for Python & Django. I've made quite a few web apps, especially on Django.
-disqus_shortname: stackproblems
+title: 好好学习，天天向上
+description: 好好学习，天天向上
+author: Yang
+github: https://github.com/xilankong
+about: 我是yang，一名iOS搬砖工。
+disqus_shortname: 好好学习
 google_analytics: UA-XXXXXXXX-Y
 avatar_url: /static/img/avatar.jpg
 
@@ -32,14 +32,12 @@ share:
   fb_appid: 1749788565247320
 
 urls:
-    - text: About Me
+    - text: 关于我
       url: /about/
-    - text: My Projects
+    - text: 不务正业
       url: /projects/
-    - text: XML Feed
-      url: /feed.xml
 
-url: "https://agusmakmun.github.io"
+url: "https://xilankong.github.io/"
 baseurl: ""
 paginate: 20
 per_page: 20
