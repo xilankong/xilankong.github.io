@@ -31,7 +31,7 @@ urls:
     - text: 学习进步
       url: /category/
     - text: 日常生活
-      url: /category/
+      url: /category/生活
     - text: 不务正业
       url: /projects/
     - text: 关于我
