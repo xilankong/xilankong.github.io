@@ -32,6 +32,8 @@ urls:
       url: /category/
     - text: iOS开发基础
       url: /category/iOS开发基础
+    - text: iOS开源项目
+      url: /category/iOS开源项目
     - text: 日常生活
       url: /category/生活
     - text: 不务正业
