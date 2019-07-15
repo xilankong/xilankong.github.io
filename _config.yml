@@ -30,6 +30,8 @@ urls:
       url: /
     - text: 学习进步
       url: /category/
+    - text: iOS开发基础
+      url: /category/iOS开发基础
     - text: 日常生活
       url: /category/生活
     - text: 不务正业
