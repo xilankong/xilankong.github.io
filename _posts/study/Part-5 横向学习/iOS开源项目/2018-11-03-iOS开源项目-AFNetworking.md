@@ -28,7 +28,7 @@ NSURLConnection.sendAsynchronousRequest(URLRequest(url: URL(string: "http://rap2
 1、下载方式
 NSURLConnection下载文件时，先是将整个文件下载到内存，然后再写入到沙盒，如果文件比较大，就会出现内存暴涨的情况。
 
-而使用NSURLSessionDownloadTask下载文件，会默认下载到沙盒中的tem文件中，不会出现内存暴涨的情况，但是在下载完成后会把tem中的临时文件删除，需要在初始化任务方法时，在completionHandler回调中增加保存文件的代码。
+而使用NSURLSessionDownloadTask下载文件，会默认下载到沙盒中的temp文件中，不会出现内存暴涨的情况，但是在下载完成后会把temp中的临时文件删除，需要在初始化任务方法时，在completionHandler回调中增加保存文件的代码。
 
 2、控制方法
 NSURLConnection实例化对象，实例化开始，默认请求就发送(同步发送),不需要调用start方法。而cancel可以停止请求的发送，停止后不能继续访问，需要创建新的请求。
@@ -350,7 +350,7 @@ URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:
 
 - 我们等下载到一半后进入后台, 打开App Switcher过一会可以发现, 图片下载完之后就会显示在应用程序上. 方法调用顺序为 : 下面四个方法全部都是app在后台时调用的
 
-![img](http://upload-images.jianshu.io/upload_images/1862021-83f89d2f08e3c874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![img](http://upload-images.jianshu.io/upload_images/1862021-83f89d2f08e3c874.png)
 
 
 
@@ -629,9 +629,9 @@ mutableTaskDelegatesKeyedByTaskIdentifier  移除代理键值对
 
 3、URLSessionDidFinishEventsForBackgroundURLSession:
 
-回调block:   didFinishEventsForBackgroundURLSession
+回调block: didFinishEventsForBackgroundURLSession
 
-在iOS中使用NSURLSession,当一个下载任务完成时,app将会自动重启。app代理方法application:handleEventsForBackgroundURLSession:completionHandler:负责重建合适的会话,存储完成处理块,并在会话对象调用会话代理的 URLSessionDidFinishEventsForBackgroundURLSession:方法时调用完成处理块。
+在iOS中使用NSURLSession,当一个下载任务完成时,app将会自动重启 app代理方法application:handleEventsForBackgroundURLSession:completionHandler:负责重建合适的会话,存储完成处理块,并在会话对象调用会话代理的 URLSessionDidFinishEventsForBackgroundURLSession:方法时调用完成处理块。
 
 
 ```
@@ -930,7 +930,6 @@ AFSSLPinningModeCertificate
 
 注意： 只要在证书集合中任何一个校验通过，evaluateServerTrust:forDomain: 就会返回true，即通过校验。
 
-
 2、allowInvalidCertificates
 
 使用允许无效或过期的证书，默认是不允许。
@@ -938,7 +937,6 @@ AFSSLPinningModeCertificate
 3、validatesDomainName
 
 是否验证证书中的域名domain
-
 ```
 
 **AFSecurityPolicy方法分析**
