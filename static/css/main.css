@@ -93,7 +93,7 @@ footer {
 
 /* Left column */
 div.col-sm-3 {
-  margin-top: 100px;
+  margin-top: 130px;
   font-size: 15px;
   color: #666;
   float:left;
@@ -120,7 +120,8 @@ div.col-sm-3 img.profile-avatar {
 
 div .rightContent {
   float:left;
-  width: 70%;
+  margin-left: 30px;
+  margin-top: 30px;
 }
 
 /**
