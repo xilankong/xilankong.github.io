@@ -111,7 +111,7 @@ layout: compress
     {% endif %}
   </head>
   <body>
-    <div class="homeContent">
+    <div class="postContent">
       <div class="col-sm-3">
         <div class="fixed-condition">
           <a href="/"><img class="profile-avatar" src="{{ site.avatar_url }}" height="100px" width="100px" /></a>
@@ -143,6 +143,7 @@ layout: compress
         <!-- end /.fixed-condition -->
       </div>
       <div class="rightContent">
+         <h1 class="post-title">{{ page.title }}</h1>
          <span class="time">{{ page.date | date_to_string }}</span>
           {% if page.categories %}
             <span class="categories">

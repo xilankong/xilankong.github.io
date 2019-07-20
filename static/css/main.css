@@ -66,6 +66,12 @@ div.homeContent {
   height: 400px;
   margin:0 auto;
 }
+/* Content */
+div.postContent {
+  width: 1000px;
+  margin:0 auto;
+}
+
 div.content pre {
   background: #333333;
   padding: 10px;
