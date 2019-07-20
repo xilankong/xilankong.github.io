@@ -43,6 +43,11 @@ a:hover {
   text-decoration: underline;
 }
 
+.post-title {
+  
+  font-size: 23px;
+}
+
 /* Layout */
 .main-layout {
   background: #fff;
