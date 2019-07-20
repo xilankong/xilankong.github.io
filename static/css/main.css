@@ -13,7 +13,7 @@ hr {
 }
 span.time, span.categories {
   color: #ADADAD;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-size: 15px;
 }
 h1, h2, h3 {
@@ -43,7 +43,7 @@ a:hover {
 
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 /* Layout */
