@@ -16,7 +16,7 @@ span.time, span.categories {
   margin-bottom: 20px;
   font-size: 15px;
 }
-h1, h2, h3 {
+h1, h2, h3, h4, h5 {
   color: #696969;
   font-weight: normal;
 }
