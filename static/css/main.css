@@ -37,7 +37,7 @@ h2, h3 {
 }
 a, a:link, a:active {
   text-decoration: none;
-  color: #3fa757;
+  color: #4FB980;
 }
 a:hover {
   color: #B3B3B3;
@@ -101,6 +101,7 @@ div.col-sm-3 {
   margin-top: 100px;
   font-size: 15px;
   color: #666;
+  display:inline;
 }
 div.col-sm-3 strong {
   font-size: 16px;
@@ -121,6 +122,10 @@ div.col-sm-3 img.profile-avatar {
   margin-right: auto;
 }
 
+div .rightContent {
+  display:inline;
+  width: 70%;
+}
 
 /**
  * table
