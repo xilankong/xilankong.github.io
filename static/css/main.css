@@ -30,6 +30,10 @@ h2, h3 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+h4, h5 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 a, a:link, a:active {
   text-decoration: none;
   color: #4FB980;
