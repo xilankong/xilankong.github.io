@@ -66,9 +66,8 @@ div.homeContent {
   width: 800px;
   height: 400px;
   position: absolute;
-  left:50%;top:50%; 
-  margin-left:-200px;
-  margin-top:-250px;
+  left:50%;
+  margin-top:250px;
 }
 div.content pre {
   background: #333333;
@@ -102,7 +101,7 @@ div.col-sm-3 {
   font-size: 15px;
   color: #666;
   float:left;
-  width: 30%;
+  width: 220px;
 }
 div.col-sm-3 strong {
   font-size: 16px;
