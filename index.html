@@ -133,6 +133,12 @@ layout: compress
             
           </div>
           <hr />
+           <ul class="sidebar-nav">
+            <strong>分类</strong>
+            {% for i in site.urls %}
+              <li><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
+            {% endfor %}
+          </ul>
         </div>
         <!-- end /.fixed-condition -->
       </div>
