@@ -13,7 +13,7 @@ hr {
 }
 span.time, span.categories {
   color: #ADADAD;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   font-size: 15px;
 }
 h1, h2, h3 {
@@ -61,6 +61,17 @@ a:hover {
 .sidebar-nav li::before {
   content: "»";
   margin-right: .5em;
+}
+
+.fixed-condition {
+  position: fixed;
+  max-width: 255px;
+}
+.content{
+  margin-top: 40px;
+  padding-left:5px;
+  padding-right:5px;
+  word-wrap:break-word;word-break:break-all;
 }
 
 /* Content */
@@ -232,18 +243,7 @@ table tr td:last-child {
   max-width: 100%
 }
 
-/* Responsive Conditional */
-@media (min-width: 1024px) {
-  .fixed-condition {
-    position: fixed;
-    max-width: 255px;
-  }
-  .content{
-    padding-left:5px;
-    padding-right:5px;
-    word-wrap:break-word;word-break:break-all;
-  }
-}
+
 @media (max-width: 768px) {
   .homeContent{
   width: 100%;
