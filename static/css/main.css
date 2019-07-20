@@ -62,8 +62,13 @@ a:hover {
 }
 
 /* Content */
-div.container {
-  margin-top: 50px;
+div.homeContent {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  left:50%;top:50%; 
+  margin-left:-200px;
+  margin-top:-250px;
 }
 div.content pre {
   background: #333333;
@@ -221,6 +226,11 @@ table tr td:last-child {
   }
 }
 @media (max-width: 768px) {
+  .homeContent{
+  width: 100%;
+  left:0%;top:50%; 
+  margin-left:0px;margin-top:-180px;
+  }
   div.col-sm-3 {
     margin-top: 30px;
   }
