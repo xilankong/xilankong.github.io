@@ -26,10 +26,6 @@ share:
   fb_appid: 1749788565247320
 
 urls:
-    - text: 首页
-      url: /
-    - text: 学习进步
-      url: /category/
     - text: iOS开发基础
       url: /category/iOS开发基础
     - text: iOS开源项目
