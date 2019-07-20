@@ -1,5 +1,4 @@
 body {
-  font-family: Helvetica,Arial,"Hiragino Sans GB","Microsoft Yahei","微软雅黑",STHeiti,"华文细黑",sans-serif;
   line-height: 1.5em;
   font-weight: 300;
   font-size: 16px;
@@ -66,15 +65,13 @@ div.homeContent {
   width: 800px;
   height: 400px;
   position: absolute;
-  left:50%;
-  margin-top:250px;
+  margin:0 auto;
 }
 div.content pre {
   background: #333333;
   padding: 10px;
   color: #FFF;
   overflow-x: auto;
-  font-family: Helvetica,Arial,"Hiragino Sans GB","Microsoft Yahei","微软雅黑",STHeiti,"华文细黑",sans-serif;
   font-size: 12px;
   border: none;
 }
