@@ -102,6 +102,7 @@ div.col-sm-3 {
   font-size: 15px;
   color: #666;
   display:inline;
+  width: 30%;
 }
 div.col-sm-3 strong {
   font-size: 16px;
