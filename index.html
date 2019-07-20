@@ -111,7 +111,7 @@ layout: compress
     {% endif %}
   </head>
   <body>
-<div class="container">
+<div class="homeContent">
       <div class="col-sm-3">
         <div class="fixed-condition">
           <a href="/"><img class="profile-avatar" src="{{ site.avatar_url }}" height="100px" width="100px" /></a>
@@ -130,7 +130,7 @@ layout: compress
           </div>
           <div class="search" id="js-search">
             <input type="text" placeholder="查询学习笔记" class="search__input form-control" id="js-search__input">
-            <ul class="search__results" id="js-search__results"></ul>
+            
           </div>
           <hr />
         </div>
@@ -138,6 +138,7 @@ layout: compress
       </div>
     </div>
     <div>
+      <ul class="search__results" id="js-search__results"></ul>
       <span>好好学习，天天向上</span>
     </div>
     <!-- end /.container -->
