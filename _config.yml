@@ -16,10 +16,10 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: /static/img/mail.png
-      link: "mailto:xilankong@126.com"
     - icon: /static/img/github.png
       link: "https://github.com/xilankong"
+    - icon: /static/img/mail.png
+      link: "mailto:xilankong@126.com"
 
 share:
   twitter_username: github.io
