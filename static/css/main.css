@@ -64,7 +64,6 @@ a:hover {
 div.homeContent {
   width: 800px;
   height: 400px;
-  position: absolute;
   margin:0 auto;
 }
 div.content pre {
