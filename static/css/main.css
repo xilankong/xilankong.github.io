@@ -78,7 +78,7 @@ div.content pre {
   padding: 10px;
   color: #FFF;
   overflow-x: auto;
-  font-size: 12px;
+  font-size: 14px;
   border: none;
 }
 div.content .highlight {
@@ -173,7 +173,7 @@ table tr td:last-child {
 
 /* Pagination */
 .PageNavigation {
-  font-size: 14px;
+  font-size: 16px;
   display: block;
   width: auto;
   overflow: hidden;
