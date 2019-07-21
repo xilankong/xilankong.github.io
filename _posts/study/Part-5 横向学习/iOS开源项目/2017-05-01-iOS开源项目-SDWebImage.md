@@ -1,7 +1,8 @@
 ---
 layout: post
-category: iOS开源项目
 title : "iOS开源项目-SDWebImage"
+category: iOS更多知识
+tags: iOS开源项目
 ---
 
 1.入口 setImageWithURL:placeholderImage:options:

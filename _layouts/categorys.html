@@ -8,6 +8,43 @@ layout: default
 <div class="post-content">
 
   <hr />
+
+
+
+<!-- {% for tag in tags %}
+    <h2> {{ tag }} </h2> 
+    {% for post in site.categories.calculus %}
+        {% if post.tags contains tag %}     
+            <h4> {{ post.title }} </h4>
+        {% endif %}
+    {% endfor %}
+{% endfor %} -->
+  
+  {% if site.categories[page.categories] %}
+
+  {% for post in site.categories[page.categories] %}
+
+  {% assign tags = tags |concat: post.tags |uniq %}
+  {% endfor %}
+
+   {% for tag in tags %}
+    <h4> {{ tag }} </h4>
+    <div class="list-group">
+      {% for post in site.categories[page.categories] %}
+          {% if post.tags contains tag %}    
+            <ul class="posts">
+              <li>&raquo; <span>{{ post.date | date: "%Y-%m-%d" }}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ post.url }}">{{ post.title }}</a> </li>
+            </ul>
+          {% endif %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+  {% else %}
+    <p>There are no posts in this categories.</p>
+  {% endif %}
+
+<!-- 
   {% if site.categories[page.categories] %}
     {% for post in site.categories[page.categories] %}
       {% capture post_year %}{{ post.date | date: '%Y' }}{% endcapture %}
@@ -34,5 +71,5 @@ layout: default
     {% endfor %}
   {% else %}
     <p>There are no posts in this categories.</p>
-  {% endif %}
+  {% endif %} -->
 </div>

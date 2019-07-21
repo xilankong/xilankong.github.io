@@ -3,6 +3,7 @@ layout: post
 category: iOS开发基础
 title : "UIView与CALayer"
 comments: true
+tags: UI
 ---
 
 ## 前言

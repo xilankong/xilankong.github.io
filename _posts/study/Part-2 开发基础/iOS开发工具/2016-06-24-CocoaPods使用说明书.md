@@ -1,7 +1,8 @@
 ---
 layout: post
-category: iOS开发工具
 title: "CocoaPods使用说明书" 
+category: iOS更多知识
+tags: 开发工具
 ---
 
 
