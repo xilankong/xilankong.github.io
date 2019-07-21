@@ -28,6 +28,8 @@ share:
 urls:
     - text: iOS开发基础
       url: /category/iOS开发基础
+    - text: iOS性能优化
+      url: /category/iOS性能优化
     - text: iOS开源项目
       url: /category/iOS开源项目
     - text: 日常生活
