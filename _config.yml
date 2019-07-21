@@ -4,7 +4,6 @@ author: yang
 github: https://github.com/xilankong
 about: hi, 我是yang，一名iOS搬砖工。
 disqus_shortname: 好好学习
-google_analytics: UA-XXXXXXXX-Y
 avatar_url: /static/img/avatar.jpg
 
 enableTags: true
@@ -30,12 +29,12 @@ urls:
       url: /category/iOS开发基础
     - text: iOS性能优化
       url: /category/iOS性能优化
+    - text: iOS学习总结
+      url: /category/iOS学习总结
     - text: iOS开源项目
       url: /category/iOS开源项目
-    - text: 日常生活
-      url: /category/生活
     - text: 不务正业
-      url: /projects/
+      url: /category/生活
     - text: 关于我
       url: /about/
 
