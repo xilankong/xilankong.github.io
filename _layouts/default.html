@@ -84,16 +84,16 @@ layout: compress
           <div class="social">
             <ul>
               {% for link in site.social %}
-                <li><a href="{{ link.link }}" target="_blank"><i class="fa {{ link.icon }}"></i></a></li>
+                <li><a href="{{ link.link }}" target="_blank"><img src="{{ link.icon }}"></a></li>
               {% endfor %}
             </ul>
           </div>
           <div class="search" id="js-search">
             <input type="text" placeholder="查询学习笔记" class="search__input form-control" id="js-search__input">
-            <ul class="search__results" id="js-search__results"></ul>
+            
           </div>
           <hr />
-          <ul class="sidebar-nav">
+           <ul class="sidebar-nav">
             <strong>分类</strong>
             {% for i in site.urls %}
               <li><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
@@ -102,7 +102,9 @@ layout: compress
         </div>
         <!-- end /.fixed-condition -->
       </div>
+           
       <div class="rightContent">
+        <ul class="search__results" id="js-search__results"></ul>
         {{ content }}
         <footer>
           &copy; {{ site.author }}
