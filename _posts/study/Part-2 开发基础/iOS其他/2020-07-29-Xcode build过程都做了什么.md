@@ -14,7 +14,7 @@ Objective C/C/C++使用的编译器前端是[clang](https://clang.llvm.org/docs/
 
 
 
-![编译流程](https://xilankong.github.io/resource/编译流程.jpg)
+![编译流程](https://xilankong.github.io/resource/xcodebuild/编译流程.jpg)
 
 ### 1、LLVM
 
@@ -28,7 +28,7 @@ LLVM的核心库提供了现代化的 source-target-independent[优化器 ](http
 
 Clang是一个C、C++、Objective-C语言的轻量级编译器。OC一般前端是Clang编译，流程大致如下
 
-![clang](https://xilankong.github.io/resource/clang.png)
+![clang](https://xilankong.github.io/resource/xcodebuild/clang.png)
 
 ##### 1、预处理(preprocessor)
 
@@ -62,7 +62,7 @@ LLVM对IR进行优化后，会针对不同架构生成不同的目标代码，�
 
 https://swift.org/swift-compiler/#compiler-architecture
 
-![swiftc](https://xilankong.github.io/resource/swiftc.png)
+![swiftc](https://xilankong.github.io/resource/xcodebuild/swiftc.png)
 
 ##### 1、解析器
 
@@ -500,13 +500,13 @@ do sth
 
 在DerivedData目录 构建工程目录 - 中间内容目录、构建Products目录
 
-![build目录构建](https://xilankong.github.io/resource/build目录构建.png)
+![build目录构建](https://xilankong.github.io/resource/xcodebuild/build目录构建.png)
 
 
 
 主要了解一下 各个target的build目录，我们看一下Develop target的build目录：
 
-![build目录](/Users/yang/Desktop/xcode build/build目录.png)
+![build目录](https://xilankong.github.io/resource/xcodebuild/build目录.png)
 
 - **DerivedSources / Develop-Swift.h文件，pod校验结果文件**
 
@@ -572,7 +572,7 @@ pod framework 目录结构：
 
 ![企业微信截图_08f5449b-09d6-4d9c-8749-64d49b321a28](https://xilankong.github.io/resource/xcodebuild/framework-folder.png)
 
-![企业微信20200721054104](https://xilankong.github.io/resource/xcodebuild/企业微信20200721054104.png)
+![企业微信20200721054104](https://xilankong.github.io/resource/xcodebuild/framework.png)
 
 
 
