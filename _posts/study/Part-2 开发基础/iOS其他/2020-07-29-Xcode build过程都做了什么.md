@@ -3,15 +3,18 @@ layout: post
 category: iOS开发基础
 title : "Xcode build过程中都做了什么"
 tags: Xcode学习
+
 ---
 
-大家天天在使用xcode进行编码，打包，那是否了解xcode 每一次build都发生了什么？
-
-讲build之前，我们先简单了解一下编译的过程。
 
 
+> 大家天天在使用xcode进行编码，打包，那是否了解xcode 每一次build都发生了什么？讲build之前，我们先简单了解一下编译的过程。
+>
+> 讲build之前，我们先简单了解一下编译的过程。
 
-### 一、编译过程简单介绍
+
+
+## 一、编译过程简单介绍
 
 Objective C/C/C++使用的编译器前端是[clang](https://clang.llvm.org/docs/index.html)，swift是[swiftc](https://swift.org/compiler-stdlib/#compiler-architecture)，后端都是[LLVM](https://llvm.org/)。
 
@@ -23,7 +26,7 @@ Objective C/C/C++使用的编译器前端是[clang](https://clang.llvm.org/docs/
 
 
 
-#### 1、LLVM
+### 1、LLVM
 
 LLVM命名源自 Low Level Virtual Machine，是一个强大的编译器开发工具套件。
 
@@ -31,7 +34,7 @@ LLVM的核心库提供了现代化的 source-target-independent [优化器 ](htt
 
 基于LLVM，又衍生出了一些强大的子项目：[Clang](http://clang.llvm.org/)和[LLDB](http://lldb.llvm.org/)。
 
-#### 2、Clang
+### 2、Clang
 
 Clang是一个C、C++、Objective-C语言的轻量级编译器。OC一般前端是Clang编译，流程大致如下
 
@@ -67,7 +70,7 @@ LLVM对IR进行优化后，会针对不同架构生成不同的目标代码，�
 
 把编译产生的.o文件和（dylib,a,tbd）文件，生成一个mach-o文件
 
-#### 3、[swiftc](https://swift.org/swift-compiler/#compiler-architecture)
+### 3、[swiftc](https://swift.org/swift-compiler/#compiler-architecture)
 
 
 
@@ -103,7 +106,7 @@ LLVM IR生成:IR生成(在lib/IRGen中实现)将SIL降低为LLVM IR 代码，此
 
 
 
-#### 4、演示一遍编译(OC语言)
+### 4、演示一遍编译(OC语言)
 
 接下来，从代码层面看一下具体的转化过程，新建一个main.h  和main.m
 
@@ -335,7 +338,7 @@ $ nm -nm main
 
 
 
-#### 5、再看一下Swift语言编译过程
+### 5、再看一下Swift语言编译过程
 
 先写个demo.swift
 
@@ -509,13 +512,11 @@ do sth
 
 
 
-
-
-### 二、Xcode build过程都做了什么
+## 二、Xcode build过程都做了什么
 
 
 
-#### 1、Xcode 索引构建期间做的事情
+### 1、Xcode 索引构建期间做的事情
 
 在DerivedData目录 构建工程目录 - 中间内容目录、构建Products目录
 
@@ -559,7 +560,7 @@ Clang 发现  import 的时候，先在headermap(Develop-generated-files.hmap  �
 
   
 
-#### 2、单个Target的编译过程
+### 2、单个Target的编译过程
 
 1、准备工作 ：
 
@@ -579,7 +580,7 @@ Clang 发现  import 的时候，先在headermap(Develop-generated-files.hmap  �
 
 
 
-#### 3、Pod编译
+### 3、Pod编译
 
 先了解一下cocoapods的原理：[pod的原理]([https://xilankong.github.io/ios%E6%9B%B4%E5%A4%9A%E7%9F%A5%E8%AF%86/2016/06/24/CocoaPods%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6.html](https://xilankong.github.io/ios更多知识/2016/06/24/CocoaPods使用说明书.html))
 
@@ -623,11 +624,11 @@ pod framework 目录结构：
 
 
 
-#### 4、编译Target依赖（serviceExtension）
+### 4、编译Target依赖（serviceExtension）
 
 
 
-#### 5、编译主Target
+### 5、编译主Target
 
 准备：确认编译方式，schecme、依赖关系
 
