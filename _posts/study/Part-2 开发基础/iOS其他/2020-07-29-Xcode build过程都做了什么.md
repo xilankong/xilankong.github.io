@@ -2,6 +2,7 @@
 layout: post
 category: iOS开发基础
 title : "Xcode build过程中都做了什么"
+tags: Xcode学习
 ---
 
 
