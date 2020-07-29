@@ -675,3 +675,219 @@ jenkins执行shell命令 记得加上
 [cocoapods都做了什么](https://www.jianshu.com/p/84936d9344ff)
 
 [cocoapods——dqk](https://blog.dianqk.org/2017/05/01/dev-on-pod/)
+
+
+
+
+
+# Cocoapods原理
+
+
+
+## 一、Xcode工程结构
+
+#### 1、scheme
+
+![scheme](https://xilankong.github.io/resource/xcodebuild/scheme.png)
+
+日常开发中我们常常点击 Xcode 左上角的 Run 箭头来运行调试代码，这其实就是执行了 Scheme 定义的一个任务。**针对一个指定的 target，scheme 定义了 build 这个 target 时使用的配置选项，执行的任务，环境参数等等**。Scheme 可以理解为一个工作计划，Xcode 会按照 scheme 中的定义去执行，Scheme 中预设了六个主要的工作流： Build、 Run、Test、Profile、 Analyze、Archive。包括了我们对某个 target 的所有操作，每一个工作流都可以单独配置。
+
+常见的就是我们切换Build Configuration  --  Debug和Release。
+
+每个 configuration 对应了 build target 时不同的参数集，比如宏，编译器选项，bundle name 等等。我们可以在 target 的配置页中更改这些选择项，也可以自己创建新的 build configuration，比如为 App 创建不同版本的配置。
+
+除了 build configuration 外，scheme 还可以配置：
+
+- 运行时的环境变量（Environment Variables）
+- 启动时设置给 运行时的参数，比如本地化语言选择（Arguments Passed on Launch）
+- App 执行时的系统语言、模拟的定位坐标、国家等环境参数
+- runtime，内存管理，日志，帧率检测等调试选项
+
+一个 scheme 对应一个 target，同一个 target 可以有多个 scheme，通过灵活地配置 scheme，我们可以方便地管理不同环境下 App 的测试，调试，打包流程。
+
+
+
+下表列举了我们在 Scheme 中的常见配置选项：
+
+| 配置选项                       | 选项内容                                                     |
+| ------------------------------ | ------------------------------------------------------------ |
+| Launch                         | 编译完成后是否立即运行                                       |
+| Arguments Passed On Launch     | 指定一些运行时的参数，比如本地化语言的选项，Core Data 调试选项等 |
+| Environment Variables          | 指定环境变量，比如开启僵尸内存、Malloc选项、I/O buffer大小等 |
+| Application Language/RegionApp | 运行使用的语言和国家                                         |
+| XPC Services                   | 打开调试 XPC (应用间通信)                                    |
+| Queue Debugging                | 打开线程调试，会自动记录运行时的线程信息                     |
+| Runtime Sanitization           | 是否打开运行时的一些调试选项，包括内存检测、多线程检测等等，在 debug 一些棘手的异常时十分有用 |
+| Memory Management              | 开启一些内存管理相关的服务，包括内存涂抹，边缘保护，动态内存分配保护，僵尸对象等等 |
+| Logging                        | 配置调试过程中终端输出的日志                                 |
+
+
+
+#### 2、Target
+
+Target 是我们工程中的**最小可编译单元**，我们在scheme那边可以切换我们的编译target。每一个 target 对应一个编译输出，这个输出可以是一个链接库，一个可执行文件或者一个资源包。**它定义了这个输出怎样被 build 的所有细节**，包括：
+
+- 编译选项，比如使用的编译器，目标平台，flag，头文件搜索路径等等。
+- 哪些源码或者资源文件会被编译打包，哪些静态库、动态库会被链接。
+- build 时的前置依赖、执行的脚本文件。
+- build 生成目标的签名、Capabilities 等属性。
+
+我们平时在 Build Settings，Build Phases 中配置的各种选项，大部分都是对应到指定的 target 的。
+
+每次我们在 Xcode 中 run/test/profile/analyze/archive 时，都必须指定一个 target。
+
+工程中的 targets 有时候会共享很多代码、资源，这些相似的 targets 可能对应同一个应用的不同版本，比如 iPad 版和 iPhone 版，或者针对不同市场的版本。
+
+
+
+#### 3、Project
+
+Project 很好理解，就是一个 Xcode 工程，它管理这个工程下的 targets 集合以及它们的源码，引用的资源，framework 等等。
+
+Project 是管理资源的容器，本身是无法被编译的，所以每个 project 至少应该有一个可编译的 target，否则就是一个空壳。一个 target 编译时引用的资源是它所在 project 所有管理资源的子集。
+
+我们也可以对 project 进行配置，包括基本信息和编译选项（Build Settings）等，这些配置会应用到它管理的所有 targets 中，但是如果 target 有自己的配置，则会覆盖 project 中对应的配置。
+
+在很多情况下，我们的工程中只有一个 project。可以在 finder 中双击后缀名为`.xcodeproj` 的文件，就可以直接打开单个 project 了。
+
+如果我们需要从源码编译一个依赖库，可以把这些源码所在的工程作为主工程的`subProject` 添加到目录结构中去，然后将这个子工程的某个 target 作为主工程 target 的依赖，从而在 build 主工程 target 的时候，顺便也会编译子工程对应的 target。
+
+然后将这个子工程的某个 target 作为主工程 target 的依赖，从而在 build 主工程 target 的时候，顺便也会编译子工程对应的 target。
+
+这样做的好处是你可以在一个窗口中同时修改主工程和子工程的源码，并且一起进行编译。
+
+#### 4、Workspace
+
+上面所说的添加子工程的方法，已经很好的解决了不同项目中 target 依赖的问题了，那么什么时候需要用到 Workspace 呢？
+
+当一个 target 被多个不同的项目依赖，或者 project 之间互相引用，那么我们就需要把这些 projects 放到相同的层级上来。**管理相同层级 projects 的容器就是 Workspace**。
+
+和 project，target 不同，workspace 是纯粹的**容器**，不参与任何编译链接过程，它主要管理：
+
+- Xcode 中的 projects，记录它们在 Finder 中的引用位置。
+- 一些用户界面的自定义信息（窗口的位置，顺序，偏好等等）。
+
+注意到，当你把不同的 projects 放到一个 workspace 中管理后，你仍然可以用 Xcode 单独打开其中的某一个 project，但是如果它涉及到对其它 project target 的依赖，这时候你无法在这个单独的窗口中编译成功。
+
+在 iOS 开发中，我们常常使用 Cocoapods 来管理三方库，它会把这些三方库的源码组装成一个 project，和主工程一起放入到 workspace 中，自动配置好主工程与 pods 库之间的依赖。所以如果引入了 Cocoapods，我们必须打开这个新的 workspace 才能正常 build 原来的项目。关于 Cocoapods，我们在后面的文章中再详细介绍
+
+
+
+## 二、cocoapods的原理是什么
+
+
+
+Cocoapods 核心原理
+
+workspace 是xcode提供的用于多个子工程管理，和 projects，target 不同，workspace 是纯粹的**容器**，不参与任何编译链接过程
+
+pod lib create PodDemo
+
+我们构建一个pod的样本工程我们可以看到和我们自己构建workspace是一样的
+
+在CocoaPods中，会存在以下几种文件：
+
+- podspec  Pod的描述文件，一般来说表征你的项目地址，项目使用的平台和版本等信息
+- podfile  用户编写的对于期望加载的pod信息
+- podfile.lock  记录了之前pod加载时的一些信息，包括版本、依赖、CocoaPods版本等
+- mainfest.lock  记录了本地pod的基本信息，实际上是podfile.lock的拷贝 大部分开发者最熟悉的cocoaPods指令就是`pod install`，那具体在执行`pod install`时发生了什么呢？
+
+#### pod install 运行原理分析
+
+当我们运行 `pod install` 时，会发生：
+
+- 分析Dependency。 对比本地pod的version和podfile.lock中的pod version，如果不一致会提示存在风险
+- 对比podfile是否发生了变化。 如果存在问题，会生成两个列表，一个是需要Add的Pod(s)，一个是需要Remove的Pod(s)。
+- (如果存在remove的)删除需要Remove的Pods
+- 添加需要的Pod(s)。 此时，如果是常规的CocoaPods库（如果基于Git），会先去： 
+  - Spec下查找对应的Pod文件夹
+  - 找到对应的tag，不写就是最新
+  - 定位其Podspec文件
+  - git clone下来对应的文件
+  - copy到Pod文件夹中
+  - 运行pre-Install hook
+- 生成Pod Project 
+  - 将该Pod中对应文件添加到工程中
+  - 添加对应的framework、.a库、bundle等
+  - 链接头文件（link headers），生成Target
+  - 运行 post-install hook
+- 生成podfile.lock，之后生成此文件的副本，将其放到Pod文件夹内，命名为manifest.lock （如果出现 `The sandbox is not sync with the podfile.lock`这种错误，则表示manifest.lock和podfile.lock文件不一致），此时一般需要重新运行`pod install`命令。
+- 配置原有的project文件（add build phase） 
+  - 添加了 `Embed Pods Frameworks` 
+  - 添加了 `Copy Pod Resources` 
+
+其中，pre-install hook和post-install hook可以理解成回调函数，是在podfile里对于install之前或者之后（生成工程但是还没写入磁盘）可以执行的逻辑，逻辑为：
+
+```javascript
+pre_install do |installer| 
+    # 做一些安装之前的hook
+end
+
+post_install do |installer| 
+    # 做一些安装之后的hook
+end
+```
+
+#### CocoaPods第三方库下载逻辑
+
+- 首先，CocoaPods会根据Podfile中的描述进行依赖分析，最终得出一个扁平的依赖表。 这里，CocoaPods使用了一个叫做 [Milinillo](https://github.com/CocoaPods/Molinillo/blob/master/ARCHITECTURE.md) 的依赖关系解决算法。
+- 针对列表中的每一项，回去Spec的Repo中查看其podSpec文件，找到其地址
+- 通过downloader进行对应库的下载。如果地址为git+tag，则此步骤为`git clone xxxx.git` 注意，此时必须要保证需要下载的pod版本号和git仓库的tag标签号一致。
+
+所有依赖库下载之后，便进入了和Xcode工程的融合步骤。
+
+## 3、Xcode工程的变化
+
+Xcode工程上有什么变化
+
+在cocoaPods和Xcode工程进行集成的过程中，会有有以下流程
+
+- creat workspace 创建xcworkspace文件。其实xcworkspace文件本质上只是xcodeproject的集合，数据结构如下：
+
+```javascript
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Demo/Demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>
+```
+
+- create group， 在工程中创建group文件夹，逻辑上隔离一些文件
+- create pod project & add pod library， 创建pod.xcodeproject工程，并且将在podfile中定义的第三方库引入到这个工程之中。
+
+-  add embed frameworks script phase， 添加了[CP] Embed Pods Frameworks
+
+  ![embed](https://xilankong.github.io/resource/xcodebuild/embed.png)
+
+  Pods-Develop-frameworks.sh  脚本用来完成将内部第三方库打包成.a静态库文件（在Podfile中如果选择了!use_frameworks，则此步骤会打包成.framework）     
+
+- remove embed frameworks script phase， 如果本次podfile删除了部分第三方库，则此步骤会删除掉不需要的第三方库，将其的引用关系从Pod.xcodeproject工程中拿走。
+-  add copy resource script phase， 如果第三方库存在资源bundle，则此步骤会将资源文件进行复制到集中的目录中，方便统一进行打包和封装。相应的，会添加[CP] Copy Pods Resources脚本。      ![podResource](/Users/yang/Desktop/xcode build/podResource.png)
+
+-  add check manifest.lock script phase, 添加[CP] Check Pods Manifest.lock 脚本，前文提到过，manifest.lock其实是podfile.lock的副本。此步骤会进行diff，如果存在不一致，则会提示著名的那句`The sandbox is not sync with the podfile.lock`错误。
+
+- add user script phase， 此步骤是对原有project工程文件进行改造。在运行过 pod install 后，再次打开原有工程会发现无法编译通过，因为已经做了改动。 
+
+  1、 首先，添加了对Pod工程的依赖，具体为引用中多了Pods_Develop.framework文件。此文件为上述步骤中xxx.framework.sh打包出来的文件，也就是说，**cocoaPods会把所有第三方的组件封装为一个.framework文件（或者静态库的.a文件）！** 
+
+  使用  `use_frameworks! `     
+
+  ![pod库](https://xilankong.github.io/resource/xcodebuild/libpods-framework.png)
+
+  不使用  `use_frameworks! ` 
+
+  ![libpods-a](https://xilankong.github.io/resource/xcodebuild/libpods-a.png)
+
+   2、 静态文件引入   
+
+  -  建立了Pods的group，内含pods-xxx-debug.xconfig和pods-xxx.release.xconfig文件。这两个文件是对应工程的build phase的配置。相应的，主工程的Iinfo->Configurations的debug和release配置会对应上述两个配置文件。      
+
+  - 上述两个配置都做了什么？包括： Header_search_path，指向了Pod/Headers/public/xxx，添加了Pods文件编译后的头文件地址 Other_LDFLAGS，添加了-ObjC等等 一些Pods变了，例如Pods_BUILD_DIR等
+
+至此，原有xcode工程和新建的Pod工程完成了集成和融合。
+
