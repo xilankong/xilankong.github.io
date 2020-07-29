@@ -5,9 +5,11 @@ title : "Xcode build过程中都做了什么"
 tags: Xcode学习
 ---
 
-
+大家天天在使用xcode进行编码，打包，那是否了解xcode 每一次build都发生了什么？
 
 讲build之前，我们先简单了解一下编译的过程。
+
+
 
 ### 一、编译过程简单介绍
 
@@ -15,13 +17,17 @@ Objective C/C/C++使用的编译器前端是[clang](https://clang.llvm.org/docs/
 
 
 
+
+
 ![编译流程](https://xilankong.github.io/resource/xcodebuild/编译流程.jpg)
+
+
 
 #### 1、LLVM
 
 LLVM命名源自 Low Level Virtual Machine，是一个强大的编译器开发工具套件。
 
-LLVM的核心库提供了现代化的 source-target-independent[优化器 ](https://llvm.org/docs/Passes.html)和支持诸多流行CPU架构的代码生成器，这些核心代码是围绕着LLVM IR(中间代码)建立的。
+LLVM的核心库提供了现代化的 source-target-independent [优化器 ](https://llvm.org/docs/Passes.html)和支持诸多流行CPU架构的代码生成器，这些核心代码是围绕着LLVM IR(中间代码)建立的。
 
 基于LLVM，又衍生出了一些强大的子项目：[Clang](http://clang.llvm.org/)和[LLDB](http://lldb.llvm.org/)。
 
@@ -30,6 +36,8 @@ LLVM的核心库提供了现代化的 source-target-independent[优化器 ](http
 Clang是一个C、C++、Objective-C语言的轻量级编译器。OC一般前端是Clang编译，流程大致如下
 
 ![clang](https://xilankong.github.io/resource/xcodebuild/clang.png)
+
+
 
 ##### 1、预处理(preprocessor)
 
@@ -59,11 +67,13 @@ LLVM对IR进行优化后，会针对不同架构生成不同的目标代码，�
 
 把编译产生的.o文件和（dylib,a,tbd）文件，生成一个mach-o文件
 
-#### 3、swiftc
+#### 3、[swiftc](https://swift.org/swift-compiler/#compiler-architecture)
 
-https://swift.org/swift-compiler/#compiler-architecture
+
 
 ![swiftc](https://xilankong.github.io/resource/xcodebuild/swiftc.png)
+
+
 
 ##### 1、解析器
 
@@ -88,6 +98,8 @@ LLVM IR生成:IR生成(在lib/IRGen中实现)将SIL降低为LLVM IR 代码，此
 ##### 5、生成汇编代码
 
 ##### 6、生成可执行代码
+
+
 
 
 
@@ -321,6 +333,8 @@ $ nm -nm main
 
 可以看到，_NSLog后面多了 from Foundation。表示这个符号来自于 Foundation ，会在运行时动态绑定。
 
+
+
 #### 5、再看一下Swift语言编译过程
 
 先写个demo.swift
@@ -490,6 +504,10 @@ swiftc demo.o -o demo
 $ demo ./demo
 do sth
 ```
+
+
+
+
 
 
 

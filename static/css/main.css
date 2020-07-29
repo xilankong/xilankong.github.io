@@ -1,7 +1,7 @@
 body {
   line-height: 1.5em;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
   color: #666;
 }
 hr {
@@ -26,13 +26,21 @@ h1 {
   margin-bottom: 20px;
   font-size: 23px;
 }
-h2, h3 {
+h2, h3, h4, h5 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-h4, h5 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+h2 {
+  font-size: 23px;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 18px;
 }
 a, a:link, a:active {
   text-decoration: none;
