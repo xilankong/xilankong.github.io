@@ -9,7 +9,7 @@ tags: Xcode学习
 
 讲build之前，我们先简单了解一下编译的过程。
 
-## 一、编译过程简单介绍
+### 一、编译过程简单介绍
 
 Objective C/C/C++使用的编译器前端是[clang](https://clang.llvm.org/docs/index.html)，swift是[swiftc](https://swift.org/compiler-stdlib/#compiler-architecture)，后端都是[LLVM](https://llvm.org/)。
 
@@ -17,7 +17,7 @@ Objective C/C/C++使用的编译器前端是[clang](https://clang.llvm.org/docs/
 
 ![编译流程](https://xilankong.github.io/resource/xcodebuild/编译流程.jpg)
 
-### 1、LLVM
+#### 1、LLVM
 
 LLVM命名源自 Low Level Virtual Machine，是一个强大的编译器开发工具套件。
 
@@ -25,7 +25,7 @@ LLVM的核心库提供了现代化的 source-target-independent[优化器 ](http
 
 基于LLVM，又衍生出了一些强大的子项目：[Clang](http://clang.llvm.org/)和[LLDB](http://lldb.llvm.org/)。
 
-### 2、Clang
+#### 2、Clang
 
 Clang是一个C、C++、Objective-C语言的轻量级编译器。OC一般前端是Clang编译，流程大致如下
 
@@ -59,7 +59,7 @@ LLVM对IR进行优化后，会针对不同架构生成不同的目标代码，�
 
 把编译产生的.o文件和（dylib,a,tbd）文件，生成一个mach-o文件
 
-### 3、swiftc
+#### 3、swiftc
 
 https://swift.org/swift-compiler/#compiler-architecture
 
@@ -126,7 +126,7 @@ int main(int argc, char * argv[]) {
 }
 ```
 
-**1、预处理(preprocessor)**
+##### 1、预处理(preprocessor)
 
 ```
 xcrun clang -E main.m
@@ -152,7 +152,7 @@ int main(int argc, char * argv[]) {
 
 可以看到，在预处理的时候，注释被删除，条件编译被处理。
 
-**2、词法分析(lexical anaysis)**
+##### 2、词法分析(lexical anaysis)
 
 ```
 $ xcrun clang -fmodules -fsyntax-only -Xclang -dump-tokens main.m
@@ -175,7 +175,7 @@ eof ''		Loc=<main.m:22:2>
 
 l_brace、identifier、semi 就如字面意思，释义具体符号或者标识 或者标点
 
-**3、语法分析(semantic analysis)**
+##### 3、语法分析(semantic analysis)
 
 词法分析的Token流会被解析成一颗抽象语法树(abstract syntax tree - AST)。
 
@@ -198,7 +198,7 @@ AST的结构如下样式：
 [0;34m|   `-[0m[0;1;35mCompoundStmt[0m[0;33m 0x7f8e4fad86a0[0m <[0;33mcol:14[0m, [0;33mline:15:1[0m>
 ```
 
-**4、CodeGen**
+##### 4、CodeGen
 
 生成LLVM IR代码。LLVM IR是前端的输出，后端的输入。
 
@@ -223,7 +223,7 @@ Objective C代码在这一步会进行runtime的桥接：property合成，ARC处
 
 LLVM会对生成的IR进行优化，优化会调用相应的Pass进行处理。Pass由多个节点组成，都是[Pass](http://llvm.org/doxygen/classllvm_1_1Pass.html)类的子类，每个节点负责做特定的优化，更多细节：[Writing an LLVM Pass](https://llvm.org/docs/WritingAnLLVMPass.html)。
 
-**5、生成汇编代码**
+##### 5、生成汇编代码
 
 LLVM对IR进行优化后，会针对不同架构生成不同的目标代码，最后以汇编代码的格式输出：
 
@@ -255,7 +255,7 @@ l_OBJC_$_CLASS_METHODS_MyDemo:
 	.quad	"+[MyDemo test]"
 ```
 
-**6、汇编器**
+##### 6、汇编器
 
 汇编器以汇编代码作为输入，将汇编代码转换为机器代码，最后输出目标文件(object file)。
 
@@ -285,7 +285,7 @@ $ xcrun nm -nm main.o
 
 `_NSLog`是一个是undefined external的。undefined表示在当前文件暂时找不到符号`_NSLog`，而external表示这个符号是外部可以访问的，对应表示文件私有的符号是`non-external`。
 
-**7、链接**
+##### 7、链接
 
 连接器把编译产生的.o文件和（dylib,a,tbd）文件，生成一个mach-o文件
 
@@ -337,7 +337,7 @@ class MyClass {
 MyClass().doSth()
 ```
 
-**1、生成语法树**
+##### 1、生成语法树
 
 ```
 $ swiftc -dump-ast demo.swift
@@ -356,7 +356,7 @@ $ swiftc -dump-ast demo.swift
         (declref_expr type='(Any..., String, String) -> ()' location=demo.swift:6:9 range=[demo.swift:6:9 - line:6:9] decl=Swift.(file).print(_:separator:terminator:) function_ref=single)
 ```
 
-**2、生成最简洁的SIL代码**
+##### 2、生成最简洁的SIL代码
 
 ```
 swiftc -emit-sil demo.swift 
@@ -383,7 +383,7 @@ sil_vtable MyClass {
 }
 ```
 
-**3、生成LLVM IR代码**
+##### 3、生成LLVM IR代码
 
 ```
 swiftc -emit-ir demo.swift -o demo.ll 
@@ -414,13 +414,13 @@ target triple = "x86_64-apple-macosx10.15.0"
 %Ts6UInt64V = type <{ i64 }>
 ```
 
-**4、生成汇编代码**
+##### 4、生成汇编代码
 
 ```
  swiftc -emit-assembly demo.swift -o demo.s
 ```
 
-**5、汇编器**
+##### 5、汇编器
 
 汇编器以汇编代码作为输入，将汇编代码转换为机器代码，最后输出目标文件(object file)。
 
@@ -474,7 +474,7 @@ xcrun nm -nm demo.o
 00000000000006a8 (__DATA,__bss) non-external _$s4demo7MyClassCML
 ```
 
-**6、转成可执行文件**
+##### 6、转成可执行文件
 
 汇编按前面的方式转成
 
@@ -493,7 +493,7 @@ do sth
 
 
 
-## 二、Xcode build过程都做了什么
+### 二、Xcode build过程都做了什么
 
 
 
