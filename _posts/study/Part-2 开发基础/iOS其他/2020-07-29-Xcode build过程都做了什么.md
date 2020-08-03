@@ -8,7 +8,7 @@ tags: Xcode学习
 
 
 
-> 大家天天在使用xcode进行编码，打包，那是否了解xcode 每一次build都发生了什么？讲build之前，我们先简单了解一下编译的过程。
+> 大家天天在使用xcode进行编码，打包，那是否了解xcode 每一次build都发生了什么？
 >
 > 讲build之前，我们先简单了解一下编译的过程。
 
@@ -17,10 +17,6 @@ tags: Xcode学习
 ## 一、编译过程简单介绍
 
 Objective C/C/C++使用的编译器前端是[clang](https://clang.llvm.org/docs/index.html)，swift是[swiftc](https://swift.org/compiler-stdlib/#compiler-architecture)，后端都是[LLVM](https://llvm.org/)。
-
-
-
-
 
 ![编译流程](https://xilankong.github.io/resource/xcodebuild/编译流程.jpg)
 
@@ -72,8 +68,6 @@ LLVM对IR进行优化后，会针对不同架构生成不同的目标代码，�
 
 ### 3、[swiftc](https://swift.org/swift-compiler/#compiler-architecture)
 
-
-
 ![swiftc](https://xilankong.github.io/resource/xcodebuild/swiftc.png)
 
 
@@ -104,8 +98,6 @@ LLVM IR生成:IR生成(在lib/IRGen中实现)将SIL降低为LLVM IR 代码，此
 
 
 
-
-
 ### 4、演示一遍编译(OC语言)
 
 接下来，从代码层面看一下具体的转化过程，新建一个main.h  和main.m
@@ -114,16 +106,13 @@ LLVM IR生成:IR生成(在lib/IRGen中实现)将SIL降低为LLVM IR 代码，此
 #main.h
 
 #import <Foundation/Foundation.h>
-
 //A base class for common MyDemo
 @interface MyDemo : NSObject
 + (void)test;
 @end
-
 #main.m
 
 #import "main.h"
-
 //A base class for common MyDemo
 #define DEBUG 1
 @implementation MyDemo
@@ -528,7 +517,7 @@ do sth
 
 ![build目录](https://xilankong.github.io/resource/xcodebuild/build目录.png)
 
-- **DerivedSources / Develop-Swift.h文件，pod校验结果文件**
+- **DerivedSources / Develop-Swift.h文件、pod校验结果文件**
 
 - **一堆hmap文件  主要是帮助编译器找到头文件的辅助文件：存储头文件到其物理路径的映射关系。**
 
@@ -552,9 +541,9 @@ Clang 发现  import 的时候，先在headermap(Develop-generated-files.hmap  �
 >
 > Develop.LinkFileList (链接的所有对象文件 .o 列表)
 
-- **script文件配置的各种执行脚本，最终都是在这里**
+- **script文件，配置的各种执行脚本，最终都是在这里**
 
-- **InputFileList 和 OutputList 分别是拷贝资源 和 framework的目录地址列表**
+- **InputFileList 和 OutputList 分别是临时资源地址列表 和 最终framework的目录地址列表，依赖这个做framework的迁移**
 
 - **xcent文件  entitlements中的内容**
 
@@ -574,7 +563,7 @@ Clang 发现  import 的时候，先在headermap(Develop-generated-files.hmap  �
 
 - Develop.LinkFileList (链接的所有对象文件 .o 列表)  在Objects-normal 目录里
 
-3、编译源文件
+3、编译源文件 - 可执行文件
 
 4、生成.framework(.a)
 
