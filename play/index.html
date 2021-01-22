@@ -53,11 +53,12 @@
 		top: 77px;
 		left: 77px;
 		background: url(img/lottery/playbtn.png) no-repeat;
+		-webkit-tap-highlight-color:rgba(0,0,0,0); 
 	}
 
 	.g-content_bottom {
 		margin-top: 30px;
-		font-size: 40px;
+		font-size: 30px;
 		text-align: center;
 		color: #F9913E;
 	}
@@ -67,7 +68,7 @@
 
 <body>
 <div  class="g-content_bottom">
-	<h2>~卿羽大转盘~</h2>
+	<h2>~卿羽专用抽奖大转盘~</h2>
 </div>
 <div class="g-content">
 	<div class="g-lottery-case">
@@ -95,22 +96,22 @@
 			var area = Math.floor(random/60);
 			switch(area) {
 				case 0:
-					rotateFunc(random, '恭喜您获得暖风机一个!');
+					rotateFunc(random, '恭喜您\n获得暖风机一个!');
 					break;
 				case 1:
-					rotateFunc(random, '恭喜你获得随机红包一个!');
+					rotateFunc(random, '恭喜您\n获得随机红包一个!');
 					break;
 				case 2:
-					rotateFunc(random, '恭喜您获得拾壹开心一日陪玩套餐!');
+					rotateFunc(random, '恭喜您\n获得拾壹开心一日陪玩套餐!');
 					break;
 				case 3:
-					rotateFunc(random, '恭喜您获得我和拾壹一起开心陪玩一日套餐!');
+					rotateFunc(random, '恭喜您\n获得我和拾壹一起开心陪玩一日套餐!');
 					break;
 				case 4:
-					rotateFunc(random, '恭喜你获得小猫咪一只！');
+					rotateFunc(random, '恭喜您\n获得小猫咪一只！');
 					break;
 				case 5:
-					rotateFunc(random, '恭喜您获得帝王蟹套餐一顿！');
+					rotateFunc(random, '恭喜您\n获得帝王蟹套餐一顿！');
 					break;
 			}
 		}
@@ -118,7 +119,7 @@
 			if(isture) return; // 如果在执行就退出
 			isture = true; // 标志为 在执行
 			if(playnum <= 0) { //当抽奖次数为0的时候执行
-				alert("10元一次，谢谢惠顾~");
+				alert("答应老板一个小愿望获得一次抽奖机会\n小本生意，概不赊账，谢谢惠顾~");
 				$('.playnum').html(0);
 				isture = false;
 			} else { //还有次数就执行
@@ -139,7 +140,7 @@
 				animateTo: angle + 1440, //让它根据得出来的结果加上1440度旋转
 				callback: function() {
 					isture = false; // 标志为 执行完毕
-					alert(text + ' / 请今明两天联系拾壹领取奖品');
+					alert(text + ' \n\n又可爱又好看有聪明的卿羽同学\n请尽快联系拾壹领取奖品');
 				}
 			});
 		};
