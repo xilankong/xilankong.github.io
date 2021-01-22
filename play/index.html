@@ -24,22 +24,16 @@
 	}
 	 .g-lottery-case {
 		margin: 0 auto;
-		overflow: hidden;
+		/*overflow: hidden;*/
+		margin-top: 30px;
+
 	}
-	
-	 .g-lottery-case .g-left h2 {
-		font-size: 20px;
-		line-height: 32px;
-		font-weight: normal;
-		margin-left: 20px;
-	}
-	
 
 	.g-lottery-box {
-		width: 400px;
-		height: 400px;
+		width: 360px;
+		height: 360px;
 		margin: 0 auto;
-		/*position: relative;*/
+		position: relative;
 		background: url(img/lottery/ly-plate-c.gif) no-repeat;
 	}
 	
@@ -53,8 +47,8 @@
 	}
 	
 	.g-lottery-box .playbtn {
-		width: 186px;
-		height: 186px;
+		width: 146px;
+		height: 146px;
 		position: absolute;
 		top: 77px;
 		left: 77px;
@@ -72,20 +66,19 @@
 </head>
 
 <body>
+<div  class="g-content_bottom">
+	<h2>~卿羽大转盘~</h2>
+</div>
 <div class="g-content">
 	<div class="g-lottery-case">
-		<div class="g-left">
 			<div class="g-lottery-box">
 				<div class="g-lottery-img">
 					<a class="playbtn" href="javascript:;" title="开始抽奖"></a>
 				</div>
 			</div>
-		</div>
 	</div>
 </div>
-<div  class="g-content_bottom">
-	<h2>~卿羽大转盘~</h2>
-</div>
+
 
 			
 <script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -146,7 +139,7 @@
 				animateTo: angle + 1440, //让它根据得出来的结果加上1440度旋转
 				callback: function() {
 					isture = false; // 标志为 执行完毕
-					alert(text);
+					alert(text + ' / 请今明两天联系拾壹领取奖品');
 				}
 			});
 		};
