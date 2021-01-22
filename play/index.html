@@ -36,16 +36,16 @@
 	
 
 	.g-lottery-box {
-		width: 400px;
-		height: 400px;
+		width: 340px;
+		height: 340px;
 		margin: 0 auto;
 		/*position: relative;*/
 		background: url(img/lottery/ly-plate-c.gif) no-repeat;
 	}
 	
 	.g-lottery-box .g-lottery-img {
-		width: 340px;
-		height: 340px;
+		width: 280px;
+		height: 280px;
 		position: relative;
 		background: url(img/lottery/bg-lottery.png) no-repeat;
 		left: 30px;
@@ -53,8 +53,8 @@
 	}
 	
 	.g-lottery-box .playbtn {
-		width: 186px;
-		height: 186px;
+		width: 126px;
+		height: 126px;
 		position: absolute;
 		top: 77px;
 		left: 77px;
@@ -124,24 +124,17 @@
 		$btn.click(function() {
 			if(isture) return; // 如果在执行就退出
 			isture = true; // 标志为 在执行
-			//先判断是否登录,未登录则执行下面的函数
-			if(1 == 2) {
-				$('.playnum').html('0');
-				alert("请先登录");
+			if(playnum <= 0) { //当抽奖次数为0的时候执行
+				alert("10元一次，写写惠顾~");
+				$('.playnum').html(0);
 				isture = false;
-			} else { //登录了就执行下面
-				if(playnum <= 0) { //当抽奖次数为0的时候执行
-					alert("没有次数了");
-					$('.playnum').html(0);
-					isture = false;
-				} else { //还有次数就执行
-					playnum = playnum - 1; //执行转盘了则次数减1
-					if(playnum <= 0) {
-						playnum = 0;
-					}
-					$('.playnum').html(playnum);
-					clickfunc();
+			} else { //还有次数就执行
+				playnum = playnum - 1; //执行转盘了则次数减1
+				if(playnum <= 0) {
+					playnum = 0;
 				}
+				$('.playnum').html(playnum);
+				clickfunc();
 			}
 		});
 		var rotateFunc = function(awards, angle, text) {
@@ -149,7 +142,7 @@
 			$btn.stopRotate();
 			$btn.rotate({
 				angle: 0,
-				duration: 4000, //旋转时间
+				duration: 5000, //旋转时间
 				animateTo: angle + 1440, //让它根据得出来的结果加上1440度旋转
 				callback: function() {
 					isture = false; // 标志为 执行完毕
