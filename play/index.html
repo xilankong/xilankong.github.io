@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8" />
-<title>刘大妮选菜大转盘</title>
+<title>刘大妮抽奖大转盘</title>
 <meta charset="utf-8">
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -68,7 +68,7 @@
 
 <body>
 <div  class="g-content_bottom">
-	<h2>~刘大妮选菜专用抽奖大转盘~</h2>
+	<h2>~刘大妮专用抽奖大转盘~</h2>
 </div>
 <div class="g-content">
 	<div class="g-lottery-case">
@@ -96,22 +96,22 @@
 			var area = Math.floor(random/60);
 			switch(area) {
 				case 0:
-					rotateFunc(random, '水煮牛肉');
+					rotateFunc(random, '点餐券*1');
 					break;
 				case 1:
-					rotateFunc(random, '牛肉类沙拉');
+					rotateFunc(random, '为所欲为券*1');
 					break;
 				case 2:
-					rotateFunc(random, '口水鸡+青菜');
+					rotateFunc(random, '出去玩券*1');
 					break;
 				case 3:
-					rotateFunc(random, '香菜牛肉+青菜');
+					rotateFunc(random, '惊喜券*1');
 					break;
 				case 4:
-					rotateFunc(random, '手撕鸡');
+					rotateFunc(random, '耍赖皮券*3');
 					break;
 				case 5:
-					rotateFunc(random, '麻辣烫');
+					rotateFunc(random, '按摩券*3');
 					break;
 			}
 		}
@@ -119,7 +119,7 @@
 			if(isture) return; // 如果在执行就退出
 			isture = true; // 标志为 在执行
 			if(playnum <= 0) { //当抽奖次数为0的时候执行
-				alert("5块钱获得一次重新转盘机会\n小本生意，概不赊账，谢谢惠顾~");
+				alert("刘大妮重大奖励专用，最终解释权归哥哥所有，谢谢惠顾~");
 				$('.playnum').html(0);
 				isture = false;
 			} else { //还有次数就执行
@@ -140,7 +140,7 @@
 				animateTo: angle + 1440, //让它根据得出来的结果加上1440度旋转
 				callback: function() {
 					isture = false; // 标志为 执行完毕
-					alert(text + ' \n\n小仙女赶紧吃饭去吧~\n');
+					alert(text + ' \n\n无敌可爱美丽小仙女真棒~\n');
 				}
 			});
 		};
