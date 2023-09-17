@@ -25,14 +25,14 @@ share:
   fb_appid: 1749788565247320
 
 urls:
-    # - text: iOS开发基础
-    #   url: /category/iOS开发基础
-    # - text: iOS性能优化
-    #   url: /category/iOS性能优化
+    - text: iOS开发基础
+      url: /category/iOS开发基础
+    - text: iOS性能优化
+      url: /category/iOS性能优化
     - text: iOS学习总结
       url: /category/iOS学习总结
-    # - text: iOS更多知识
-    #   url: /category/iOS更多知识
+    - text: iOS更多知识
+      url: /category/iOS更多知识
     - text: 生活
       url: /category/生活
     - text: 关于我
