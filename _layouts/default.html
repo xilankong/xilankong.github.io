@@ -88,13 +88,9 @@ layout: compress
               {% endfor %}
             </ul>
           </div>
-          <div class="search" id="js-search">
-            <input type="text" placeholder="查询学习笔记" class="search__input form-control" id="js-search__input">
-            
-          </div>
           <hr />
            <ul class="sidebar-nav">
-            <strong>分类</strong>
+            <strong>文章分类</strong>
             {% for i in site.urls %}
               <li><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
             {% endfor %}
