@@ -33,8 +33,6 @@ urls:
       url: /category/iOS学习总结
     - text: iOS更多知识
       url: /category/iOS更多知识
-    - text: 生活
-      url: /category/生活
     - text: 关于我
       url: /about/
 
