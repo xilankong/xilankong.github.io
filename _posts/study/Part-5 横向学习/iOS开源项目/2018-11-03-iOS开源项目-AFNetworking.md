@@ -1,7 +1,7 @@
 ---
 layout: post
 title : "原生网络请求和AFNetworking3.1学习"
-category: iOS更多知识
+category: iOS开发进阶
 tags: iOS开源项目
 ---
 

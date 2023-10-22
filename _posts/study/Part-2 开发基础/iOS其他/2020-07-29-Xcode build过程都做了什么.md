@@ -571,7 +571,7 @@ Clang 发现  import 的时候，先在headermap(Develop-generated-files.hmap  �
 
 ### 3、Pod编译
 
-先了解一下cocoapods的原理：[pod的原理]([https://xilankong.github.io/ios%E6%9B%B4%E5%A4%9A%E7%9F%A5%E8%AF%86/2016/06/24/CocoaPods%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6.html](https://xilankong.github.io/ios更多知识/2016/06/24/CocoaPods使用说明书.html))
+先了解一下cocoapods的原理：[pod的原理]([https://xilankong.github.io/ios%E6%9B%B4%E5%A4%9A%E7%9F%A5%E8%AF%86/2016/06/24/CocoaPods%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6.html](https://xilankong.github.io/iOS开发进阶/2016/06/24/CocoaPods使用说明书.html))
 
 就在 cocoapods原理中提及的一样，最终是通过依赖一个pod构建的framework来关联起主工程和pod工程
 

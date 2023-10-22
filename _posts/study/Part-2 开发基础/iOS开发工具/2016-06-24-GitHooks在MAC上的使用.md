@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "GitHooks在IOS开发上的使用" 
-category: iOS更多知识
+category: iOS开发进阶
 tags: 开发工具
 ---
 
